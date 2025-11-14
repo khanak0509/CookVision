@@ -27,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 11, 72, 97),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 86, 4, 210),
           title: const Text('Welcome to the Food App!'),
@@ -73,11 +73,34 @@ class _MainScreenState extends State<MainScreen> {
                 
                   ],
                 ),
-              )
-              
+              ),
+            
             ],
-          ),
+          ),  
+       
         ),
+           bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+  selectedItemColor: Colors.white,
+  unselectedItemColor: Colors.white70,
+
+    currentIndex: 0,
+    items:  [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: "Home",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.chat),
+        label: "Chat",
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: "Profile",
+      ),
+    ],
+  ),
+
 
     );
   }
