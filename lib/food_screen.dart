@@ -84,11 +84,154 @@ class _FoodScreenState extends State<FoodScreen> {
           borderRadius: BorderRadius.circular(20),
     ),
     
-      child: Center(
-        child: Text(
-          'all food items will be shown here',
-          style: TextStyle(fontSize: 20),
-        ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+          
+            Text('Meals', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+           Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 20, right: 20,top:10),
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+              ,
+               Container(
+                margin: EdgeInsets.only(left: 5,top:10),
+
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+            ],
+           ),
+           Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 20, right: 20,top:20),
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+              ,
+               Container(
+   margin: EdgeInsets.only(left:10,top:20),
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+            ],
+           ),
+           Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+              ,
+               Container(
+
+                width: 180,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(199, 199, 253, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text(
+                    'Breakfast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              )
+            ],
+           )
+
+            
+
+
+          ],
+        )
       ),
     
   ),
