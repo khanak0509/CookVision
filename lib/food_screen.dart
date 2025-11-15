@@ -12,6 +12,7 @@ class _FoodScreenState extends State<FoodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Color.fromRGBO(199, 199, 253, 1),
       appBar: AppBar(
         actions: [
           IconButton(onPressed: (){
@@ -58,7 +59,9 @@ class _FoodScreenState extends State<FoodScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
+            
             child: Text(
+        
               'your daily calorie intake',
               style: TextStyle(
                 color: Colors.white,
@@ -70,11 +73,27 @@ class _FoodScreenState extends State<FoodScreen> {
         ),
       ),
     ),
+    SizedBox(height: 30),
     Expanded(
-      child: Center(
-        child: Text('Food Items Here'),
-      ),
+      
+      child: Container(
+        
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
     ),
+    
+      child: Center(
+        child: Text(
+          'all food items will be shown here',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    
+  ),
+)
+
   ],
 ),
 
