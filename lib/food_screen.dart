@@ -13,6 +13,11 @@ class _FoodScreenState extends State<FoodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+
+          }, icon:Icon(Icons.notifications_active))
+        ],
         title: Row(
           children: [
             SizedBox(width: 50),
@@ -21,7 +26,7 @@ class _FoodScreenState extends State<FoodScreen> {
             Text(formattedDate, style: TextStyle(fontSize: 20)),
           ],
         ),
-        backgroundColor: const Color.fromARGB(255, 82, 100, 200),
+        backgroundColor: Color.fromRGBO(199, 199, 253, 1),
         leading: IconButton(
           icon: const Icon(Icons.person_2_rounded),
           onPressed: () {
@@ -30,26 +35,49 @@ class _FoodScreenState extends State<FoodScreen> {
         ),
         
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              width: 1000,  
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-                color: const Color.fromARGB(255, 82, 100, 200),
-              ),
-              child: const Center(
-               
-              ),
-            )
-          ],
+     body: Column(
+  children: [
+    Container(
+      width: double.infinity,
+      height: 220,
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(199, 199, 253, 1),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
         ),
       ),
+      child: Center(
+        child: Container(
+          
+          
+          width: 400,
+          height: 180,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(129, 121, 231, 1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Center(
+            child: Text(
+              'your daily calorie intake',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+    Expanded(
+      child: Center(
+        child: Text('Food Items Here'),
+      ),
+    ),
+  ],
+),
+
     );
   }
 }
