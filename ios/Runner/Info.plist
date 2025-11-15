@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access to gallery to pick images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access to camera to take photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Access to microphone for recording audio.</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>Allow notifications for alerts and updates.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is used to show your city and weather.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location is used even when the app is in the background.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is used to show your city and weather even when the app is not in use.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Your location is used to show your city and weather.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
