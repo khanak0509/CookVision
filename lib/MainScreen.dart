@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_app/chat.dart';
+import 'package:food_app/food_screen.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -181,7 +182,7 @@ void getWeather({required String city}) async {
                 const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
-                    print("Another action");
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FoodScreen()));
                   },
                   child: const Text('Another Action'),
                 ),
