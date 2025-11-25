@@ -3,7 +3,7 @@
     {
       "id": "p001",
       "name": "Paneer Butter Masala",
-      "description": "Creamy tomato-based curry with soft paneer cubes",
+      "description": "Creamy tomato-based curry with soft paneer cubes.",
       "price": 180,
       "category": "main_course",
       "cuisine": "north_indian",
@@ -18,7 +18,7 @@
     {
       "id": "p002",
       "name": "Chicken Biryani",
-      "description": "Aromatic basmati rice with tender chicken pieces and spices",
+      "description": "Aromatic basmati rice with tender chicken pieces and spices.",
       "price": 220,
       "category": "biryani",
       "cuisine": "hyderabadi",
@@ -33,7 +33,7 @@
     {
       "id": "p003",
       "name": "Margherita Pizza",
-      "description": "Classic pizza with tomato sauce, mozzarella, and fresh basil",
+      "description": "Classic Italian pizza with tomato sauce, mozzarella, and basil.",
       "price": 250,
       "category": "pizza",
       "cuisine": "italian",
@@ -48,7 +48,7 @@
     {
       "id": "p004",
       "name": "Veg Hakka Noodles",
-      "description": "Stir-fried noodles with fresh vegetables and soy sauce",
+      "description": "Stir-fried noodles with vegetables and soy sauce.",
       "price": 140,
       "category": "noodles",
       "cuisine": "chinese",
@@ -63,7 +63,7 @@
     {
       "id": "p005",
       "name": "Masala Dosa",
-      "description": "Crispy rice crepe filled with spiced potato filling",
+      "description": "Crispy dosa filled with spiced mashed potatoes.",
       "price": 100,
       "category": "south_indian",
       "cuisine": "south_indian",
@@ -73,12 +73,12 @@
       "preparation_time": 20,
       "available": true,
       "rating": 4.6,
-      "tags": ["dosa", "south_indian", "breakfast"]
+      "tags": ["dosa", "breakfast", "south_indian"]
     },
     {
       "id": "p006",
       "name": "Butter Chicken",
-      "description": "Tender chicken in rich creamy tomato gravy",
+      "description": "Tender chicken cooked in rich creamy tomato gravy.",
       "price": 280,
       "category": "main_course",
       "cuisine": "north_indian",
@@ -93,7 +93,7 @@
     {
       "id": "p007",
       "name": "Veg Fried Rice",
-      "description": "Flavorful rice stir-fried with mixed vegetables",
+      "description": "Rice stir-fried with mixed vegetables.",
       "price": 120,
       "category": "rice",
       "cuisine": "chinese",
@@ -108,7 +108,7 @@
     {
       "id": "p008",
       "name": "Chole Bhature",
-      "description": "Spicy chickpea curry with fluffy fried bread",
+      "description": "Spicy chickpea curry served with bhature.",
       "price": 150,
       "category": "north_indian",
       "cuisine": "punjabi",
@@ -123,7 +123,7 @@
     {
       "id": "p009",
       "name": "Fish Curry",
-      "description": "Fresh fish cooked in tangy coconut-based curry",
+      "description": "Tangy coconut-based curry with fresh fish.",
       "price": 300,
       "category": "main_course",
       "cuisine": "coastal",
@@ -133,12 +133,12 @@
       "preparation_time": 30,
       "available": true,
       "rating": 4.5,
-      "tags": ["fish", "curry", "coastal"]
+      "tags": ["fish", "coastal", "curry"]
     },
     {
       "id": "p010",
       "name": "Veggie Burger",
-      "description": "Grilled veggie patty with lettuce, tomato, and cheese",
+      "description": "Veggie patty with lettuce, tomato, and cheese.",
       "price": 130,
       "category": "burger",
       "cuisine": "continental",
@@ -153,7 +153,7 @@
     {
       "id": "p011",
       "name": "Idli Sambar",
-      "description": "Steamed rice cakes served with lentil soup",
+      "description": "Soft idlis served with hot sambar.",
       "price": 80,
       "category": "south_indian",
       "cuisine": "south_indian",
@@ -168,7 +168,7 @@
     {
       "id": "p012",
       "name": "Chicken Tikka",
-      "description": "Grilled chicken marinated in yogurt and spices",
+      "description": "Grilled chicken marinated in yogurt and spices.",
       "price": 240,
       "category": "starter",
       "cuisine": "north_indian",
@@ -178,7 +178,7 @@
       "preparation_time": 20,
       "available": true,
       "rating": 4.6,
-      "tags": ["chicken", "grilled", "starter"]
+      "tags": ["starter", "grilled", "chicken"]
     }
   ]
 }
