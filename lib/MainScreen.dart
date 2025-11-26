@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
 
   // Fetch weather from API
 void getWeather({required String city}) async {
-  final url = Uri.parse('http://localhost:8000/weather/$city');
+  final url = Uri.parse('http://172.31.105.30:8000/weather/$city');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {

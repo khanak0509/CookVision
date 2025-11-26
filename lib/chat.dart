@@ -1,5 +1,6 @@
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -9,32 +10,207 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
+  final List<Map<String, dynamic>> _messages = [];
+  final TextEditingController _controller = TextEditingController();
+  bool _isLoading = false;
+
+  Future<void> sendMessage() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty) return;
+
+    setState(() {
+      _messages.add({'role': 'user', 'text': text});
+      _isLoading = true;
+    });
+
+    _controller.clear();
+
+    try {
+      final response = await get(
+        Uri.parse('http://172.31.105.30:8000/food_query/$text'),
+      );
+
+      String bottxt = "Invalid response from server";
+      List products = [];
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['response'] is String) {
+          bottxt = data['response'];
+        } else if (data['response']['llm_ans'] != null) {
+          bottxt = data['response']['llm_ans'].toString();
+          products = List<Map<String, dynamic>>.from(
+              data['response']['product'] ?? []);
+        }
+      } else {
+        bottxt = 'Error: Could not fetch response';
+      }
+
+      setState(() {
+        _messages.add({
+          'role': 'bot',
+          'text': bottxt,
+          'products': products,
+        });
+      });
+    } catch (e) {
+      setState(() {
+        _messages.add({
+          'role': 'bot',
+          'text': 'Error: Could not fetch response',
+          'products': [],
+        });
+      });
+    }
+
+    setState(() => _isLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 12, 35, 42),
       appBar: AppBar(
-
         backgroundColor: const Color.fromARGB(255, 11, 87, 99),
-         actions: [
-          IconButton(onPressed: (){
-
-          }, icon:Icon(Icons.line_axis))
-        ],
-        title: Text('chat'),
+        title: const Text('Chat'),
       ),
-      body : Column(
+      body: Column(
         children: [
-        
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final msg = _messages[index];
+                final isUser = msg['role'] == 'user';
+
+                if (isUser) {
+                  return Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Text(
+                        msg['text'],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                } else {
+                  final products = msg['products'] ?? [];
+                  return Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            msg['text'],
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          const SizedBox(height: 10),
+
+                          if (products.isNotEmpty)
+                            SizedBox(
+                              height: 150,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: products.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 8),
+                                itemBuilder: (context, i) {
+                                  final product = products[i];
+                                  return Container(
+                                    width: 130,
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Image.asset(
+                                            'food_app/assets/image.png',
+                                            // product['image_url'] ??
+                                            //     'https://via.placeholder.com/80',
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          product['name'] ?? '',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text("₹${product['price'] ?? ''}"),
+                                        Text("⭐ ${product['rating'] ?? ''}"),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+          if (_isLoading) const LinearProgressIndicator(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: "Type a message...",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: sendMessage,
+                ),
+              ],
+            ),
+          ),
         ],
-      )
-
-
-
-
-
-
-
+      ),
     );
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: Chat(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
