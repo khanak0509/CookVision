@@ -9,7 +9,6 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  isUser 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +25,7 @@ class _ChatState extends State<Chat> {
       ),
       body : Column(
         children: [
-          Expanded(
-            child: ListView.builder(itemBuilder:(context, index) {
-              // bool isUser = messages[index]["role"] == "user";
-
-            }
-
-            )
-            )
+        
         ],
       )
 
