@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
 import os 
+from fastapi.responses import JSONResponse
 
 import json
 import os
@@ -127,7 +128,7 @@ def search_products(max_price: int):
                 "tags": ["spicy", "flavorful", "traditional"]
             },
              {
-                "name": "Chicken Biryani",
+                "name": "pizza golder corn ",
                 "cuisine": "Indian",
                 "category": "Main Course",
                 "dietary": "Non-Vegetarian",
@@ -142,7 +143,7 @@ def search_products(max_price: int):
                 "tags": ["spicy", "flavorful", "traditional"]
             },
              {
-                "name": "Chicken Biryani",
+                "name": "Chicken matan",
                 "cuisine": "Indian",
                 "category": "Main Course",
                 "dietary": "Non-Vegetarian",
@@ -157,7 +158,7 @@ def search_products(max_price: int):
                 "tags": ["spicy", "flavorful", "traditional"]
             },
              {
-                "name": "Chicken Biryani",
+                "name": " Biryani",
                 "cuisine": "Indian",
                 "category": "Main Course",
                 "dietary": "Non-Vegetarian",
@@ -172,7 +173,7 @@ def search_products(max_price: int):
                 "tags": ["spicy", "flavorful", "traditional"]
             },
              {
-                "name": "Chicken Biryani",
+                "name": "pizza Biryani",
                 "cuisine": "Indian",
                 "category": "Main Course",
                 "dietary": "Non-Vegetarian",

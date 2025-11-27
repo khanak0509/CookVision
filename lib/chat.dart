@@ -29,6 +29,7 @@ class _ChatState extends State<Chat> {
       final response = await get(
         Uri.parse('http://172.31.105.30:8000/food_query/$text'),
       );
+      print(response.body);
 
       String bottxt = "Invalid response from server";
       List products = [];
@@ -40,9 +41,11 @@ class _ChatState extends State<Chat> {
           bottxt = data['response'];
         } else if (data['response']['llm_ans'] != null) {
           bottxt = data['response']['llm_ans'].toString();
+          print(bottxt);
           products = List<Map<String, dynamic>>.from(
               data['response']['product'] ?? []);
         }
+        print(products);
       } else {
         bottxt = 'Error: Could not fetch response';
       }
@@ -131,43 +134,98 @@ class _ChatState extends State<Chat> {
                                     const SizedBox(width: 8),
                                 itemBuilder: (context, i) {
                                   final product = products[i];
-                                  return Container(
-                                    width: 130,
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Image.asset(
-                                            'food_app/assets/image.png',
-                                            // product['image_url'] ??
-                                            //     'https://via.placeholder.com/80',
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
+                                  return GestureDetector(
+                                    onTap:(){
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          backgroundColor: const Color.fromARGB(255, 16, 163, 126),
+                                          title: Text(product['name'] ?? ''),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Image.asset(
+                                                'assets/image.png',
+                                                height: 100,
+                                                width: 100,
+                                                fit: BoxFit.cover,
+                                                
+
+
+                                            
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text("Price: ₹${product['price'] ?? ''}"),
+                                              Text("Rating: ⭐ ${product['rating'] ?? ''}"),
+                                              const SizedBox(height: 20),
+                                              Text(product['description'] ?? ''),
+                                              const SizedBox(height: 20),
+                                              ElevatedButton(onPressed: (){}, 
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue,
+                                                foregroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                ),
+                                              ),
+                                              child: Text('Add to cart'),
+                                              
+                                              
+                                              
+                                              )
+                                            ],
+                                            
                                           ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context),
+                                              child: const Text('Close'),
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          product['name'] ?? '',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        Text("₹${product['price'] ?? ''}"),
-                                        Text("⭐ ${product['rating'] ?? ''}"),
-                                      ],
+                                      );
+                                    },
+                                    child: Container(
+
+                                  
+                                    
+                                      width: 130,
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.black12,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Image.asset(
+                                              'assets/image.png',
+                                              // product['image_url'] ??
+                                              //     'https://via.placeholder.com/80',
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            product['name'] ?? '',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text("₹${product['price'] ?? ''}"),
+                                          Text("⭐ ${product['rating'] ?? ''}"),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
