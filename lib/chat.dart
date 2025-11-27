@@ -144,16 +144,21 @@ class _ChatState extends State<Chat> {
                                           content: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Image.asset(
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(15),
+                                                child:  Image.asset(
                                                 'assets/image.png',
-                                                height: 100,
-                                                width: 100,
+                                                height: 150,
+                                                width: 150,
                                                 fit: BoxFit.cover,
+
                                                 
 
 
-                                            
+    
                                               ),
+                                              ),
+                                             
                                               const SizedBox(height: 10),
                                               Text("Price: ₹${product['price'] ?? ''}"),
                                               Text("Rating: ⭐ ${product['rating'] ?? ''}"),
