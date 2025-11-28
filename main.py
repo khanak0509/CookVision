@@ -20,7 +20,8 @@ from fastapi import FastAPI
 
 
 os.environ["GOOGLE_API_KEY"] = "AIzaSyB5ECx9Wj1YNEeL6JWBFSHUq3r_-cd63YI"
-
+with open('food_app/products.json', 'r') as f:
+    PRODUCTS_DATA = json.load(f)
 
 PRODUCTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'product.json')
 
@@ -78,117 +79,20 @@ class FoodContext(BaseModel):
 
 
 @tool
-def search_products(max_price: int):
-    """Search for food products based on filters."""
-    return {
-        "products": [
-            {
-                "name": "Paneer Butter Masala",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Vegetarian",
-                "description": "Cottage cheese cubes in a rich tomato and butter gravy.",
-                "price": 180,
-                "rating": 4.5,
-                "spice_level": "Medium",
-                "id": "101",
-                "image_url": "http://example.com/images/paneer_butter_masala.jpg",
-                "preparation_time": 25,
-                "available": True,
-                "tags": ["comfort food", "rich", "creamy"]
-            },
-            {
-                "name": "Chicken Biryani",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            },
-             {
-                "name": "Chicken Biryani",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            },
-             {
-                "name": "pizza golder corn ",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            },
-             {
-                "name": "Chicken matan",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            },
-             {
-                "name": " Biryani",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            },
-             {
-                "name": "pizza Biryani",
-                "cuisine": "Indian",
-                "category": "Main Course",
-                "dietary": "Non-Vegetarian",
-                "description": "Aromatic basmati rice cooked with marinated chicken and spices.",
-                "price": 220,
-                "rating": 4.7,
-                "spice_level": "Hot",
-                "id": "102",
-                "image_url": "http://example.com/images/chicken_biryani.jpg",
-                "preparation_time": 40,
-                "available": True,
-                "tags": ["spicy", "flavorful", "traditional"]
-            }
-        ]
-    }
+def search_products(food_name:str):
+    result = []
+    """Search for food products based on food name """
+    for product in PRODUCTS_DATA:
+        for key, value in product.items():
+            if key == 'name':
+                if food_name in value:
+                    result.append(product)
+
+    return result 
+
+
+
+
 
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
 tools = [search_products]
