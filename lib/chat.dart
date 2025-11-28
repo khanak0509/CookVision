@@ -27,7 +27,7 @@ class _ChatState extends State<Chat> {
 
     try {
       final response = await get(
-        Uri.parse('http://172.31.105.30:8000/food_query/$text'),
+        Uri.parse('http://localhost:8000/food_query/$text'),
       );
       print(response.body);
 

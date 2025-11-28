@@ -19,8 +19,8 @@ from pydantic import BaseModel, Field
 from fastapi import FastAPI
 
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyB5ECx9Wj1YNEeL6JWBFSHUq3r_-cd63YI"
-with open('food_app/products.json', 'r') as f:
+os.environ["GOOGLE_API_KEY"] = "AIzaSyDOm-HdrKdYCcjVfQTZLON8g7niEBDKG0Q"
+with open('products.json', 'r') as f:
     PRODUCTS_DATA = json.load(f)
 
 PRODUCTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'product.json')
@@ -80,8 +80,9 @@ class FoodContext(BaseModel):
 
 @tool
 def search_products(food_name:str):
-    result = []
     """Search for food products based on food name """
+
+    result = []
     for product in PRODUCTS_DATA:
         for key, value in product.items():
             if key == 'name':
