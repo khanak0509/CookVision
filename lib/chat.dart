@@ -152,9 +152,6 @@ class _ChatState extends State<Chat> {
                                                 width: 150,
                                                 fit: BoxFit.cover,
 
-                                                
-
-
     
                                               ),
                                               ),

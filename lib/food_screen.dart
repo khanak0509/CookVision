@@ -93,23 +93,68 @@ class _FoodScreenState extends State<FoodScreen> {
            Row(
             children: [
               Container(
+
                 margin: EdgeInsets.only(left: 20, right: 20,top:10),
                 width: 180,
-                height: 200,
+                
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                child: Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
 
               )
               ,
@@ -117,20 +162,65 @@ class _FoodScreenState extends State<FoodScreen> {
                 margin: EdgeInsets.only(left: 5,top:10),
 
                 width: 180,
-                height: 200,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child: Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
                 ),
 
               )
@@ -141,20 +231,65 @@ class _FoodScreenState extends State<FoodScreen> {
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20,top:20),
                 width: 180,
-                height: 200,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child: Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
                 ),
 
               )
@@ -162,20 +297,65 @@ class _FoodScreenState extends State<FoodScreen> {
                Container(
    margin: EdgeInsets.only(left:10,top:20),
                 width: 180,
-                height: 200,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child:Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
                 ),
 
               )
@@ -186,20 +366,65 @@ class _FoodScreenState extends State<FoodScreen> {
               Container(
                 margin: EdgeInsets.all(20),
                 width: 180,
-                height: 200,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child: Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
                 ),
 
               )
@@ -207,20 +432,65 @@ class _FoodScreenState extends State<FoodScreen> {
                Container(
 
                 width: 180,
-                height: 200,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(199, 199, 253, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text(
-                    'Breakfast',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  child: Column(
+                  children: [
+                    Padding(padding:  EdgeInsets.only(top:10)),
+                    ClipRRect(
+                      
+                      borderRadius: BorderRadius.circular(10),
+                    
+                      child: Image.asset(
+                        'assets/image.png',
+                        width: 140,
+                      
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      'pizza',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),  
+                    
+                    ),
+                    Text(
+                      '250 Calories',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Color.fromRGBO(199, 199, 253, 1),
+                        ),
+                      ),
+                    ),
+          
+
+                  ],
+                 
+
+                )
                 ),
 
               )

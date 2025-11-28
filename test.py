@@ -39,8 +39,7 @@ class FoodContext(BaseModel):
 @tool
 def search_products(max_price: int):
     """Search for food products based on filters."""
-    return {
-        "products": [
+    return { "products": [
             {
                 "name": "Paneer Butter Masala",
                 "cuisine": "Indian",
@@ -72,6 +71,7 @@ def search_products(max_price: int):
                 "tags": ["spicy", "flavorful", "traditional"]
             }
         ]
+       
     }
 
 
