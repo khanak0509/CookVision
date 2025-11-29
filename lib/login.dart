@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/auth_service.dart';
 import 'signup.dart';
 import 'MainScreen.dart';
 
@@ -10,8 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
 
   @override
@@ -21,11 +22,23 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _handleLogin() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const MainScreen()),
-    );
+
+
+  void login()async{
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    final user = await authservice.value.signInWithEmailAndPassword(email, password);
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+      );
+    } else {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login failed. Please check your credentials.')),
+      );
+    }
   }
 
   @override
@@ -175,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   
                   // Login Button
                   GestureDetector(
-                    onTap: _handleLogin,
+                    onTap: login,
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 18),

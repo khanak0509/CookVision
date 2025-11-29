@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/auth_service.dart';
 import 'MainScreen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -9,10 +10,11 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
@@ -25,13 +27,27 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-  void _handleSignup() {
+ void signup() async {
+  // String name = _nameController.text.trim();
+  String email = _emailController.text.trim();
+  String password = _passwordController.text.trim();
+  String confirmPassword = _confirmPasswordController.text.trim();
+  if (password != confirmPassword) {
+    // Show error message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Passwords do not match')),
+    );
+    return;
+  }
+  final user = await authservice.value.signUpWithEmailAndPassword(email, password);
+  if (user != null) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const MainScreen()),
+      MaterialPageRoute(builder: (context) => MainScreen()),
     );
-  }
 
+ }
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,7 +240,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   
                   // Sign Up Button
                   GestureDetector(
-                    onTap: _handleSignup,
+                    onTap: signup,
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 18),
