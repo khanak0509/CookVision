@@ -138,6 +138,7 @@ void getWeather({required String city}) async {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const SizedBox(width: 40) ,
                     const Text(
                       'CookVision',
                       style: TextStyle(
