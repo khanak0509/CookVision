@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   String _currentCity = "Loading...";
   Stream<Position>? positionStream;
   String suggestion = "";
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -579,11 +580,42 @@ void getWeather({required String city}) async {
             backgroundColor: Colors.transparent,
             selectedItemColor: const Color(0xFF667eea),
             unselectedItemColor: Colors.white54,
-            currentIndex: 0,
+            currentIndex: _currentIndex,
             elevation: 0,
+            onTap: (value) {
+              setState(() {
+                _currentIndex = value;
+              });
+              switch (value) {
+                case 0:
+                  // Navigate to Home
+                  break;
+                case 1:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const FoodScreen()),
+                  );
+                  break;
+                case 2:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Chat()),
+                  );
+                  break;
+                case 3:
+                  // Navigate to Profile
+                  break;
+              }
+            },
             type: BottomNavigationBarType.fixed,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+
+
+                
+                icon: Icon(Icons.home),
+                label: "Home"
+              ),
               BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
               BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
