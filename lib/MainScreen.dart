@@ -581,9 +581,11 @@ void getWeather({required String city}) async {
             unselectedItemColor: Colors.white54,
             currentIndex: 0,
             elevation: 0,
+            type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.chat), label: "Chat"),
+              BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
+              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
             ],
           ),
