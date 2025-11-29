@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/MainScreen.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:food_app/firebase_options.dart';
+import 'package:food_app/insert_dataset/add_food_items.dart';
 import 'package:food_app/login.dart';
 
 void main() async {
@@ -10,6 +11,7 @@ void main() async {
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  uploadFromJsonFile();
   runApp(const Main());
 
 }

@@ -1,0 +1,1902 @@
+[
+    {
+        "name": "Garlic Bread 1",
+        "cuisine": "Indian",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 160,
+        "rating": 3.6,
+        "spice_level": "Hot",
+        "id": "101",
+        "image_url": "http://example.com/images/item_1.jpg",
+        "preparation_time": 11,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "pizza",
+        "cuisine": "Middle Eastern",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 258,
+        "rating": 4.4,
+        "spice_level": "Hot",
+        "id": "102",
+        "image_url": "http://example.com/images/item_2.jpg",
+        "preparation_time": 17,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 3",
+        "cuisine": "Italian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 208,
+        "rating": 4.8,
+        "spice_level": "Medium",
+        "id": "103",
+        "image_url": "http://example.com/images/item_3.jpg",
+        "preparation_time": 13,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 4",
+        "cuisine": "Indian",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 358,
+        "rating": 3.7,
+        "spice_level": "Mild",
+        "id": "104",
+        "image_url": "http://example.com/images/item_4.jpg",
+        "preparation_time": 18,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 5",
+        "cuisine": "Middle Eastern",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 370,
+        "rating": 4.1,
+        "spice_level": "Hot",
+        "id": "105",
+        "image_url": "http://example.com/images/item_5.jpg",
+        "preparation_time": 43,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 6",
+        "cuisine": "Chinese",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 288,
+        "rating": 4.4,
+        "spice_level": "Medium",
+        "id": "106",
+        "image_url": "http://example.com/images/item_6.jpg",
+        "preparation_time": 36,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 7",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 482,
+        "rating": 4.0,
+        "spice_level": "Mild",
+        "id": "107",
+        "image_url": "http://example.com/images/item_7.jpg",
+        "preparation_time": 35,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 8",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 201,
+        "rating": 4.6,
+        "spice_level": "Mild",
+        "id": "108",
+        "image_url": "http://example.com/images/item_8.jpg",
+        "preparation_time": 31,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 9",
+        "cuisine": "Chinese",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 128,
+        "rating": 4.4,
+        "spice_level": "Medium",
+        "id": "109",
+        "image_url": "http://example.com/images/item_9.jpg",
+        "preparation_time": 45,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 10",
+        "cuisine": "Chinese",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 330,
+        "rating": 4.7,
+        "spice_level": "Mild",
+        "id": "110",
+        "image_url": "http://example.com/images/item_10.jpg",
+        "preparation_time": 37,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 11",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 173,
+        "rating": 4.5,
+        "spice_level": "Hot",
+        "id": "111",
+        "image_url": "http://example.com/images/item_11.jpg",
+        "preparation_time": 26,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 12",
+        "cuisine": "Middle Eastern",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 192,
+        "rating": 4.3,
+        "spice_level": "Mild",
+        "id": "112",
+        "image_url": "http://example.com/images/item_12.jpg",
+        "preparation_time": 20,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 13",
+        "cuisine": "Indian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 427,
+        "rating": 4.8,
+        "spice_level": "Mild",
+        "id": "113",
+        "image_url": "http://example.com/images/item_13.jpg",
+        "preparation_time": 39,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 14",
+        "cuisine": "Italian",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 496,
+        "rating": 4.5,
+        "spice_level": "Mild",
+        "id": "114",
+        "image_url": "http://example.com/images/item_14.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 15",
+        "cuisine": "Italian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 180,
+        "rating": 3.8,
+        "spice_level": "Mild",
+        "id": "115",
+        "image_url": "http://example.com/images/item_15.jpg",
+        "preparation_time": 19,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 16",
+        "cuisine": "Chinese",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 136,
+        "rating": 4.3,
+        "spice_level": "Hot",
+        "id": "116",
+        "image_url": "http://example.com/images/item_16.jpg",
+        "preparation_time": 20,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 17",
+        "cuisine": "Chinese",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 317,
+        "rating": 5.0,
+        "spice_level": "Medium",
+        "id": "117",
+        "image_url": "http://example.com/images/item_17.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 18",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 408,
+        "rating": 4.7,
+        "spice_level": "Hot",
+        "id": "118",
+        "image_url": "http://example.com/images/item_18.jpg",
+        "preparation_time": 32,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 19",
+        "cuisine": "Chinese",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 288,
+        "rating": 4.8,
+        "spice_level": "Mild",
+        "id": "119",
+        "image_url": "http://example.com/images/item_19.jpg",
+        "preparation_time": 43,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 20",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 499,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "120",
+        "image_url": "http://example.com/images/item_20.jpg",
+        "preparation_time": 20,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 21",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 457,
+        "rating": 4.0,
+        "spice_level": "Mild",
+        "id": "121",
+        "image_url": "http://example.com/images/item_21.jpg",
+        "preparation_time": 46,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 22",
+        "cuisine": "Middle Eastern",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 399,
+        "rating": 3.9,
+        "spice_level": "Medium",
+        "id": "122",
+        "image_url": "http://example.com/images/item_22.jpg",
+        "preparation_time": 13,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 23",
+        "cuisine": "Middle Eastern",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 314,
+        "rating": 4.5,
+        "spice_level": "Mild",
+        "id": "123",
+        "image_url": "http://example.com/images/item_23.jpg",
+        "preparation_time": 50,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 24",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 337,
+        "rating": 3.5,
+        "spice_level": "Mild",
+        "id": "124",
+        "image_url": "http://example.com/images/item_24.jpg",
+        "preparation_time": 47,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 25",
+        "cuisine": "Indian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 120,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "125",
+        "image_url": "http://example.com/images/item_25.jpg",
+        "preparation_time": 17,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 26",
+        "cuisine": "Indian",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 183,
+        "rating": 4.4,
+        "spice_level": "Medium",
+        "id": "126",
+        "image_url": "http://example.com/images/item_26.jpg",
+        "preparation_time": 24,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 27",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 131,
+        "rating": 4.6,
+        "spice_level": "Mild",
+        "id": "127",
+        "image_url": "http://example.com/images/item_27.jpg",
+        "preparation_time": 48,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 28",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 437,
+        "rating": 3.5,
+        "spice_level": "Mild",
+        "id": "128",
+        "image_url": "http://example.com/images/item_28.jpg",
+        "preparation_time": 39,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 29",
+        "cuisine": "Italian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 479,
+        "rating": 4.8,
+        "spice_level": "Medium",
+        "id": "129",
+        "image_url": "http://example.com/images/item_29.jpg",
+        "preparation_time": 40,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 30",
+        "cuisine": "Indian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 441,
+        "rating": 4.5,
+        "spice_level": "Medium",
+        "id": "130",
+        "image_url": "http://example.com/images/item_30.jpg",
+        "preparation_time": 39,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 31",
+        "cuisine": "Italian",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 377,
+        "rating": 3.8,
+        "spice_level": "Mild",
+        "id": "131",
+        "image_url": "http://example.com/images/item_31.jpg",
+        "preparation_time": 28,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 32",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 247,
+        "rating": 4.4,
+        "spice_level": "Mild",
+        "id": "132",
+        "image_url": "http://example.com/images/item_32.jpg",
+        "preparation_time": 18,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 33",
+        "cuisine": "Italian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 355,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "133",
+        "image_url": "http://example.com/images/item_33.jpg",
+        "preparation_time": 20,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 34",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 190,
+        "rating": 4.8,
+        "spice_level": "Mild",
+        "id": "134",
+        "image_url": "http://example.com/images/item_34.jpg",
+        "preparation_time": 41,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 35",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 128,
+        "rating": 4.1,
+        "spice_level": "Mild",
+        "id": "135",
+        "image_url": "http://example.com/images/item_35.jpg",
+        "preparation_time": 50,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 36",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 339,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "136",
+        "image_url": "http://example.com/images/item_36.jpg",
+        "preparation_time": 47,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 37",
+        "cuisine": "Italian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 472,
+        "rating": 3.9,
+        "spice_level": "Mild",
+        "id": "137",
+        "image_url": "http://example.com/images/item_37.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 38",
+        "cuisine": "Middle Eastern",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 452,
+        "rating": 3.7,
+        "spice_level": "Mild",
+        "id": "138",
+        "image_url": "http://example.com/images/item_38.jpg",
+        "preparation_time": 24,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 39",
+        "cuisine": "Indian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 352,
+        "rating": 4.3,
+        "spice_level": "Mild",
+        "id": "139",
+        "image_url": "http://example.com/images/item_39.jpg",
+        "preparation_time": 35,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 40",
+        "cuisine": "Indian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 147,
+        "rating": 4.8,
+        "spice_level": "Medium",
+        "id": "140",
+        "image_url": "http://example.com/images/item_40.jpg",
+        "preparation_time": 36,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 41",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 148,
+        "rating": 3.5,
+        "spice_level": "Mild",
+        "id": "141",
+        "image_url": "http://example.com/images/item_41.jpg",
+        "preparation_time": 27,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 42",
+        "cuisine": "Middle Eastern",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 219,
+        "rating": 4.5,
+        "spice_level": "Hot",
+        "id": "142",
+        "image_url": "http://example.com/images/item_42.jpg",
+        "preparation_time": 44,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 43",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 102,
+        "rating": 4.7,
+        "spice_level": "Mild",
+        "id": "143",
+        "image_url": "http://example.com/images/item_43.jpg",
+        "preparation_time": 26,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 44",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 284,
+        "rating": 4.9,
+        "spice_level": "Medium",
+        "id": "144",
+        "image_url": "http://example.com/images/item_44.jpg",
+        "preparation_time": 15,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 45",
+        "cuisine": "Middle Eastern",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 129,
+        "rating": 3.5,
+        "spice_level": "Hot",
+        "id": "145",
+        "image_url": "http://example.com/images/item_45.jpg",
+        "preparation_time": 25,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 46",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 455,
+        "rating": 4.5,
+        "spice_level": "Hot",
+        "id": "146",
+        "image_url": "http://example.com/images/item_46.jpg",
+        "preparation_time": 37,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 47",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 433,
+        "rating": 4.3,
+        "spice_level": "Hot",
+        "id": "147",
+        "image_url": "http://example.com/images/item_47.jpg",
+        "preparation_time": 33,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 48",
+        "cuisine": "Chinese",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 106,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "148",
+        "image_url": "http://example.com/images/item_48.jpg",
+        "preparation_time": 29,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 49",
+        "cuisine": "Indian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 290,
+        "rating": 3.6,
+        "spice_level": "Mild",
+        "id": "149",
+        "image_url": "http://example.com/images/item_49.jpg",
+        "preparation_time": 28,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 50",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 351,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "150",
+        "image_url": "http://example.com/images/item_50.jpg",
+        "preparation_time": 44,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 51",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 368,
+        "rating": 4.5,
+        "spice_level": "Mild",
+        "id": "151",
+        "image_url": "http://example.com/images/item_51.jpg",
+        "preparation_time": 35,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 52",
+        "cuisine": "Indian",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 440,
+        "rating": 4.6,
+        "spice_level": "Mild",
+        "id": "152",
+        "image_url": "http://example.com/images/item_52.jpg",
+        "preparation_time": 44,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 53",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 169,
+        "rating": 4.4,
+        "spice_level": "Hot",
+        "id": "153",
+        "image_url": "http://example.com/images/item_53.jpg",
+        "preparation_time": 29,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 54",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 284,
+        "rating": 5.0,
+        "spice_level": "Mild",
+        "id": "154",
+        "image_url": "http://example.com/images/item_54.jpg",
+        "preparation_time": 15,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 55",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 266,
+        "rating": 4.9,
+        "spice_level": "Medium",
+        "id": "155",
+        "image_url": "http://example.com/images/item_55.jpg",
+        "preparation_time": 28,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 56",
+        "cuisine": "Indian",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 181,
+        "rating": 3.8,
+        "spice_level": "Mild",
+        "id": "156",
+        "image_url": "http://example.com/images/item_56.jpg",
+        "preparation_time": 44,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 57",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 414,
+        "rating": 4.3,
+        "spice_level": "Mild",
+        "id": "157",
+        "image_url": "http://example.com/images/item_57.jpg",
+        "preparation_time": 26,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 58",
+        "cuisine": "Chinese",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 104,
+        "rating": 4.0,
+        "spice_level": "Mild",
+        "id": "158",
+        "image_url": "http://example.com/images/item_58.jpg",
+        "preparation_time": 28,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 59",
+        "cuisine": "Middle Eastern",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 444,
+        "rating": 4.7,
+        "spice_level": "Hot",
+        "id": "159",
+        "image_url": "http://example.com/images/item_59.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 60",
+        "cuisine": "Chinese",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 309,
+        "rating": 3.5,
+        "spice_level": "Medium",
+        "id": "160",
+        "image_url": "http://example.com/images/item_60.jpg",
+        "preparation_time": 14,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 61",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 105,
+        "rating": 4.8,
+        "spice_level": "Hot",
+        "id": "161",
+        "image_url": "http://example.com/images/item_61.jpg",
+        "preparation_time": 11,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 62",
+        "cuisine": "Middle Eastern",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 258,
+        "rating": 4.1,
+        "spice_level": "Medium",
+        "id": "162",
+        "image_url": "http://example.com/images/item_62.jpg",
+        "preparation_time": 35,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 63",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 224,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "163",
+        "image_url": "http://example.com/images/item_63.jpg",
+        "preparation_time": 40,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 64",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 327,
+        "rating": 4.9,
+        "spice_level": "Mild",
+        "id": "164",
+        "image_url": "http://example.com/images/item_64.jpg",
+        "preparation_time": 43,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 65",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 269,
+        "rating": 4.9,
+        "spice_level": "Mild",
+        "id": "165",
+        "image_url": "http://example.com/images/item_65.jpg",
+        "preparation_time": 31,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 66",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 417,
+        "rating": 4.9,
+        "spice_level": "Hot",
+        "id": "166",
+        "image_url": "http://example.com/images/item_66.jpg",
+        "preparation_time": 16,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 67",
+        "cuisine": "Middle Eastern",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 181,
+        "rating": 5.0,
+        "spice_level": "Hot",
+        "id": "167",
+        "image_url": "http://example.com/images/item_67.jpg",
+        "preparation_time": 44,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 68",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 430,
+        "rating": 4.8,
+        "spice_level": "Medium",
+        "id": "168",
+        "image_url": "http://example.com/images/item_68.jpg",
+        "preparation_time": 29,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 69",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 247,
+        "rating": 4.6,
+        "spice_level": "Hot",
+        "id": "169",
+        "image_url": "http://example.com/images/item_69.jpg",
+        "preparation_time": 12,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 70",
+        "cuisine": "Middle Eastern",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 149,
+        "rating": 4.6,
+        "spice_level": "Medium",
+        "id": "170",
+        "image_url": "http://example.com/images/item_70.jpg",
+        "preparation_time": 17,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 71",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 439,
+        "rating": 3.9,
+        "spice_level": "Medium",
+        "id": "171",
+        "image_url": "http://example.com/images/item_71.jpg",
+        "preparation_time": 48,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 72",
+        "cuisine": "Italian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 195,
+        "rating": 4.2,
+        "spice_level": "Medium",
+        "id": "172",
+        "image_url": "http://example.com/images/item_72.jpg",
+        "preparation_time": 36,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 73",
+        "cuisine": "Chinese",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 451,
+        "rating": 3.9,
+        "spice_level": "Hot",
+        "id": "173",
+        "image_url": "http://example.com/images/item_73.jpg",
+        "preparation_time": 16,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 74",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 416,
+        "rating": 4.6,
+        "spice_level": "Mild",
+        "id": "174",
+        "image_url": "http://example.com/images/item_74.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 75",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 210,
+        "rating": 4.3,
+        "spice_level": "Medium",
+        "id": "175",
+        "image_url": "http://example.com/images/item_75.jpg",
+        "preparation_time": 38,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 76",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 190,
+        "rating": 3.6,
+        "spice_level": "Hot",
+        "id": "176",
+        "image_url": "http://example.com/images/item_76.jpg",
+        "preparation_time": 41,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 77",
+        "cuisine": "Chinese",
+        "category": "Dessert",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 184,
+        "rating": 4.6,
+        "spice_level": "Hot",
+        "id": "177",
+        "image_url": "http://example.com/images/item_77.jpg",
+        "preparation_time": 38,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 78",
+        "cuisine": "Italian",
+        "category": "Starter",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 268,
+        "rating": 4.5,
+        "spice_level": "Mild",
+        "id": "178",
+        "image_url": "http://example.com/images/item_78.jpg",
+        "preparation_time": 23,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 79",
+        "cuisine": "Indian",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 127,
+        "rating": 3.6,
+        "spice_level": "Medium",
+        "id": "179",
+        "image_url": "http://example.com/images/item_79.jpg",
+        "preparation_time": 38,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 80",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 174,
+        "rating": 4.3,
+        "spice_level": "Hot",
+        "id": "180",
+        "image_url": "http://example.com/images/item_80.jpg",
+        "preparation_time": 31,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 81",
+        "cuisine": "Italian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 148,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "181",
+        "image_url": "http://example.com/images/item_81.jpg",
+        "preparation_time": 32,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Mutton Rogan Josh 82",
+        "cuisine": "Chinese",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 259,
+        "rating": 3.6,
+        "spice_level": "Hot",
+        "id": "182",
+        "image_url": "http://example.com/images/item_82.jpg",
+        "preparation_time": 24,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 83",
+        "cuisine": "Chinese",
+        "category": "Snack",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 119,
+        "rating": 4.1,
+        "spice_level": "Medium",
+        "id": "183",
+        "image_url": "http://example.com/images/item_83.jpg",
+        "preparation_time": 12,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Biryani 84",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 132,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "184",
+        "image_url": "http://example.com/images/item_84.jpg",
+        "preparation_time": 29,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 85",
+        "cuisine": "Middle Eastern",
+        "category": "Main Course",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 453,
+        "rating": 4.0,
+        "spice_level": "Mild",
+        "id": "185",
+        "image_url": "http://example.com/images/item_85.jpg",
+        "preparation_time": 41,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 86",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 306,
+        "rating": 3.9,
+        "spice_level": "Medium",
+        "id": "186",
+        "image_url": "http://example.com/images/item_86.jpg",
+        "preparation_time": 39,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 87",
+        "cuisine": "Indian",
+        "category": "Beverage",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 239,
+        "rating": 3.6,
+        "spice_level": "Medium",
+        "id": "187",
+        "image_url": "http://example.com/images/item_87.jpg",
+        "preparation_time": 39,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 88",
+        "cuisine": "Middle Eastern",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 381,
+        "rating": 4.3,
+        "spice_level": "Mild",
+        "id": "188",
+        "image_url": "http://example.com/images/item_88.jpg",
+        "preparation_time": 37,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 89",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 348,
+        "rating": 3.8,
+        "spice_level": "Hot",
+        "id": "189",
+        "image_url": "http://example.com/images/item_89.jpg",
+        "preparation_time": 25,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Garlic Bread 90",
+        "cuisine": "Italian",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 271,
+        "rating": 4.3,
+        "spice_level": "Hot",
+        "id": "190",
+        "image_url": "http://example.com/images/item_90.jpg",
+        "preparation_time": 29,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 91",
+        "cuisine": "Chinese",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 101,
+        "rating": 3.5,
+        "spice_level": "Hot",
+        "id": "191",
+        "image_url": "http://example.com/images/item_91.jpg",
+        "preparation_time": 46,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Tikka 92",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 500,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "192",
+        "image_url": "http://example.com/images/item_92.jpg",
+        "preparation_time": 13,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 93",
+        "cuisine": "Chinese",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 191,
+        "rating": 3.7,
+        "spice_level": "Medium",
+        "id": "193",
+        "image_url": "http://example.com/images/item_93.jpg",
+        "preparation_time": 22,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Veg Manchurian 94",
+        "cuisine": "Indian",
+        "category": "Snack",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 279,
+        "rating": 3.9,
+        "spice_level": "Hot",
+        "id": "194",
+        "image_url": "http://example.com/images/item_94.jpg",
+        "preparation_time": 33,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Egg Fried Rice 95",
+        "cuisine": "Indian",
+        "category": "Main Course",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 167,
+        "rating": 4.9,
+        "spice_level": "Hot",
+        "id": "195",
+        "image_url": "http://example.com/images/item_95.jpg",
+        "preparation_time": 30,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Paneer Butter Masala 96",
+        "cuisine": "Chinese",
+        "category": "Dessert",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 373,
+        "rating": 3.8,
+        "spice_level": "Mild",
+        "id": "196",
+        "image_url": "http://example.com/images/item_96.jpg",
+        "preparation_time": 36,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Hakka Noodles 97",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 406,
+        "rating": 3.9,
+        "spice_level": "Medium",
+        "id": "197",
+        "image_url": "http://example.com/images/item_97.jpg",
+        "preparation_time": 21,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 98",
+        "cuisine": "Chinese",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 180,
+        "rating": 4.8,
+        "spice_level": "Medium",
+        "id": "198",
+        "image_url": "http://example.com/images/item_98.jpg",
+        "preparation_time": 25,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Chicken Shawarma Roll 99",
+        "cuisine": "Italian",
+        "category": "Beverage",
+        "dietary": "Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 319,
+        "rating": 3.8,
+        "spice_level": "Medium",
+        "id": "199",
+        "image_url": "http://example.com/images/item_99.jpg",
+        "preparation_time": 22,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    },
+    {
+        "name": "Margherita Pizza 100",
+        "cuisine": "Middle Eastern",
+        "category": "Starter",
+        "dietary": "Non-Vegetarian",
+        "description": "Deliciously prepared dish with fresh ingredients.",
+        "price": 145,
+        "rating": 4.7,
+        "spice_level": "Hot",
+        "id": "200",
+        "image_url": "http://example.com/images/item_100.jpg",
+        "preparation_time": 13,
+        "available": true,
+        "tags": [
+            "fresh",
+            "popular",
+            "chef special"
+        ]
+    }
+]
