@@ -19,7 +19,7 @@
         ]
     },
     {
-        "name": "Paneer Butter Masala 2",
+        "name": "pizza",
         "cuisine": "Middle Eastern",
         "category": "Main Course",
         "dietary": "Non-Vegetarian",
@@ -1881,7 +1881,7 @@
         ]
     },
     {
-        "name": "Chicken Shawarma Roll 100",
+        "name": "Margherita Pizza 100",
         "cuisine": "Middle Eastern",
         "category": "Starter",
         "dietary": "Non-Vegetarian",

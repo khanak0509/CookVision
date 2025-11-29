@@ -143,8 +143,6 @@ def FoodChat(user_input:str,session_id: str = "khanak"):
     config = {"configurable": {"thread_id": session_id}}
 
     response = agent.invoke({"messages": [("user", user_input)]}, config=config)
-    print(response)
-    print("===================================")
     final_response = response['messages'][-1].content
     products_data = []
     for msg in response['messages']:
