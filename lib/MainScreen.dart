@@ -93,7 +93,6 @@ void getWeather({required String city}) async {
     positionStream!.listen((Position position) async {
       String city = await _getCityFromCoordinates(position.latitude, position.longitude);
       setState(() {
-        _currentPosition = position;
         _currentCity = city;
       });
       if (city != "Unknown City" && city.isNotEmpty) {
