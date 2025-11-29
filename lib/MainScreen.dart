@@ -20,11 +20,13 @@ class _MainScreenState extends State<MainScreen> {
   String weather = "Loading weather...";
   String _currentCity = "Loading...";
   Stream<Position>? positionStream;
+  String suggestion = "";
 
   @override
   void initState() {
     super.initState();
     _startLiveLocation();
+    
     
   
   }
@@ -51,6 +53,7 @@ void getWeather({required String city}) async {
     if (data != null && data['description'] != null && data['temperature'] != null) {
       setState(() {
         weather = "${data['description']}, ${data['temperature']}°C";
+
       });
     } else {
       setState(() {
@@ -62,6 +65,18 @@ void getWeather({required String city}) async {
       weather = "Failed to load weather (Code ${response.statusCode})";
     });
   }
+  final url2 = Uri.parse('http://localhost:8000/suggestions/$weather');
+    final response2 = await http.get(url2);
+
+    if (response2.statusCode == 200) {
+      final data2 = jsonDecode(response2.body);
+      setState(() {
+        suggestion = data2['suggestions'];
+      });
+      print(data2['suggestions']);
+    } else {
+      print("Failed to load suggestions");
+    }
 }
 
   // Start live location tracking
@@ -112,6 +127,18 @@ void getWeather({required String city}) async {
       return "Unknown City";
     } catch (e) {
       return "Error: $e";
+    }
+  }
+
+  void getsuggestion() async {
+    final url = Uri.parse('http://localhost:8000/suggestions/$weather');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data['suggestions']);
+    } else {
+      print("Failed to load suggestions");
     }
   }
 
@@ -189,6 +216,7 @@ void getWeather({required String city}) async {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  
                                   Text(
                                     _currentCity,
                                     style: const TextStyle(
@@ -198,6 +226,7 @@ void getWeather({required String city}) async {
                                     ),
                                   ),
                                   const SizedBox(height: 5),
+                                  
                                   Text(
                                     weather,
                                     style: const TextStyle(
@@ -212,98 +241,19 @@ void getWeather({required String city}) async {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      const Text(
-                        'Quick Actions',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                      Center(
+                        child: Text(
+                          suggestion,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const Chat()),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2a2d3a),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: const Column(
-                                  children: [
-                                    Icon(Icons.chat_bubble, color: Color(0xFF667eea), size: 40),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'AI Chat',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const FoodScreen()),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2a2d3a),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: const Column(
-                                  children: [
-                                    Icon(Icons.restaurant_menu, color: Color(0xFF667eea), size: 40),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Menu',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 30),
-                      Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
@@ -461,34 +411,39 @@ void getWeather({required String city}) async {
                                                 ),
                                               ],
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 16,
-                                                vertical: 8,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
-                                                  colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                                            GestureDetector(
+                                              onTap: () => {
+                                                print('cliked')                                        
+                                              },
+                                              child: Container(
+                                                padding: const EdgeInsets.symmetric(
+                                                  horizontal: 16,
+                                                  vertical: 8,
                                                 ),
-                                                borderRadius: BorderRadius.circular(20),
-                                              ),
-                                              child: const Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.search,
-                                                    color: Colors.white,
-                                                    size: 16,
+                                                decoration: BoxDecoration(
+                                                  gradient: const LinearGradient(
+                                                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
                                                   ),
-                                                  SizedBox(width: 6),
-                                                  Text(
-                                                    'Analyze',
-                                                    style: TextStyle(
+                                                  borderRadius: BorderRadius.circular(20),
+                                                ),
+                                                child: const Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.search,
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 14,
+                                                      size: 16,
                                                     ),
-                                                  ),
-                                                ],
+                                                    SizedBox(width: 6),
+                                                    Text(
+                                                      'Analyze',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -499,6 +454,100 @@ void getWeather({required String city}) async {
                                 ),
                         ),
                       ),
+                      const SizedBox(height: 30),
+                      const Text(
+                        'Quick Actions',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const Chat()),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF2a2d3a),
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: const Column(
+                                  children: [
+                                    Icon(Icons.chat_bubble, color: Color(0xFF667eea), size: 40),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'AI Chat',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const FoodScreen()),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF2a2d3a),
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: const Column(
+                                  children: [
+                                    Icon(Icons.restaurant_menu, color: Color(0xFF667eea), size: 40),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      'Menu',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                     
                       const SizedBox(height: 20),
                     ],
                   ),

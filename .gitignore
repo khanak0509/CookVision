@@ -52,3 +52,6 @@ food_app/checkpoints.sqlite-shm
 /checkpoints.sqlite-shm
 /food_app/checkpoints.sqlite
 /checkpoints.sqlite
+
+
+.env

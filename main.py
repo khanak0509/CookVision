@@ -1,3 +1,4 @@
+from click import prompt
 import requests
 from fastapi import FastAPI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -176,6 +177,23 @@ def FoodChat(user_input:str,session_id: str = "khanak"):
         return {"response": result}
     else:
         return {"response": final_response}
+
+@app.get('/suggestions/{weather}')
+def food_suggestion(weather: str):
+    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+    prompt = PromptTemplate(
+        input_variables=['weather'],
+        template="""
+        Based on the current weather: {weather}, suggest some food items that would be suitable. only short like very concise  in one line no other extra symbol like * or another 
+        example: "On a rainy day, a warm bowl of soup is perfect."
+        """
+    )
+
+    chain = prompt | llm 
+    suggestions = chain.invoke({"weather": weather}).content
+    print(suggestions)
+    return {"suggestions": suggestions}
+
 
 
 @app.get("/health")
