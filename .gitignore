@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+/Users/khanak/Desktop/food_app/food_app/checkpoints.sqlite
+food_app/checkpoints.sqlite-wal
+/checkpoints.sqlite-wal
+food_app/checkpoints.sqlite-shm
+/checkpoints.sqlite-shm
+/food_app/checkpoints.sqlite
+/checkpoints.sqlite

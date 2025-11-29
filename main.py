@@ -4,22 +4,26 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
 import os 
 from fastapi.responses import JSONResponse
-
+import sqlite3
 import json
 import os
 import time
 from typing import List
-
+from uuid import uuid4
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.tools import tool
 from deepagents import create_deep_agent
 from pydantic import BaseModel, Field
-
 from fastapi import FastAPI
+from langgraph.checkpoint.sqlite import SqliteSaver
+from dotenv import load_dotenv
 
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDOm-HdrKdYCcjVfQTZLON8g7niEBDKG0Q"
+load_dotenv()
+    
+api_key = os.getenv("GEMINI_API_KEY")
+os.environ["GOOGLE_API_KEY"] = api_key
 with open('products.json', 'r') as f:
     PRODUCTS_DATA = json.load(f)
 
@@ -28,6 +32,9 @@ PRODUCTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'produc
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
 
 app = FastAPI()
+
+conn = sqlite3.connect("checkpoints.sqlite", check_same_thread=False)
+memory = SqliteSaver(conn)
 
 PROMPT_TEMPLATE = """
 You are given:
@@ -97,7 +104,7 @@ def search_products(food_name:str):
 
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
 tools = [search_products]
-agent = create_deep_agent(llm, tools)
+agent = create_deep_agent(llm, tools,checkpointer=memory)
 
 
 def get_weather(city):
@@ -132,13 +139,21 @@ def Chat(user_input:str):
     return {"response": response, "input": user_input}
 
 @app.get("/food_query/{user_input}")
-def FoodChat(user_input:str):
-    response = agent.invoke({"messages": [("user", user_input)]})
+def FoodChat(user_input:str,session_id: str = "khanak"):
+    config = {"configurable": {"thread_id": session_id}}
+
+    response = agent.invoke({"messages": [("user", user_input)]}, config=config)
+    print(response)
+    print("===================================")
     final_response = response['messages'][-1].content
     products_data = []
     for msg in response['messages']:
         if hasattr(msg, 'name') and msg.name == 'search_products':
-            products_data = json.loads(msg.content)
+            content = msg.content
+            if isinstance(content, str):
+                products_data = json.loads(content)
+            else:
+                products_data = content
             break
 
     if products_data:
@@ -153,9 +168,10 @@ def FoodChat(user_input:str):
 
         structured_output = chain.invoke({
             "products_json": json.dumps(products_data, ensure_ascii=False),
-            "user_question": "Show me food under 2000 rupees with all detail of food items",
+            "user_question": user_input,
             "final_response": final_response
         })
+        print(structured_output)
 
         result_json = structured_output.model_dump_json(indent=2)
         result = json.loads(result_json)
