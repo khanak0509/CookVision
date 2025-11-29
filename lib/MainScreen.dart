@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_app/chat.dart';
 import 'package:food_app/food_screen.dart';
+import 'package:food_app/profile.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -603,7 +604,10 @@ void getWeather({required String city}) async {
                   );
                   break;
                 case 3:
-                  // Navigate to Profile
+                Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Profile()
+              )
+                );
                   break;
               }
             },
