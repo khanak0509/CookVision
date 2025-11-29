@@ -302,59 +302,198 @@ void getWeather({required String city}) async {
                         ],
                       ),
                       const SizedBox(height: 30),
-                      const Text(
-                        'Food Recognition',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Food Scanner',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (_image != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _image = null;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                       const SizedBox(height: 15),
                       GestureDetector(
                         onTap: pickImage,
                         child: Container(
-                          height: 250,
+                          height: 200,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2a2d3a),
+                            gradient: _image == null
+                                ? LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      const Color(0xFF667eea).withOpacity(0.3),
+                                      const Color(0xFF764ba2).withOpacity(0.3),
+                                    ],
+                                  )
+                                : null,
+                            color: _image != null ? const Color(0xFF2a2d3a) : null,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: const Color(0xFF667eea).withOpacity(0.3),
+                              color: const Color(0xFF667eea).withOpacity(0.5),
                               width: 2,
+                              strokeAlign: BorderSide.strokeAlignInside,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 10,
+                                color: const Color(0xFF667eea).withOpacity(0.2),
+                                blurRadius: 15,
                                 offset: const Offset(0, 5),
                               ),
                             ],
                           ),
                           child: _image == null
-                              ? const Column(
+                              ? Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.camera_alt,
-                                      color: Color(0xFF667eea),
-                                      size: 60,
-                                    ),
-                                    SizedBox(height: 15),
-                                    Text(
-                                      'Tap to capture or select food image',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 16,
+                                    Container(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                                        ),
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFF667eea).withOpacity(0.4),
+                                            blurRadius: 15,
+                                            offset: const Offset(0, 5),
+                                          ),
+                                        ],
                                       ),
+                                      child: const Icon(
+                                        Icons.camera_alt_rounded,
+                                        color: Colors.white,
+                                        size: 40,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    const Text(
+                                      'Scan Your Food',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text(
+                                      'Tap to capture or select from gallery',
+                                      style: TextStyle(
+                                        color: Colors.white60,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 )
                               : ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.file(
-                                    _image!,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Image.file(
+                                        _image!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black.withOpacity(0.4),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 15,
+                                        left: 15,
+                                        right: 15,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Image Captured',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 4),
+                                                Text(
+                                                  'Tap to change',
+                                                  style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 16,
+                                                vertical: 8,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                gradient: const LinearGradient(
+                                                  colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                                                ),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: const Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.search,
+                                                    color: Colors.white,
+                                                    size: 16,
+                                                  ),
+                                                  SizedBox(width: 6),
+                                                  Text(
+                                                    'Analyze',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                         ),
