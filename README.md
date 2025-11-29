@@ -1,48 +1,103 @@
-# CookVision 🍽️
+<div align="center">
 
-A smart food ordering app that combines AI-powered chat, real-time weather-based food suggestions, and food recognition capabilities.
+# 🍽️ CookVision
 
-## Features
+### *Your AI-Powered Food Companion*
 
-### 🤖 AI Chat Assistant
-- Natural language food search powered by Google Gemini
-- Memory-enabled conversations that remember your preferences
-- Get personalized food recommendations through chat
+[![Flutter](https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter)](https://flutter.dev)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688?logo=fastapi)](https://fastapi.tiangolo.com)
+[![License](https://img.shields.io/badge/License-Educational-blue)](LICENSE)
 
-### 🌤️ Weather-Based Suggestions
-- Real-time weather detection using your location
-- Smart food suggestions based on current weather conditions
-- Location tracking with city-level accuracy
+*A smart food ordering app that combines AI-powered chat, real-time weather suggestions, and visual food recognition*
 
-### 📸 Food Scanner
-- Capture or upload food images from your gallery
-- Visual food recognition (analyze feature coming soon)
-- Quick image preview and management
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Setup](#-setup) • [API Docs](#-api-endpoints) • [Screenshots](#-screenshots)
 
-### 🍕 Menu Browser
-- Browse popular meals with calorie information
-- View nutritional stats (calories, protein, carbs)
-- Add items to your order with one tap
+</div>
 
-## Tech Stack
+---
 
-### Frontend (Flutter)
-- **Framework**: Flutter 3.8.1
-- **UI**: Custom dark theme with gradient designs
-- **Key Packages**:
-  - `http` - API communication
-  - `image_picker` - Camera/gallery access
-  - `geolocator` & `geocoding` - Location services
-  - `intl` - Date formatting
+## ✨ Features
 
-### Backend (Python/FastAPI)
-- **Framework**: FastAPI
-- **AI/ML**:
-  - LangChain with Google Gemini 2.0 Flash
-  - DeepAgents for agentic workflows
-  - LangGraph for conversation memory
-- **Database**: SQLite for chat history persistence
-- **Tools**: Multiple search filters (price, category, dietary preferences)
+<table>
+<tr>
+<td width="50%">
+
+### 🤖 **AI Chat Assistant**
+Talk to your food concierge in natural language
+- Powered by **Google Gemini 2.0 Flash**
+- Remembers your preferences across sessions
+- Smart product recommendations
+- Multi-turn conversations with context
+
+</td>
+<td width="50%">
+
+### 🌤️ **Weather Intelligence**
+Food that matches the weather
+- Real-time location detection
+- Weather-based meal suggestions
+- City-level accuracy
+- Automatic recommendation updates
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 📸 **Food Scanner**
+Visual food recognition at your fingertips
+- Capture or upload from gallery
+- Quick image preview
+- AI-powered analysis *(coming soon)*
+- Smart ingredient detection
+
+</td>
+<td width="50%">
+
+### 🍕 **Smart Menu**
+Browse with confidence
+- Calorie & nutrition tracking
+- Dietary filters (Veg/Non-Veg/Vegan)
+- Price & rating insights
+- One-tap ordering
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend**
+```
+Flutter 3.8.1
+├── UI Framework: Material Design 3
+├── State Management: Provider
+├── Theme: Custom dark gradients
+└── Packages:
+    ├── http (API communication)
+    ├── image_picker (Camera/Gallery)
+    ├── geolocator & geocoding (Location)
+    └── intl (Date formatting)
+```
+
+### **Backend**
+```
+Python 3.13 + FastAPI
+├── AI/ML:
+│   ├── Google Gemini 2.0 Flash
+│   ├── LangChain (AI orchestration)
+│   ├── DeepAgents (Agentic workflows)
+│   └── LangGraph (Memory management)
+├── Database: SQLite (Chat persistence)
+└── Tools:
+    ├── Product search
+    ├── Price filters
+    ├── Dietary preferences
+    └── Category sorting
+```
 
 ## Setup
 
