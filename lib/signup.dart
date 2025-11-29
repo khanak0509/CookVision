@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/auth_service.dart';
 import 'MainScreen.dart';
@@ -14,6 +16,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
+  
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -41,6 +45,16 @@ class _SignupScreenState extends State<SignupScreen> {
   }
   final user = await authservice.value.signUpWithEmailAndPassword(email, password);
   if (user != null) {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'name': _nameController.text.trim(),
+        'email': email,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print("Error adding user to Firestore: $e");
+    }
+  
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => MainScreen()),
