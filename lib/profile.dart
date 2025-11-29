@@ -20,6 +20,10 @@ class _ProfileState extends State<Profile> {
 
  }
 
+ void fetchuserdata() async{
+  print(user);
+ }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -285,7 +289,7 @@ class _ProfileState extends State<Profile> {
                           'Edit Profile',
                           'Update your personal information',
                           () {
-                            // Add edit profile logic
+                            fetchuserdata();
                           },
                         ),
                         _buildMenuItem(
