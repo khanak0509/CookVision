@@ -31,13 +31,17 @@ class _ProfileState extends State<Profile> {
 
 
  void fetchusers()async {
-  final snapshot = await FirebaseFirestore.instance.collection('users').get();
-  final userinfo = snapshot.docs[0].data();
-  setState(() {
-    name = userinfo['name'];
+  final user = authservice.value.currentUser;
+  if (user == null) return; 
 
-    email = userinfo['email'];
-  
+  final snapshot = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+  if (!snapshot.exists) return;
+  final userinfo = snapshot.data();
+  setState(() {
+    name = userinfo?['name'] ?? "no name";
+
+    email = userinfo?['email'] ?? "no email";
+
   });
 
  }
