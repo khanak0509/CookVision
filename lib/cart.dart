@@ -190,113 +190,88 @@ class _CartState extends State<Cart> {
 
                       return Column(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF667eea).withOpacity(0.3),
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      'Total Items',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
-                                      ),
+                          // Clear All button at top
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: GestureDetector(
+                              onTap: () async {
+                                final confirm = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    backgroundColor: const Color(0xFF2a2d3a),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                    const SizedBox(height: 5),
+                                    title: const Text(
+                                      'Clear Cart?',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    content: const Text(
+                                      'Remove all items from your cart?',
+                                      style: TextStyle(color: Colors.white70),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, true),
+                                        child: const Text(
+                                          'Clear',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+
+                                if (confirm == true) {
+                                  for (var doc in cartItems) {
+                                    await doc.reference.delete();
+                                  }
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Cart cleared'),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Colors.red.withOpacity(0.3),
+                                  ),
+                                ),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.delete_sweep,
+                                      color: Colors.red,
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 8),
                                     Text(
-                                      '$totalQuantity items',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                                      'Clear All Items',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    final confirm = await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        backgroundColor: const Color(0xFF2a2d3a),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        title: const Text(
-                                          'Clear Cart?',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        content: const Text(
-                                          'Remove all items from your cart?',
-                                          style: TextStyle(color: Colors.white70),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, false),
-                                            child: const Text('Cancel'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context, true),
-                                            child: const Text(
-                                              'Clear',
-                                              style: TextStyle(color: Colors.red),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-
-                                    if (confirm == true) {
-                                      for (var doc in cartItems) {
-                                        await doc.reference.delete();
-                                      }
-                                      if (mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Cart cleared'),
-                                            backgroundColor: Colors.red,
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF2a2d3a),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Colors.red.withOpacity(0.3),
-                                      ),
-                                    ),
-                                    child: const Icon(
-                                      Icons.delete_outline,
-                                      color: Colors.red,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
 
@@ -340,41 +315,61 @@ class _CartState extends State<Cart> {
                             ),
                             child: Column(
                               children: [
-                                // Total row
+                                // Items and Price summary
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        const Text(
+                                          'Total Items',
+                                          style: TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
                                         Text(
+                                          '$totalQuantity items',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        const Text(
                                           'Total Amount',
                                           style: TextStyle(
                                             color: Colors.white70,
                                             fontSize: 14,
                                           ),
                                         ),
-                                        SizedBox(height: 5),
+                                        const SizedBox(height: 5),
                                         Text(
-                                          'Including taxes',
-                                          style: TextStyle(
-                                            color: Colors.white38,
-                                            fontSize: 12,
+                                          '₹${total.toStringAsFixed(2)}',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Text(
-                                      '₹${total.toStringAsFixed(2)}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
                                   ],
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Including taxes and charges',
+                                  style: TextStyle(
+                                    color: Colors.white38,
+                                    fontSize: 12,
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
 
@@ -634,7 +629,7 @@ class _CartState extends State<Cart> {
                                   await FirebaseFirestore.instance
                                       .collection('users')
                                       .doc(userId)
-                                      .collection('cart')
+                                      .collection('cart_items')
                                       .doc(documentId)
                                       .delete();
                                 }
