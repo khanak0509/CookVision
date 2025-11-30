@@ -1,3 +1,11 @@
+# ================================================
+# 🔥 FOOD APP - COMPREHENSIVE .gitignore
+# ================================================
+
+# ==========================================
+# 📱 FLUTTER & DART
+# ==========================================
+
 # Miscellaneous
 *.class
 *.log
@@ -12,15 +20,6 @@
 .swiftpm/
 migrate_working_dir/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# VS Code
-#.vscode/
-
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
@@ -31,6 +30,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+pubspec.lock
 
 # Symbolication related
 app.*.symbols
@@ -38,56 +38,61 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# User-specific
+.flutter-devtools
+.metadata
 
-# 🔥 Firebase Configuration Files (CRITICAL!)
-firebase_options.dart
+# Generated files
+*.g.dart
+*.freezed.dart
+*.gr.dart
+*.mocks.dart
+lib/generated_plugin_registrant.dart
+
+# ==========================================
+# 🔥 FIREBASE (CRITICAL - NEVER COMMIT!)
+# ==========================================
+
+# Firebase config files with API keys
 lib/firebase_options.dart
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
+
+# Firebase directories (optional - comment out if you want to commit)
 .firebase/
 .firebaserc
 firebase.json
 
-# 🔑 Environment Variables
+# ==========================================
+# 🔑 SECRETS & ENVIRONMENT
+# ==========================================
+
 .env
 .env.local
 .env.production
+.env.development
 *.env
 
-# 🐍 Python Backend
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-env/
-ENV/
-.venv
-*.sqlite
-*.sqlite-shm
-*.sqlite-wal
-*.db
-checkpoints.sqlite*
+# API Keys & Secrets
+api_keys.dart
+secrets.dart
+config/secrets.dart
 
-# 📦 Node modules
-node_modules/
-npm-debug.log
-yarn-error.log
+# Certificates & Keys
+*.pem
+*.p12
+*.key
+*.cert
+*.der
+*.mobileprovision
+*.jks
+*.keystore
 
-# 📱 iOS
-**/ios/Pods/
-**/ios/.symlinks/
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/Flutter.podspec
-**/ios/.generated/
-**/ios/Flutter/Generated.xcconfig
-**/ios/Runner/GeneratedPluginRegistrant.*
+# ==========================================
+# 🤖 ANDROID
+# ==========================================
 
-# 🤖 Android
 **/android/.gradle/
 **/android/captures/
 **/android/gradlew
@@ -95,175 +100,14 @@ yarn-error.log
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/key.properties
-*.jks
-*.keystore
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
 
-# 🌐 Web
-lib/generated_plugin_registrant.dart
+# ==========================================
+# 📱 IOS
+# ==========================================
 
-# 🖼️ Images (exclude except placeholders)
-# Uncomment if you want to ignore uploaded images
-# *.jpg
-# *.jpeg
-# *.png
-# *.gif
-# !assets/image.png
-
-# 📝 Logs
-logs/
-*.log.*
-
-# 🧪 Testing
-coverage/
-test/.test_coverage.dart
-*.coverage
-
-# 📊 Analytics
-*.analytics
-
-# 🔧 IDE
-.vscode/
-.fleet/
-*.sublime-project
-*.sublime-workspace
-
-# 🎯 macOS
-**/macos/Flutter/ephemeral/
-**/macos/Flutter/GeneratedPluginRegistrant.swift
-
-# 🪟 Windows
-**/windows/flutter/generated_plugin_registrant.cc
-**/windows/flutter/generated_plugin_registrant.h
-**/windows/flutter/generated_plugins.cmake
-
-# 🐧 Linux
-**/linux/flutter/generated_plugin_registrant.cc
-**/linux/flutter/generated_plugin_registrant.h
-**/linux/flutter/generated_plugins.cmake
-
-# 📱 Secrets & Keys (NEVER COMMIT!)
-google-services.json
-GoogleService-Info.plist
-api_keys.dart
-secrets.dart
-*.pem
-*.p12
-*.key
-*.cert
-*.mobileprovision
-
-# 🗂️ User-specific
-.flutter-devtools
-.metadata
-
-# 📓 Jupyter Notebooks
-*.ipynb_checkpoints/
-.ipynb_checkpoints/
-train.ipynb
-*.ipynb
-
-# 🔬 Debug/Output Files
-debug_products.json
-output.json
-product.json
-
-# 🔄 Flutter Plugins (generated)
-.flutter-plugins
-.flutter-plugins-dependencies
-
-# 📁 IDE Files
-.idea/
-*.iml
-food_app.iml
-
-# 🐍 Python Virtual Environment
-.venv/
-venv/
-.python-version
-
-
-
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# VS Code
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-/build/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# 🔥 Firebase Configuration Files (CRITICAL!)
-firebase_options.dart
-lib/firebase_options.dart
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-ios/firebase_app_id_file.json
-.firebase/
-.firebaserc
-firebase.json
-
-# 🔑 Environment Variables
-.env
-.env.local
-.env.production
-*.env
-
-# 🐍 Python Backend
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-env/
-ENV/
-.venv
-*.sqlite
-*.sqlite-shm
-*.sqlite-wal
-*.db
-checkpoints.sqlite*
-
-# 📦 Node modules
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# 📱 iOS
 **/ios/Pods/
 **/ios/.symlinks/
 **/ios/Flutter/Flutter.framework
@@ -272,96 +116,246 @@ yarn-error.log
 **/ios/Flutter/Generated.xcconfig
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Podfile.lock
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.h
+**/ios/Runner/GeneratedPluginRegistrant.m
+**/ios/.symlinks/
+**/ios/Flutter/flutter_export_environment.sh
 
-# 🤖 Android
-**/android/.gradle/
-**/android/captures/
-**/android/gradlew
-**/android/gradlew.bat
-**/android/local.properties
-**/android/**/GeneratedPluginRegistrant.java
-**/android/key.properties
-*.jks
-*.keystore
+# ==========================================
+# 🎯 MACOS
+# ==========================================
 
-# 🌐 Web
-lib/generated_plugin_registrant.dart
-
-# 📝 Logs
-logs/
-*.log.*
-
-# 🧪 Testing
-coverage/
-test/.test_coverage.dart
-*.coverage
-
-# 📊 Analytics
-*.analytics
-
-# 🔧 IDE
-.vscode/
-.fleet/
-*.sublime-project
-*.sublime-workspace
-
-# 🎯 macOS
 **/macos/Flutter/ephemeral/
 **/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Pods/
+**/macos/Podfile.lock
 
-# 🪟 Windows
+# ==========================================
+# 🪟 WINDOWS
+# ==========================================
+
 **/windows/flutter/generated_plugin_registrant.cc
 **/windows/flutter/generated_plugin_registrant.h
 **/windows/flutter/generated_plugins.cmake
 
-# 🐧 Linux
+# ==========================================
+# 🐧 LINUX
+# ==========================================
+
 **/linux/flutter/generated_plugin_registrant.cc
 **/linux/flutter/generated_plugin_registrant.h
 **/linux/flutter/generated_plugins.cmake
 
-# 📱 Secrets & Keys (NEVER COMMIT!)
-google-services.json
-GoogleService-Info.plist
-api_keys.dart
-secrets.dart
-*.pem
-*.p12
-*.key
-*.cert
-*.mobileprovision
+# ==========================================
+# 🌐 WEB
+# ==========================================
 
-# 🗂️ User-specific
-.flutter-devtools
-.metadata
+# No specific web ignores needed currently
 
-# 🧠 ML/AI Models & Training
+# ==========================================
+# � PYTHON BACKEND
+# ==========================================
+
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.python-version
+.venv
+virtualenv/
+
+# Python logs
+*.log
+
+# SQLite databases
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+*.db
+checkpoints.sqlite
+checkpoints.sqlite-shm
+checkpoints.sqlite-wal
+
+# Python test files
+test.py
+test2.py
+
+# ==========================================
+# 🧠 MACHINE LEARNING & AI
+# ==========================================
+
+# Jupyter notebooks
+*.ipynb
+train.ipynb
+*.ipynb_checkpoints/
+.ipynb_checkpoints/
+
+# ML Model files
 *.h5
 *.pkl
+*.pickle
 *.pt
 *.pth
 *.onnx
 *.tflite
 *.mlmodel
+*.pb
+
+# Training artifacts
 models/
 checkpoints/
-*.ipynb_checkpoints/
-*.ipynb
+weights/
+runs/
+logs/
+tensorboard/
 
-# 📊 Data Files (if large or sensitive)
-# Uncomment if you don't want to commit these:
-# products.json
-# debug_products.json
-# output.json
-# product.json
+# ==========================================
+# � DATA FILES
+# ==========================================
 
-# 🔧 Your specific files to add:
-lib/insert_dataset/add_food_items.dart  # Contains upload logic
+# Debug & output files
 debug_products.json
 output.json
 product.json
-train.ipynb
 
-# 🎨 Generated assets
-*.g.dart  # Generated Dart files
-*.freezed.dart
-*.gr.dart
+# Keep these if needed for app functionality:
+# cooking_recipes.json
+# products.json
+
+# ==========================================
+# � IDE & EDITORS
+# ==========================================
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+food_app.iml
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Fleet
+.fleet/
+
+# ==========================================
+# 📦 NODE / NPM (if used)
+# ==========================================
+
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+
+# ==========================================
+# � TESTING & COVERAGE
+# ==========================================
+
+coverage/
+test/.test_coverage.dart
+*.coverage
+.test_coverage.dart
+integration_test/screenshots/
+
+# ==========================================
+# 📝 LOGS & TEMP FILES
+# ==========================================
+
+logs/
+*.log.*
+*.tmp
+*.temp
+.DS_Store
+*~
+.cache/
+
+# ==========================================
+# 📊 ANALYTICS
+# ==========================================
+
+*.analytics
+
+# ==========================================
+# 🎨 ASSETS (Optional)
+# ==========================================
+
+# Uncomment if you don't want to commit large images
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# !assets/image.png  # Keep placeholder
+
+# ==========================================
+# � BUILD ARTIFACTS
+# ==========================================
+
+build/
+.dart_tool/
+**/build/
+*.apk
+*.aab
+*.ipa
+*.app
+*.exe
+
+# ==========================================
+# � OS SPECIFIC
+# ==========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+.Trash-*
+
+# ==========================================
+# 🚫 CUSTOM PROJECT IGNORES
+# ==========================================
+
+# Your specific files
+lib/insert_dataset/add_food_items.dart
+main.py
+
+# Documentation work files
+CHAT_HISTORY_EXPLAINED.md
+CHAT_QUICK_REF.md
+
+# ==========================================
+# ✅ NEVER IGNORE (Important to commit)
+# ==========================================
+
+# !pubspec.yaml
+# !pubspec.lock  # Some prefer to ignore this
+# !analysis_options.yaml
+# !assets/
+# !lib/
+# !README.md
