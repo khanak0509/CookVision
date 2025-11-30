@@ -58,28 +58,6 @@ class _CartState extends State<Cart> {
                         color: Colors.white,
                       ),
                     ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF667eea).withOpacity(0.5),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.shopping_cart,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -303,29 +281,18 @@ class _CartState extends State<Cart> {
                                     }
                                   },
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 8),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      color: Colors.red.withOpacity(0.2),
+                                      color: const Color(0xFF2a2d3a),
                                       borderRadius: BorderRadius.circular(12),
                                       border: Border.all(
-                                        color: Colors.red.withOpacity(0.5),
+                                        color: Colors.red.withOpacity(0.3),
                                       ),
                                     ),
-                                    child: const Row(
-                                      children: [
-                                        Icon(Icons.delete_sweep,
-                                            color: Colors.red, size: 18),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          'Clear All',
-                                          style: TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
+                                    child: const Icon(
+                                      Icons.delete_outline,
+                                      color: Colors.red,
+                                      size: 20,
                                     ),
                                   ),
                                 ),
@@ -507,8 +474,8 @@ class _CartState extends State<Cart> {
               bottomLeft: Radius.circular(20),
             ),
             child: imageUrl.isNotEmpty
-                ? Image.network(
-                    imageUrl,
+                ? Image.asset(
+                    "assets/image.png",
                     width: 110,
                     height: 130,
                     fit: BoxFit.cover,
@@ -654,7 +621,6 @@ class _CartState extends State<Cart> {
                         ),
                         child: Row(
                           children: [
-                            // Decrease button
                             GestureDetector(
                               onTap: () async {
                                 if (quantity > 1) {
