@@ -607,14 +607,14 @@ void getWeather({required String city}) async {
                 case 2:
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Chat()),
+                    MaterialPageRoute(builder: (context) => const FoodScreen()),
                   );
                   break;
                 case 3:
-                Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Profile()
-              )
-                );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Profile()),
+                  );
                   break;
               }
             },

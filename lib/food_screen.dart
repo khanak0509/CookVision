@@ -151,7 +151,7 @@ class _FoodScreenState extends State<FoodScreen> {
               const SizedBox(height: 10),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('food_items').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('food_items').orderBy('rating').snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
@@ -209,6 +209,7 @@ class _FoodScreenState extends State<FoodScreen> {
 
   Widget _buildMealCard(String name, String preparationTime, String rating) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: const Color(0xFF2a2d3a),
         borderRadius: BorderRadius.circular(20),
@@ -295,7 +296,9 @@ class _FoodScreenState extends State<FoodScreen> {
             ),
           ),
         ],
+
       ),
+      
     );
   }
 }
