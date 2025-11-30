@@ -10,7 +10,6 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  // Get current user ID from Firebase Auth
   String? get userId => FirebaseAuth.instance.currentUser?.uid;
 
   @override
@@ -31,7 +30,6 @@ class _CartState extends State<Cart> {
         child: SafeArea(
           child: Column(
             children: [
-              // Header with back button and title
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Row(
@@ -61,7 +59,6 @@ class _CartState extends State<Cart> {
                       ),
                     ),
                     const Spacer(),
-                    // Cart icon with glow effect
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -87,7 +84,6 @@ class _CartState extends State<Cart> {
                 ),
               ),
 
-              // Check if user is logged in
               if (userId == null)
                 Expanded(
                   child: Center(
@@ -112,17 +108,15 @@ class _CartState extends State<Cart> {
                   ),
                 )
               else
-                // Fetch and display cart items
                 Expanded(
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('users')
                         .doc(userId)
-                        .collection('cart')
-                        .orderBy('addedAt', descending: true)
+                        .collection('cart_items')
                         .snapshots(),
                     builder: (context, snapshot) {
-                      // Loading state
+                      
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(
@@ -132,7 +126,6 @@ class _CartState extends State<Cart> {
                         );
                       }
 
-                      // Error state
                       if (snapshot.hasError) {
                         return Center(
                           child: Column(
@@ -158,8 +151,9 @@ class _CartState extends State<Cart> {
                       }
 
                       final cartItems = snapshot.data!.docs;
+                      
+                      print(cartItems);
 
-                      // Empty cart state
                       if (cartItems.isEmpty) {
                         return Center(
                           child: Column(
@@ -206,7 +200,6 @@ class _CartState extends State<Cart> {
                         );
                       }
 
-                      // Calculate totals
                       double total = 0;
                       int totalQuantity = 0;
                       for (var doc in cartItems) {
@@ -219,7 +212,6 @@ class _CartState extends State<Cart> {
 
                       return Column(
                         children: [
-                          // Cart summary header
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
@@ -341,17 +333,16 @@ class _CartState extends State<Cart> {
                             ),
                           ),
 
-                          // Cart items list
                           Expanded(
                             child: ListView.builder(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
                               itemCount: cartItems.length,
                               itemBuilder: (context, index) {
-                                final doc = cartItems[index];
-                                final item = doc.data() as Map<String, dynamic>;
+                                final cartitem = cartItems[index];
+                                final item = cartitem.data() as Map<String, dynamic>;
 
                                 return _buildCartItem(
-                                  documentId: doc.id,
+                                  documentId: cartitem.id,
                                   name: item['name'] ?? 'Unknown',
                                   price: (item['price'] ?? 0).toDouble(),
                                   imageUrl: item['image_url'] ?? '',
@@ -670,7 +661,7 @@ class _CartState extends State<Cart> {
                                   await FirebaseFirestore.instance
                                       .collection('users')
                                       .doc(userId)
-                                      .collection('cart')
+                                      .collection('cart_items')
                                       .doc(documentId)
                                       .update({'quantity': quantity - 1});
                                 } else {
@@ -707,13 +698,12 @@ class _CartState extends State<Cart> {
                               ),
                             ),
 
-                            // Increase button
                             GestureDetector(
                               onTap: () async {
                                 await FirebaseFirestore.instance
                                     .collection('users')
                                     .doc(userId)
-                                    .collection('cart')
+                                    .collection('cart_items')
                                     .doc(documentId)
                                     .update({'quantity': quantity + 1});
                               },
