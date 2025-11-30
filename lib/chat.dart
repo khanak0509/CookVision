@@ -177,7 +177,91 @@ class _ChatState extends State<Chat> {
       print('❌ Error saving chat: $e');
     }
   }
+ void addtocart(String productId) async {
+    if (userId == null) {
+      print('⚠️ Cannot add to cart: User not logged in');
+      return;
+    }
 
+    try {
+      final productDoc = await FirebaseFirestore.instance
+          .collection('food_items')
+          .doc(productId)
+          .get();
+
+      if (!productDoc.exists) {
+        print('⚠️ Product not found in food_items collection');
+        return;
+      }
+
+      final productData = productDoc.data()!;
+
+      final cartRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart_items');
+
+      final existingItem = await cartRef.doc(productId).get();
+
+      if (existingItem.exists) {
+        await cartRef.doc(productId).update({
+          'quantity': FieldValue.increment(1),
+        });
+        print('✅ Increased quantity of ${productData['name']} in cart');
+      } 
+      else {
+        await cartRef.doc(productId).set({
+          'id': productData['id'] ?? productId,
+          'name': productData['name'] ?? '',
+          'price': productData['price'] ?? 0,
+          'image_url': productData['image_url'] ?? '',
+          'description': productData['description'] ?? '',
+          'category': productData['category'] ?? '',
+          'cuisine': productData['cuisine'] ?? '',
+          'dietary': productData['dietary'] ?? '',
+          'spice_level': productData['spice_level'] ?? '',
+          'rating': productData['rating'] ?? 0.0,
+          'preparation_time': productData['preparation_time'] ?? 0,
+          'available': productData['available'] ?? true,
+          'tags': productData['tags'] ?? [],
+          'quantity': 1, // Cart quantity starts at 1
+        });
+        print('✅ Added ${productData['name']} to cart');
+      }
+
+      // Show success message to user
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '${productData['name']} added to cart!',
+              style: const TextStyle(color: Colors.white),
+            ),
+            backgroundColor: const Color(0xFF667eea),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      print('❌ Error adding to cart: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Failed to add to cart'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      }
+    }
+  }
 
 
   @override
@@ -413,7 +497,9 @@ class _ChatState extends State<Chat> {
                                                     borderRadius: BorderRadius.circular(25),
                                                   ),
                                                   child: ElevatedButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      addtocart(product['id']);
+                                                    },
                                                     style: ElevatedButton.styleFrom(
                                                       backgroundColor: Colors.transparent,
                                                       shadowColor: Colors.transparent,
