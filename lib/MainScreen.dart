@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:food_app/cart.dart';
 import 'package:food_app/chat.dart';
 import 'package:food_app/food_screen.dart';
 import 'package:food_app/profile.dart';
@@ -607,7 +608,7 @@ void getWeather({required String city}) async {
                 case 2:
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const FoodScreen()),
+                    MaterialPageRoute(builder: (context) => const Cart()),
                   );
                   break;
                 case 3:

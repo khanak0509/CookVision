@@ -14,6 +14,8 @@ class _FoodScreenState extends State<FoodScreen> {
   String protein = '';
   String calories = '';
   String carbs = '';
+  String userid = authservice.value.currentUser?.uid ?? '';
+
 
   @override
  void initState() {
@@ -21,7 +23,6 @@ class _FoodScreenState extends State<FoodScreen> {
     fetchuserdata();
   }
 
-  String userid = authservice.value.currentUser?.uid ?? '';
   void fetchuserdata() async{
     final snapshot = await FirebaseFirestore.instance.collection('users').doc(userid).get();
     if (snapshot.exists) {
@@ -44,10 +45,9 @@ class _FoodScreenState extends State<FoodScreen> {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userid)
-        .collection('cart_items')
-        .add(meals!);
-      
-    
+        .collection('cart_items').doc(food_item_id).set(meals!);
+
+
   }
 
   @override
