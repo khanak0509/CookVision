@@ -555,9 +555,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  // Build profile image widget with Base64 support
   Widget _buildProfileImage() {
-    // Priority: Base64 from Firestore > Default icon
     if (_profileImageBase64 != null && _profileImageBase64!.isNotEmpty) {
       try {
         final bytes = base64Decode(_profileImageBase64!);
