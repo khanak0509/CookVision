@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/auth_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -15,13 +20,87 @@ class _EditProfileState extends State<EditProfile> {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   bool _isLoading = false;
+  File? _image;
+  final userid = authservice.value.currentUser?.uid ?? '';
+  String? _profileImageUrl; 
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    _loadUserData();  // ✅ Load data when screen opens
   }
 
+  // ✅ Pick and upload image
+  Future<void> pickImage() async {
+    try {
+      final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+      );
+
+      if (pickedFile == null) return;
+
+      // ✅ Show picked image immediately
+      setState(() {
+        _image = File(pickedFile.path);
+        _isLoading = true;
+      });
+
+      // ✅ Upload to Firebase Storage
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('user_profiles')
+          .child('$userid.jpg');
+
+      final uploadTask = await storageRef.putFile(_image!);
+      final photoURL = await uploadTask.ref.getDownloadURL();
+
+      print('✅ Photo uploaded: $photoURL');
+
+      // ✅ Save URL to Firestore
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userid)
+          .update({
+            'photoURL': photoURL,
+            'updatedAt': FieldValue.serverTimestamp(),
+          });
+
+      // ✅ Update Auth profile
+      await FirebaseAuth.instance.currentUser?.updatePhotoURL(photoURL);
+
+      // ✅ Update UI with new URL
+      setState(() {
+        _profileImageUrl = photoURL;
+        _isLoading = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('✅ Profile photo updated!'),
+            backgroundColor: Color(0xFF667eea),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('❌ Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      print('❌ Error uploading photo: $e');
+    }
+  }
+
+  // ✅ Load user data when screen opens
   Future<void> _loadUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -37,7 +116,9 @@ class _EditProfileState extends State<EditProfile> {
         _nameController.text = data?['name'] ?? '';
         _emailController.text = data?['email'] ?? '';
         _phoneController.text = data?['phone'] ?? '';
+        _profileImageUrl = data?['photoURL'];  // ✅ Load existing photo URL
       });
+      print('✅ Loaded profile data. Photo URL: $_profileImageUrl');
     }
   }
 
@@ -138,7 +219,7 @@ class _EditProfileState extends State<EditProfile> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Profile Picture Section
+                        // ✅ Fixed Profile Picture Section
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -156,24 +237,34 @@ class _EditProfileState extends State<EditProfile> {
                           padding: const EdgeInsets.all(4),
                           child: Stack(
                             children: [
-                              CircleAvatar(
-                                radius: 60,
-                                backgroundColor: const Color(0xFF2a2d3a),
-                                child: FirebaseAuth.instance.currentUser?.photoURL != null
-                                    ? ClipOval(
-                                        child: Image.network(
-                                          FirebaseAuth.instance.currentUser!.photoURL!,
-                                          width: 120,
-                                          height: 120,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    : const Icon(
-                                        Icons.person,
-                                        size: 60,
-                                        color: Colors.white,
-                                      ),
+                              GestureDetector(
+                                onTap: pickImage,
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: const Color(0xFF2a2d3a),
+                                  child: ClipOval(
+                                    child: _buildProfileImage(),  // ✅ Helper function
+                                  ),
+                                ),
                               ),
+                              
+                              // ✅ Loading overlay
+                              if (_isLoading)
+                                Positioned.fill(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.5),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Center(
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              
                               Positioned(
                                 bottom: 0,
                                 right: 0,
@@ -289,6 +380,53 @@ class _EditProfileState extends State<EditProfile> {
           ),
         ),
       ),
+    );
+  }
+
+  // ✅ Helper function to show the right image
+  Widget _buildProfileImage() {
+    // Priority 1: Show newly picked image (local file)
+    if (_image != null) {
+      return Image.file(
+        _image!,
+        width: 120,
+        height: 120,
+        fit: BoxFit.cover,
+      );
+    }
+    
+    // Priority 2: Show uploaded image from Firebase (URL)
+    if (_profileImageUrl != null && _profileImageUrl!.isNotEmpty) {
+      return Image.network(
+        _profileImageUrl!,
+        width: 120,
+        height: 120,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              strokeWidth: 2,
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          print('❌ Error loading image: $error');
+          return const Icon(
+            Icons.person,
+            size: 60,
+            color: Colors.white,
+          );
+        },
+      );
+    }
+    
+    // Priority 3: Show default icon (no image)
+    return const Icon(
+      Icons.person,
+      size: 60,
+      color: Colors.white,
     );
   }
 

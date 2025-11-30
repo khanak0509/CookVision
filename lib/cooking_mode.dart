@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/cooking_steps_screen.dart';
+import 'package:food_app/cooking_steps.dart';
 
 class CookingModeScreen extends StatefulWidget {
   const CookingModeScreen({super.key});
@@ -33,6 +33,16 @@ class _CookingModeScreenState extends State<CookingModeScreen> {
          .collection('cooking_steps').doc(_dishController.text.trim()).get();
 
       print(snapshot.data());
+   if (!snapshot.exists) {
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Recipe not found. Please try another dish.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
   final data = snapshot.data() as Map<String, dynamic>;
 
@@ -228,12 +238,12 @@ final steps = (data['steps'] as List<dynamic>)
                     spacing: 10,
                     runSpacing: 10,
                     children: [
-                      _buildSuggestionChip('Butter Chicken'),
-                      _buildSuggestionChip('Pasta Carbonara'),
-                      _buildSuggestionChip('Biryani'),
-                      _buildSuggestionChip('Pizza'),
-                      _buildSuggestionChip('Fried Rice'),
-                      _buildSuggestionChip('Pancakes'),
+                      _buildSuggestionChip('Chicken Biryani'),
+                      _buildSuggestionChip('Paneer Butter Masala'),
+                      _buildSuggestionChip('Margherita Pizza'),
+                      _buildSuggestionChip('Mutton Rogan Josh'),
+                      _buildSuggestionChip('Egg Fried Rice'),
+                      _buildSuggestionChip('Paneer Tikka'),
                     ],
                   ),
 
@@ -301,7 +311,7 @@ final steps = (data['steps'] as List<dynamic>)
         _dishController.text = label;
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           color: const Color(0xFF2a2d3a),
           borderRadius: BorderRadius.circular(20),
@@ -315,7 +325,7 @@ final steps = (data['steps'] as List<dynamic>)
             const Icon(
               Icons.restaurant_menu,
               color: Color(0xFF667eea),
-              size: 18,
+              size: 14,
             ),
             const SizedBox(width: 8),
             Text(

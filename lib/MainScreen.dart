@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_app/cart.dart';
 import 'package:food_app/chat.dart';
-import 'package:food_app/cooking_mode_screen.dart';
+import 'package:food_app/cooking_mode.dart';
 import 'package:food_app/food_screen.dart';
 import 'package:food_app/profile.dart';
 import 'package:food_app/test.dart';
