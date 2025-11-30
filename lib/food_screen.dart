@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/auth_service.dart';
 import 'package:intl/intl.dart'; 
 class FoodScreen extends StatefulWidget {
   const FoodScreen({super.key});
@@ -10,8 +11,45 @@ class FoodScreen extends StatefulWidget {
 
 class _FoodScreenState extends State<FoodScreen> {
   String formattedDate = DateFormat('EEE, d MMM').format(DateTime.now());
+  String protein = '';
+  String calories = '';
+  String carbs = '';
 
-  
+  @override
+ void initState() {
+    super.initState();
+    fetchuserdata();
+  }
+
+  String userid = authservice.value.currentUser?.uid ?? '';
+  void fetchuserdata() async{
+    final snapshot = await FirebaseFirestore.instance.collection('users').doc(userid).get();
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      print(data);
+      setState(() {
+        protein = data?['protein'] ?? '';
+        calories = data?['Calories'] ?? '';
+        carbs = data?['carbs'] ?? '';
+      });
+
+  }
+  }
+  void save_food_itemto_cart(String food_item_id) async {
+    final snapshot1  = await FirebaseFirestore.instance.collection('food_items').doc(food_item_id).get();
+       final meals =  snapshot1.data();
+       print(meals);
+
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userid)
+        .collection('cart_items')
+        .add(meals!);
+      
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,11 +149,11 @@ class _FoodScreenState extends State<FoodScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildNutritionStat('2,400', 'Calories', Icons.local_fire_department),
+                        _buildNutritionStat(calories, 'Calories', Icons.local_fire_department),
                         Container(width: 1, height: 40, color: Colors.white30),
-                        _buildNutritionStat('150g', 'Protein', Icons.fitness_center),
+                        _buildNutritionStat(protein, 'Protein', Icons.fitness_center),
                         Container(width: 1, height: 40, color: Colors.white30),
-                        _buildNutritionStat('80g', 'Carbs', Icons.bakery_dining),
+                        _buildNutritionStat(carbs, 'Carbs', Icons.bakery_dining),
                       ],
                     ),
                   ],
@@ -151,7 +189,7 @@ class _FoodScreenState extends State<FoodScreen> {
               const SizedBox(height: 10),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('food_items').orderBy('rating').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('food_items').orderBy('rating', descending: false).snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
@@ -169,6 +207,7 @@ class _FoodScreenState extends State<FoodScreen> {
                           meal['name'],
                           meal['preparation_time'].toString(),
                           meal['rating'].toString(),
+                          meal['id'].toString(),
                         );
                       },
                     );
@@ -207,7 +246,7 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  Widget _buildMealCard(String name, String preparationTime, String rating) {
+  Widget _buildMealCard(String name, String preparationTime, String rating, String id) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -274,20 +313,26 @@ class _FoodScreenState extends State<FoodScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                  GestureDetector(
+                    onTap: () {
+                      save_food_itemto_cart(id);
+
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      'Add',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),

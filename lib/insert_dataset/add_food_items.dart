@@ -10,7 +10,8 @@ Future <void > uploadFromJsonFile() async {
   final col = FirebaseFirestore.instance.collection('food_items');
 
   for (var item in data){
-    await col.add(item);
+    await col.doc(item['id']).set(item);
+    print('Uploaded ${item['name']}');
   }
 
 }
