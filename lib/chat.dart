@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+
+
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -13,9 +17,73 @@ class _ChatState extends State<Chat> {
   final List<Map<String, dynamic>> _messages = [];
   final TextEditingController _controller = TextEditingController();
   bool _isLoading = false;
+  bool _isLoadingHistory = true;
+  
+  String? get userId => FirebaseAuth.instance.currentUser?.uid;
 
-  // session id is generated using current timestamp
   final String _sessionId = DateTime.now().millisecondsSinceEpoch.toString();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadChatHistory();
+  }
+
+
+  Future<void> _loadChatHistory() async {
+    if (userId == null) {
+      print('⚠️ No user logged in');
+      setState(() {
+        _isLoadingHistory = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _isLoadingHistory = true;
+    });
+
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('chats')
+          .orderBy('timestamp', descending: false)
+          
+          .get();
+
+      final loadedMessages = <Map<String, dynamic>>[];
+      
+      for (var doc in snapshot.docs) {
+        final data = doc.data();
+        
+        // Add user message
+        loadedMessages.add({
+          'role': 'user',
+          'text': data['user_message'] ?? '',
+        });
+        
+        loadedMessages.add({
+          'role': 'bot',
+          'text': data['bot_response'] ?? '',
+          'products': data['products'] ?? [],
+        });
+      }
+
+      setState(() {
+        _messages.clear();
+        _messages.addAll(loadedMessages);
+        _isLoadingHistory = false;
+      });
+
+      print('✅ Loaded ${snapshot.docs.length} previous chats');
+    } catch (e) {
+      print('❌ Error loading chat history: $e');
+      setState(() {
+        _isLoadingHistory = false;
+      });
+    }
+  }
 
   Future<void> sendMessage() async {
     final text = _controller.text.trim();
@@ -28,38 +96,89 @@ class _ChatState extends State<Chat> {
 
     _controller.clear();
 
-    final response = await get(
-      Uri.parse('http://localhost:8000/food_query/$text?session_id=$_sessionId'),
-    );
+    try {
+      final response = await get(
+        Uri.parse('http://localhost:8000/food_query/$text?session_id=$_sessionId'),
+      );
 
-    String bottxt = "Invalid response from server";
-    List products = [];
+      String bottxt = "Invalid response from server";
+      List products = [];
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print('📡 API Response: $data');
 
-      if (data['response'] is String) {
-        bottxt = data['response'];
-      } else if (data['response']['llm_ans'] != null) {
-        bottxt = data['response']['llm_ans'].toString();
-          print(bottxt);
-        products =
-            List<Map<String, dynamic>>.from(data['response']['product'] ?? []);
+        if (data['response'] is String) {
+          bottxt = data['response'];
+        } else if (data['response']['llm_ans'] != null) {
+          bottxt = data['response']['llm_ans'].toString();
+          print('🤖 Bot response: $bottxt');
+          products = List<Map<String, dynamic>>.from(data['response']['product'] ?? []);
+        }
+      } else {
+        bottxt = 'Error: Could not fetch response';
       }
-    } else {
-      bottxt = 'Error: Could not fetch response';
+
+      setState(() {
+        _messages.add({
+          'role': 'bot',
+          'text': bottxt,
+          'products': products,
+        });
+        _isLoading = false;
+      });
+
+      await _saveChatToFirestore(
+        userMessage: text,
+        botResponse: bottxt,
+        products: products,
+      );
+
+    } catch (e) {
+      print('❌ Error sending message: $e');
+      setState(() {
+        _messages.add({
+          'role': 'bot',
+          'text': 'Error: Could not get response',
+          'products': [],
+        });
+        _isLoading = false;
+      });
+    }
+  }
+
+
+  Future<void> _saveChatToFirestore({
+    required String userMessage,
+    required String botResponse,
+    required List products,
+  }) async {
+    if (userId == null) {
+      print('⚠️ Cannot save: User not logged in');
+      return;
     }
 
-    setState(() {
-      _messages.add({
-        'role': 'bot',
-        'text': bottxt,
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('chats')
+          .add({
+        'user_message': userMessage,
+        'bot_response': botResponse,
         'products': products,
+        'type': 'text',
+        'timestamp': FieldValue.serverTimestamp(),
+        'session_id': _sessionId,
       });
-      _isLoading = false;
-    });
+
+      print('✅ Chat saved to Firestore');
+    } catch (e) {
+      print('❌ Error saving chat: $e');
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,18 +200,94 @@ class _ChatState extends State<Chat> {
             AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
-                'Food Chat',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              title: Column(
+                children: [
+                  const Text(
+                    'Food Chat',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  // Show chat count
+                  if (_messages.isNotEmpty)
+                    Text(
+                     '',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.white60,
+                      ),
+                    ),
+                ],
               ),
               centerTitle: true,
+              actions: [
+                // History indicator icon
+                IconButton(
+                  icon: const Icon(Icons.history, color: Color(0xFF667eea)),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          userId != null 
+                            ? 'All chats are automatically saved!'
+                            : 'Login to save chat history',
+                        ),
+                        backgroundColor: const Color(0xFF667eea),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
             Expanded(
-              child: ListView.builder(
+              child: _isLoadingHistory
+                  ? const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: Color(0xFF667eea),
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Loading your chat history...',
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                    )
+                  : _messages.isEmpty
+                      ? const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.chat_bubble_outline,
+                                size: 80,
+                                color: Colors.white24,
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                'Start a conversation!',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Ask me anything about food',
+                                style: TextStyle(
+                                  color: Colors.white38,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: _messages.length,
                 itemBuilder: (context, index) {
