@@ -15,6 +15,9 @@ class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser;
   String name = "";
   String email = "";
+  int orders = 10;
+  int favorites = 5;
+  int reviews = 20;
 
   @override
   void initState() {
@@ -41,6 +44,9 @@ class _ProfileState extends State<Profile> {
     name = userinfo?['name'] ?? "no name";
 
     email = userinfo?['email'] ?? "no email";
+    orders = userinfo?['orders'] ?? 1;
+    favorites = userinfo?['favorites'] ?? 10;
+    reviews = userinfo?['reviews'] ?? 100;
 
   });
 
@@ -195,12 +201,12 @@ class _ProfileState extends State<Profile> {
                             ),
                           ],
                         ),
-                        child: const Column(
+                        child:  Column(
                           children: [
                             Icon(Icons.shopping_bag, color: Color(0xFF667eea), size: 28),
                             SizedBox(height: 10),
                             Text(
-                              '42',
+                              orders.toString(),
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
