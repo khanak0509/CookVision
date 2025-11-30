@@ -28,7 +28,7 @@ os.environ["GOOGLE_API_KEY"] = api_key
 with open('products.json', 'r') as f:
     PRODUCTS_DATA = json.load(f)
 
-PRODUCTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'product.json')
+PRODUCTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'products.json')
 
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
 
@@ -92,9 +92,12 @@ def search_products(food_name:str):
 
     result = []
     for product in PRODUCTS_DATA:
+        print("Checking product:", product)
+        
         for key, value in product.items():
             if key == 'name':
-                if food_name in value:
+                if food_name.lower() in value.lower():
+                    print("Found matching product:", product)
                     result.append(product)
 
     return result 

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:food_app/login.dart';
+import 'package:food_app/edit_profile.dart';
+import 'package:food_app/about_screen.dart';
+import 'package:food_app/privacy_policy_screen.dart';
+import 'package:food_app/address_screen.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -317,7 +321,10 @@ class _ProfileState extends State<Profile> {
                           'Edit Profile',
                           'Update your personal information',
                           () {
-                          
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const EditProfile()),
+                            );
                           },
                         ),
                         _buildMenuItem(
@@ -354,7 +361,10 @@ class _ProfileState extends State<Profile> {
                           'Delivery Address',
                           'Manage your addresses',
                           () {
-                            // Add address logic
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AddressScreen()),
+                            );
                           },
                         ),
                         _buildMenuItem(
@@ -383,7 +393,10 @@ class _ProfileState extends State<Profile> {
                           'About',
                           'App information and version',
                           () {
-                            // Add about logic
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AboutScreen()),
+                            );
                           },
                         ),
                         _buildMenuItem(
@@ -391,7 +404,10 @@ class _ProfileState extends State<Profile> {
                           'Privacy Policy',
                           'Read our privacy policy',
                           () {
-                            // Add privacy policy logic
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),
+                            );
                           },
                         ),
                       ]),
