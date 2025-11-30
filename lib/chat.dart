@@ -448,87 +448,372 @@ class _ChatState extends State<Chat> {
                                       onTap: () {
                                         showDialog(
                                           context: context,
-                                          builder: (context) => AlertDialog(
-                                            backgroundColor: const Color(0xFF2a2d3a),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(20),
-                                            ),
-                                            title: Text(
-                                              product['name'] ?? '',
-                                              style: const TextStyle(color: Colors.white),
-                                            ),
-                                            content: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  child: Image.asset(
-                                                    'assets/image.png',
-                                                    height: 150,
-                                                    width: 150,
-                                                    fit: BoxFit.cover,
+                                          barrierDismissible: true,
+                                          builder: (context) => Dialog(
+                                            backgroundColor: Colors.transparent,
+                                            child: Container(
+                                              constraints: const BoxConstraints(maxWidth: 400),
+                                              decoration: BoxDecoration(
+                                                gradient: const LinearGradient(
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                  colors: [
+                                                    Color(0xFF2a2d3a),
+                                                    Color(0xFF1a1d2a),
+                                                  ],
+                                                ),
+                                                borderRadius: BorderRadius.circular(24),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black.withOpacity(0.5),
+                                                    blurRadius: 30,
+                                                    offset: const Offset(0, 10),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 16),
-                                                Text(
-                                                  "Price: ₹${product['price'] ?? ''}",
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Rating: ⭐ ${product['rating'] ?? ''}",
-                                                  style: const TextStyle(color: Colors.white70),
-                                                ),
-                                                const SizedBox(height: 12),
-                                                Text(
-                                                  product['description'] ?? '',
-                                                  style: const TextStyle(color: Colors.white70),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                const SizedBox(height: 20),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: const LinearGradient(
-                                                      colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(25),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    onPressed: () {
-                                                      addtocart(product['id']);
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor: Colors.transparent,
-                                                      shadowColor: Colors.transparent,
-                                                      padding: const EdgeInsets.symmetric(
-                                                        horizontal: 32,
-                                                        vertical: 12,
-                                                      ),
-                                                    ),
-                                                    child: const Text(
-                                                      'Add to Cart',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(context),
-                                                child: const Text(
-                                                  'Close',
-                                                  style: TextStyle(color: Color(0xFF667eea)),
-                                                ),
+                                                ],
                                               ),
-                                            ],
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: [
+                                                  // Image Section with Close Button
+                                                  Stack(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius: const BorderRadius.vertical(
+                                                          top: Radius.circular(24),
+                                                        ),
+                                                        child: Image.asset(
+                                                          'assets/image.png',
+                                                          height: 220,
+                                                          width: double.infinity,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      // Close button
+                                                      Positioned(
+                                                        top: 12,
+                                                        right: 12,
+                                                        child: GestureDetector(
+                                                          onTap: () => Navigator.pop(context),
+                                                          child: Container(
+                                                            padding: const EdgeInsets.all(8),
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.black.withOpacity(0.6),
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: const Icon(
+                                                              Icons.close,
+                                                              color: Colors.white,
+                                                              size: 20,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      // Rating Badge
+                                                      Positioned(
+                                                        bottom: 12,
+                                                        left: 12,
+                                                        child: Container(
+                                                          padding: const EdgeInsets.symmetric(
+                                                            horizontal: 12,
+                                                            vertical: 6,
+                                                          ),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.black.withOpacity(0.7),
+                                                            borderRadius: BorderRadius.circular(20),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            children: [
+                                                              const Icon(
+                                                                Icons.star,
+                                                                color: Color(0xFFFFD700),
+                                                                size: 16,
+                                                              ),
+                                                              const SizedBox(width: 4),
+                                                              Text(
+                                                                product['rating']?.toString() ?? 'N/A',
+                                                                style: const TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  
+                                                  // Content Section
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(20),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        // Product Name
+                                                        Text(
+                                                          product['name'] ?? 'Unknown Dish',
+                                                          style: const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 24,
+                                                            fontWeight: FontWeight.bold,
+                                                            letterSpacing: 0.5,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 8),
+                                                        
+                                                        // Category & Cuisine Tags
+                                                        Row(
+                                                          children: [
+                                                            if (product['category'] != null)
+                                                              Container(
+                                                                padding: const EdgeInsets.symmetric(
+                                                                  horizontal: 10,
+                                                                  vertical: 4,
+                                                                ),
+                                                                decoration: BoxDecoration(
+                                                                  gradient: const LinearGradient(
+                                                                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                                                                  ),
+                                                                  borderRadius: BorderRadius.circular(12),
+                                                                ),
+                                                                child: Text(
+                                                                  product['category'],
+                                                                  style: const TextStyle(
+                                                                    color: Colors.white,
+                                                                    fontSize: 11,
+                                                                    fontWeight: FontWeight.w600,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            const SizedBox(width: 8),
+                                                            if (product['cuisine'] != null)
+                                                              Container(
+                                                                padding: const EdgeInsets.symmetric(
+                                                                  horizontal: 10,
+                                                                  vertical: 4,
+                                                                ),
+                                                                decoration: BoxDecoration(
+                                                                  color: const Color(0xFF3a3d4a),
+                                                                  borderRadius: BorderRadius.circular(12),
+                                                                ),
+                                                                child: Text(
+                                                                  product['cuisine'],
+                                                                  style: const TextStyle(
+                                                                    color: Colors.white70,
+                                                                    fontSize: 11,
+                                                                    fontWeight: FontWeight.w600,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          ],
+                                                        ),
+                                                        
+                                                        const SizedBox(height: 16),
+                                                        
+                                                        // Description
+                                                        Text(
+                                                          product['description'] ?? 'No description available',
+                                                          style: const TextStyle(
+                                                            color: Colors.white70,
+                                                            fontSize: 14,
+                                                            height: 1.5,
+                                                          ),
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                        
+                                                        const SizedBox(height: 20),
+                                                        
+                                                        // Info Grid
+                                                        Container(
+                                                          padding: const EdgeInsets.all(16),
+                                                          decoration: BoxDecoration(
+                                                            color: const Color(0xFF1a1d2a),
+                                                            borderRadius: BorderRadius.circular(16),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                            children: [
+                                                              // Prep Time
+                                                              if (product['preparation_time'] != null)
+                                                                Column(
+                                                                  children: [
+                                                                    const Icon(
+                                                                      Icons.timer_outlined,
+                                                                      color: Color(0xFF667eea),
+                                                                      size: 24,
+                                                                    ),
+                                                                    const SizedBox(height: 6),
+                                                                    Text(
+                                                                      '${product['preparation_time']} min',
+                                                                      style: const TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 12,
+                                                                        fontWeight: FontWeight.w600,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 2),
+                                                                    const Text(
+                                                                      'Prep Time',
+                                                                      style: TextStyle(
+                                                                        color: Colors.white38,
+                                                                        fontSize: 10,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              // Dietary
+                                                              if (product['dietary'] != null)
+                                                                Column(
+                                                                  children: [
+                                                                    Icon(
+                                                                      product['dietary'] == 'Vegetarian' 
+                                                                        ? Icons.eco_outlined
+                                                                        : Icons.restaurant_outlined,
+                                                                      color: const Color(0xFF667eea),
+                                                                      size: 24,
+                                                                    ),
+                                                                    const SizedBox(height: 6),
+                                                                    Text(
+                                                                      product['dietary'],
+                                                                      style: const TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 12,
+                                                                        fontWeight: FontWeight.w600,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 2),
+                                                                    const Text(
+                                                                      'Dietary',
+                                                                      style: TextStyle(
+                                                                        color: Colors.white38,
+                                                                        fontSize: 10,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              // Spice Level
+                                                              if (product['spice_level'] != null)
+                                                                Column(
+                                                                  children: [
+                                                                    const Icon(
+                                                                      Icons.local_fire_department_outlined,
+                                                                      color: Color(0xFFFF6B6B),
+                                                                      size: 24,
+                                                                    ),
+                                                                    const SizedBox(height: 6),
+                                                                    Text(
+                                                                      product['spice_level'],
+                                                                      style: const TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 12,
+                                                                        fontWeight: FontWeight.w600,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 2),
+                                                                    const Text(
+                                                                      'Spice',
+                                                                      style: TextStyle(
+                                                                        color: Colors.white38,
+                                                                        fontSize: 10,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        
+                                                        const SizedBox(height: 24),
+                                                        
+                                                        // Price & Add to Cart Button
+                                                        Row(
+                                                          children: [
+                                                            // Price
+                                                            Expanded(
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  const Text(
+                                                                    'Total Price',
+                                                                    style: TextStyle(
+                                                                      color: Colors.white38,
+                                                                      fontSize: 12,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(height: 4),
+                                                                  Text(
+                                                                    '₹${product['price'] ?? '0'}',
+                                                                    style: const TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: 32,
+                                                                      fontWeight: FontWeight.bold,
+                                                                      height: 1,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            // Add to Cart Button
+                                                            Expanded(
+                                                              child: GestureDetector(
+                                                                onTap: () {
+                                                                  addtocart(product['id']);
+                                                                  Navigator.pop(context);
+                                                                },
+                                                                child: Container(
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                    vertical: 16,
+                                                                  ),
+                                                                  decoration: BoxDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      colors: [
+                                                                        Color(0xFF667eea),
+                                                                        Color(0xFF764ba2),
+                                                                      ],
+                                                                    ),
+                                                                    borderRadius: BorderRadius.circular(16),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        color: const Color(0xFF667eea).withOpacity(0.4),
+                                                                        blurRadius: 15,
+                                                                        offset: const Offset(0, 8),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  child: const Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons.shopping_cart_outlined,
+                                                                        color: Colors.white,
+                                                                        size: 20,
+                                                                      ),
+                                                                      SizedBox(width: 8),
+                                                                      Text(
+                                                                        'Add to Cart',
+                                                                        style: TextStyle(
+                                                                          color: Colors.white,
+                                                                          fontSize: 16,
+                                                                          fontWeight: FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         );
                                       },
