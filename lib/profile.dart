@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_app/auth_service.dart';
@@ -12,7 +13,15 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser;
+  String name = "";
+  String email = "";
 
+  @override
+  void initState() {
+    super.initState();
+    
+    fetchusers();
+  }
   //logout logic here
  void signout () async {
   authservice.value.signOut();
@@ -20,8 +29,17 @@ class _ProfileState extends State<Profile> {
 
  }
 
- void fetchuserdata() async{
-  print(user);
+
+ void fetchusers()async {
+  final snapshot = await FirebaseFirestore.instance.collection('users').get();
+  final userinfo = snapshot.docs[0].data();
+  setState(() {
+    name = userinfo['name'];
+
+    email = userinfo['email'];
+  
+  });
+
  }
 
   @override
@@ -132,7 +150,7 @@ class _ProfileState extends State<Profile> {
 
                 // Name
                 Text(
-                  user?.displayName ?? 'User Name',
+                  name,
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -144,7 +162,7 @@ class _ProfileState extends State<Profile> {
 
                 // Email
                 Text(
-                  user?.email ?? 'user@example.com',
+                  email,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white60,
@@ -289,7 +307,7 @@ class _ProfileState extends State<Profile> {
                           'Edit Profile',
                           'Update your personal information',
                           () {
-                            fetchuserdata();
+                          
                           },
                         ),
                         _buildMenuItem(
