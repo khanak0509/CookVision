@@ -22,10 +22,12 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
   bool isTimerRunning = false;
   bool isStepCompleted = false;
 
+
   @override
   void initState() {
     super.initState();
     remainingSeconds = widget.steps[0]['duration'];
+    print(widget.steps);
   }
 
   void _startTimer() {

@@ -11,7 +11,8 @@ void main() async {
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  uploadFromJsonFile();
+  // uploadFromJsonFile();
+// upload_cooking_steps();
   runApp(const Main());
 
 }

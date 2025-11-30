@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/cooking_steps_screen.dart';
 
@@ -28,45 +29,16 @@ class _CookingModeScreenState extends State<CookingModeScreen> {
     // TODO: Call backend API to get cooking steps
     // For now, using dummy data
     await Future.delayed(const Duration(seconds: 1));
+    final snapshot = await FirebaseFirestore.instance
+         .collection('cooking_steps').doc(_dishController.text.trim()).get();
 
-    final dummySteps = [
-      {
-        'stepNumber': 1,
-        'title': 'Prepare Ingredients',
-        'description': 'Gather all ingredients and wash vegetables thoroughly.',
-        'duration': 180, // 3 minutes in seconds
-      },
-      {
-        'stepNumber': 2,
-        'title': 'Heat the Pan',
-        'description': 'Place pan on medium heat and add oil.',
-        'duration': 120, // 2 minutes
-      },
-      {
-        'stepNumber': 3,
-        'title': 'Add Base Ingredients',
-        'description': 'Add onions, garlic, and ginger. Sauté until golden.',
-        'duration': 300, // 5 minutes
-      },
-      {
-        'stepNumber': 4,
-        'title': 'Add Main Ingredients',
-        'description': 'Add vegetables or protein and stir well.',
-        'duration': 420, // 7 minutes
-      },
-      {
-        'stepNumber': 5,
-        'title': 'Season and Simmer',
-        'description': 'Add spices, salt, and water. Let it simmer.',
-        'duration': 600, // 10 minutes
-      },
-      {
-        'stepNumber': 6,
-        'title': 'Final Touch',
-        'description': 'Garnish with coriander and serve hot!',
-        'duration': 60, // 1 minute
-      },
-    ];
+      print(snapshot.data());
+
+  final data = snapshot.data() as Map<String, dynamic>;
+
+final steps = (data['steps'] as List<dynamic>)
+        .map((step) => step as Map<String, dynamic>)
+        .toList();
 
     setState(() => _isLoading = false);
 
@@ -76,7 +48,7 @@ class _CookingModeScreenState extends State<CookingModeScreen> {
         MaterialPageRoute(
           builder: (context) => CookingStepsScreen(
             dishName: _dishController.text.trim(),
-            steps: dummySteps,
+            steps: steps,
           ),
         ),
       );
