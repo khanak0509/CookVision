@@ -2,7 +2,8 @@
 
 # 🍽️ CookVision
 
-### *Your AI-Powered Food Companion*
+<p align="center"> <img src="https://readme-typing-svg.demolab.com?font=Poppins&size=22&duration=2300&pause=600&color=00C9FF&center=true&vCenter=true&width=600&lines=AI+Food+Assistant;Weather-Based+Food+Suggestions;FastAPI+%2B+Flutter+Food+App;Smart+Menu+%2F+Food+Scanner" /> </p> <p align="center"> <a href="#"><img src="https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/Python-3.13-3776AB?logo=python&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/FastAPI-Latest-009688?logo=fastapi&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/License-Educational-blue?style=for-the-badge"></a> </p> <p align="center"> <strong></strong> </p>
+
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter)](https://flutter.dev)
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python)](https://python.org)
@@ -264,3 +265,11 @@ Created by [@khanak0509](https://github.com/khanak0509)
 ---
 
 **Note**: Make sure both the Flutter app and Python backend are running simultaneously for full functionality.
+
+
+
+🍽️ CookVision
+Your AI-Powered Smart Food Companion
+<p align="center"> <img src="https://readme-typing-svg.demolab.com?font=Poppins&size=22&duration=2300&pause=600&color=00C9FF&center=true&vCenter=true&width=600&lines=AI+Food+Assistant;Weather-Based+Food+Suggestions;FastAPI+%2B+Flutter+Food+App;Smart+Menu+%2F+Food+Scanner" /> </p> <p align="center"> <a href="#"><img src="https://img.shields.io/badge/Flutter-3.8.1-02569B?logo=flutter&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/Python-3.13-3776AB?logo=python&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/FastAPI-Latest-009688?logo=fastapi&style=for-the-badge"></a> <a href="#"><img src="https://img.shields.io/badge/License-Educational-blue?style=for-the-badge"></a> </p> <p align="center"> <strong></strong> </p>
+
+
