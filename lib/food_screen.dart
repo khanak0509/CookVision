@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; 
 class FoodScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class FoodScreen extends StatefulWidget {
 
 class _FoodScreenState extends State<FoodScreen> {
   String formattedDate = DateFormat('EEE, d MMM').format(DateTime.now());
+
   
   @override
   Widget build(BuildContext context) {
@@ -148,26 +150,29 @@ class _FoodScreenState extends State<FoodScreen> {
               ),
               const SizedBox(height: 10),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                    _buildMealCard('Grilled Chicken', '350', '4.5'),
-                    const SizedBox(height: 15),
-                    _buildMealCard('Veggie Salad', '180', '4.8'),
-                    const SizedBox(height: 15),
-                    _buildMealCard('Salmon Bowl', '420', '4.7'),
-                    const SizedBox(height: 15),
-                    _buildMealCard('Pasta Carbonara', '520', '4.6'),
-                    const SizedBox(height: 15),
-                    _buildMealCard('Avocado Toast', '280', '4.9'),
-                    const SizedBox(height: 15),
-                    _buildMealCard('Berry Smoothie', '200', '4.8'),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
-                  ),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance.collection('food_items').snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    final meals = snapshot.data!.docs;
+                    return ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: meals.length,
+                      itemBuilder: (context, index) {
+                        final meal = meals[index].data() as Map<String, dynamic>;
+                        return _buildMealCard(
+                          meal['name'],
+                          meal['preparation_time'].toString(),
+                          meal['rating'].toString(),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],
@@ -202,7 +207,7 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  Widget _buildMealCard(String name, String calories, String rating) {
+  Widget _buildMealCard(String name, String preparationTime, String rating) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF2a2d3a),
@@ -249,7 +254,7 @@ class _FoodScreenState extends State<FoodScreen> {
                       const Icon(Icons.local_fire_department, color: Color(0xFF667eea), size: 18),
                       const SizedBox(width: 5),
                       Text(
-                        '$calories Cal',
+                        '$preparationTime min',
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 14,
