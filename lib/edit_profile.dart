@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,56 +22,51 @@ class _EditProfileState extends State<EditProfile> {
   bool _isLoading = false;
   File? _image;
   final userid = authservice.value.currentUser?.uid ?? '';
-  String? _profileImageUrl; 
+  String? _profileImageBase64; 
 
   @override
   void initState() {
     super.initState();
-    _loadUserData();  // ✅ Load data when screen opens
+    _loadUserData();
   }
 
-  // ✅ Pick and upload image
   Future<void> pickImage() async {
     try {
       final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
-        imageQuality: 70,
+        imageQuality: 50,  
+        maxWidth: 500,    
+        maxHeight: 500,
       );
 
       if (pickedFile == null) return;
 
-      // ✅ Show picked image immediately
       setState(() {
         _image = File(pickedFile.path);
         _isLoading = true;
       });
 
-      // ✅ Upload to Firebase Storage
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('user_profiles')
-          .child('$userid.jpg');
+      final bytes = await _image!.readAsBytes();
+      final base64Image = base64Encode(bytes);
 
-      final uploadTask = await storageRef.putFile(_image!);
-      final photoURL = await uploadTask.ref.getDownloadURL();
+      print('📦 Image size: ${(base64Image.length / 1024).toStringAsFixed(2)} KB');
 
-      print('✅ Photo uploaded: $photoURL');
+      if (base64Image.length > 900000) {  
+        throw Exception('Image too large. Please choose a smaller image.');
+      }
 
-      // ✅ Save URL to Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userid)
           .update({
-            'photoURL': photoURL,
+            'photoBase64': base64Image,
             'updatedAt': FieldValue.serverTimestamp(),
           });
 
-      // ✅ Update Auth profile
-      await FirebaseAuth.instance.currentUser?.updatePhotoURL(photoURL);
+      await FirebaseAuth.instance.currentUser?.updatePhotoURL('base64_stored');
 
-      // ✅ Update UI with new URL
       setState(() {
-        _profileImageUrl = photoURL;
+        _profileImageBase64 = base64Image;
         _isLoading = false;
       });
 
@@ -93,14 +88,15 @@ class _EditProfileState extends State<EditProfile> {
           SnackBar(
             content: Text('❌ Error: $e'),
             backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
           ),
         );
       }
-      print('❌ Error uploading photo: $e');
+      print('❌ Error saving photo: $e');
     }
   }
 
-  // ✅ Load user data when screen opens
+  // ✅ Load user data
   Future<void> _loadUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
@@ -116,9 +112,9 @@ class _EditProfileState extends State<EditProfile> {
         _nameController.text = data?['name'] ?? '';
         _emailController.text = data?['email'] ?? '';
         _phoneController.text = data?['phone'] ?? '';
-        _profileImageUrl = data?['photoURL'];  // ✅ Load existing photo URL
+        _profileImageBase64 = data?['photoBase64'];  // ✅ Load Base64
       });
-      print('✅ Loaded profile data. Photo URL: $_profileImageUrl');
+      print('✅ Loaded profile data');
     }
   }
 
@@ -219,7 +215,7 @@ class _EditProfileState extends State<EditProfile> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // ✅ Fixed Profile Picture Section
+                        // ✅ Profile Picture Section
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -243,12 +239,11 @@ class _EditProfileState extends State<EditProfile> {
                                   radius: 60,
                                   backgroundColor: const Color(0xFF2a2d3a),
                                   child: ClipOval(
-                                    child: _buildProfileImage(),  // ✅ Helper function
+                                    child: _buildProfileImage(),
                                   ),
                                 ),
                               ),
                               
-                              // ✅ Loading overlay
                               if (_isLoading)
                                 Positioned.fill(
                                   child: Container(
@@ -289,7 +284,6 @@ class _EditProfileState extends State<EditProfile> {
 
                         const SizedBox(height: 40),
 
-                        // Name Field
                         _buildTextField(
                           controller: _nameController,
                           label: 'Full Name',
@@ -304,7 +298,6 @@ class _EditProfileState extends State<EditProfile> {
 
                         const SizedBox(height: 20),
 
-                        // Email Field (Read-only)
                         _buildTextField(
                           controller: _emailController,
                           label: 'Email',
@@ -314,7 +307,6 @@ class _EditProfileState extends State<EditProfile> {
 
                         const SizedBox(height: 20),
 
-                        // Phone Field
                         _buildTextField(
                           controller: _phoneController,
                           label: 'Phone Number',
@@ -330,7 +322,6 @@ class _EditProfileState extends State<EditProfile> {
 
                         const SizedBox(height: 40),
 
-                        // Save Button
                         GestureDetector(
                           onTap: _isLoading ? null : _saveProfile,
                           child: Container(
@@ -383,9 +374,9 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  // ✅ Helper function to show the right image
+  // ✅ Show image from Base64 or File
   Widget _buildProfileImage() {
-    // Priority 1: Show newly picked image (local file)
+    // Priority 1: Show picked image
     if (_image != null) {
       return Image.file(
         _image!,
@@ -395,34 +386,22 @@ class _EditProfileState extends State<EditProfile> {
       );
     }
     
-    // Priority 2: Show uploaded image from Firebase (URL)
-    if (_profileImageUrl != null && _profileImageUrl!.isNotEmpty) {
-      return Image.network(
-        _profileImageUrl!,
-        width: 120,
-        height: 120,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, progress) {
-          if (progress == null) return child;
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2,
-            ),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) {
-          print('❌ Error loading image: $error');
-          return const Icon(
-            Icons.person,
-            size: 60,
-            color: Colors.white,
-          );
-        },
-      );
+    // Priority 2: Show Base64 image from Firestore
+    if (_profileImageBase64 != null && _profileImageBase64!.isNotEmpty) {
+      try {
+        final bytes = base64Decode(_profileImageBase64!);
+        return Image.memory(
+          bytes,
+          width: 120,
+          height: 120,
+          fit: BoxFit.cover,
+        );
+      } catch (e) {
+        print('❌ Error decoding image: $e');
+      }
     }
     
-    // Priority 3: Show default icon (no image)
+    // Priority 3: Default icon
     return const Icon(
       Icons.person,
       size: 60,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +24,8 @@ class _ProfileState extends State<Profile> {
   int orders = 10;
   int favorites = 5;
   int reviews = 20;
+  String? _profileImageBase64;
+  final userid = authservice.value.currentUser?.uid;
 
   @override
   void initState() {
@@ -29,7 +33,6 @@ class _ProfileState extends State<Profile> {
     
     fetchusers();
   }
-  //logout logic here
  void signout () async {
   authservice.value.signOut();
   Navigator.push(context, MaterialPageRoute(builder:(context)=> LoginScreen()));
@@ -51,7 +54,7 @@ class _ProfileState extends State<Profile> {
     orders = userinfo?['orders'] ?? 1;
     favorites = userinfo?['favorites'] ?? 10;
     reviews = userinfo?['reviews'] ?? 100;
-
+    _profileImageBase64 = userinfo?['photoBase64'];
   });
 
  }
@@ -143,20 +146,7 @@ class _ProfileState extends State<Profile> {
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: const Color(0xFF2a2d3a),
-                    child: user?.photoURL != null
-                        ? ClipOval(
-                            child: Image.network(
-                              user!.photoURL!,
-                              width: 120,
-                              height: 120,
-                              fit: BoxFit.cover,
-                            ),
-                          )
-                        : const Icon(
-                            Icons.person,
-                            size: 60,
-                            color: Colors.white,
-                          ),
+                    child: _buildProfileImage(),
                   ),
                 ),
 
@@ -562,6 +552,38 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
+    );
+  }
+
+  // Build profile image widget with Base64 support
+  Widget _buildProfileImage() {
+    // Priority: Base64 from Firestore > Default icon
+    if (_profileImageBase64 != null && _profileImageBase64!.isNotEmpty) {
+      try {
+        final bytes = base64Decode(_profileImageBase64!);
+        return ClipOval(
+          child: Image.memory(
+            bytes,
+            width: 120,
+            height: 120,
+            fit: BoxFit.cover,
+          ),
+        );
+      } catch (e) {
+        print('Error decoding Base64 image: $e');
+        return const Icon(
+          Icons.person,
+          size: 60,
+          color: Colors.white,
+        );
+      }
+    }
+
+    // Default icon
+    return const Icon(
+      Icons.person,
+      size: 60,
+      color: Colors.white,
     );
   }
 }
