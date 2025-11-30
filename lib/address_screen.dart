@@ -328,8 +328,9 @@ class _AddressScreenState extends State<AddressScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => Dialog(
           backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Container(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
@@ -400,11 +401,11 @@ class _AddressScreenState extends State<AddressScreen> {
                     _buildLabelChip('Home', Icons.home, selectedLabel == 'Home', () {
                       setState(() => selectedLabel = 'Home');
                     }),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     _buildLabelChip('Work', Icons.work, selectedLabel == 'Work', () {
                       setState(() => selectedLabel = 'Work');
                     }),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     _buildLabelChip('Other', Icons.location_on, selectedLabel == 'Other', () {
                       setState(() => selectedLabel = 'Other');
                     }),
@@ -538,11 +539,10 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   Widget _buildLabelChip(String label, IconData icon, bool isSelected, VoidCallback onTap) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           decoration: BoxDecoration(
             gradient: isSelected
                 ? const LinearGradient(
@@ -589,8 +589,9 @@ class _AddressScreenState extends State<AddressScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => Dialog(
           backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           child: Container(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
@@ -661,11 +662,11 @@ class _AddressScreenState extends State<AddressScreen> {
                     _buildLabelChip('Home', Icons.home, selectedLabel == 'Home', () {
                       setState(() => selectedLabel = 'Home');
                     }),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     _buildLabelChip('Work', Icons.work, selectedLabel == 'Work', () {
                       setState(() => selectedLabel = 'Work');
                     }),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 8),
                     _buildLabelChip('Other', Icons.location_on, selectedLabel == 'Other', () {
                       setState(() => selectedLabel = 'Other');
                     }),
