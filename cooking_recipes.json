@@ -1,0 +1,542 @@
+{
+  "chicken_biryani": {
+    "name": "Chicken Biryani",
+    "cuisine": "Indian",
+    "servings": 4,
+    "difficulty": "Medium",
+    "total_time": 90,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soak Rice",
+        "description": "Wash and soak 2 cups of basmati rice in water for 30 minutes. This helps the rice cook evenly and become fluffy.",
+        "duration": 1800
+      },
+      {
+        "stepNumber": 2,
+        "title": "Marinate Chicken",
+        "description": "Mix 500g chicken pieces with yogurt, ginger-garlic paste, red chili powder, turmeric, and salt. Let it marinate for 15 minutes.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 3,
+        "title": "Fry Onions",
+        "description": "Heat oil and fry sliced onions until golden brown. Remove half and set aside for garnish. Keep the rest in the pan.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 4,
+        "title": "Cook Chicken",
+        "description": "Add marinated chicken to the fried onions. Cook on medium heat until chicken is 80% done, stirring occasionally.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 5,
+        "title": "Layer Rice",
+        "description": "Boil the soaked rice until 70% cooked. Layer the rice over the chicken. Sprinkle fried onions, mint, and saffron milk on top.",
+        "duration": 600
+      },
+      {
+        "stepNumber": 6,
+        "title": "Dum Cooking",
+        "description": "Cover the pot tightly with foil and lid. Cook on low heat for 20 minutes. Let it rest for 5 minutes before serving.",
+        "duration": 1500
+      }
+    ]
+  },
+  "paneer_butter_masala": {
+    "name": "Paneer Butter Masala",
+    "cuisine": "Indian",
+    "servings": 4,
+    "difficulty": "Easy",
+    "total_time": 45,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Paneer",
+        "description": "Cut 250g paneer into cubes. Soak in warm water with a pinch of salt to keep them soft.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make Tomato Puree",
+        "description": "Blanch 4 tomatoes in hot water, peel and blend into smooth puree. Add 2 cashews for creaminess.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 3,
+        "title": "Prepare Base",
+        "description": "Heat butter in a pan. Add cumin seeds, bay leaf, and chopped onions. Sauté until golden brown.",
+        "duration": 480
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Spices",
+        "description": "Add ginger-garlic paste, tomato puree, red chili powder, coriander powder, and garam masala. Cook until oil separates.",
+        "duration": 600
+      },
+      {
+        "stepNumber": 5,
+        "title": "Add Paneer",
+        "description": "Add paneer cubes, cream, and a little water. Simmer for 5 minutes. Add kasuri methi and butter on top.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 6,
+        "title": "Garnish & Serve",
+        "description": "Garnish with fresh cream and coriander leaves. Your paneer butter masala is ready to serve!",
+        "duration": 180
+      }
+    ]
+  },
+  "pizza": {
+    "name": "Margherita Pizza",
+    "cuisine": "Italian",
+    "servings": 2,
+    "difficulty": "Medium",
+    "total_time": 60,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Dough",
+        "description": "Mix 2 cups flour, 1 tsp yeast, 1 tsp sugar, salt, and warm water. Knead into a smooth dough. Let it rest covered for 30 minutes.",
+        "duration": 1800
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make Pizza Sauce",
+        "description": "Heat olive oil, add crushed garlic, tomato puree, oregano, basil, salt, and pepper. Simmer for 5 minutes.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 3,
+        "title": "Roll Dough",
+        "description": "Punch down the dough and roll it into a 10-inch circle. Place on a greased baking tray or pizza pan.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Toppings",
+        "description": "Spread pizza sauce evenly. Add mozzarella cheese, fresh basil leaves, and drizzle olive oil on top.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 5,
+        "title": "Bake Pizza",
+        "description": "Preheat oven to 220°C. Bake the pizza for 12-15 minutes until cheese is melted and crust is golden brown.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 6,
+        "title": "Serve Hot",
+        "description": "Remove from oven, slice into pieces, and serve hot with red chili flakes and oregano on the side.",
+        "duration": 120
+      }
+    ]
+  },
+  "garlic_bread": {
+    "name": "Garlic Bread",
+    "cuisine": "Italian",
+    "servings": 4,
+    "difficulty": "Easy",
+    "total_time": 20,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Garlic Butter",
+        "description": "Mix softened butter with minced garlic, chopped parsley, salt, and a pinch of oregano in a bowl.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 2,
+        "title": "Slice Bread",
+        "description": "Take a French baguette or bread loaf. Cut diagonal slices about 1-inch thick, but don't cut all the way through.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 3,
+        "title": "Apply Butter",
+        "description": "Generously spread the garlic butter mixture between each slice and on top of the bread.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Cheese (Optional)",
+        "description": "Sprinkle mozzarella or parmesan cheese on top for extra flavor and richness.",
+        "duration": 120
+      },
+      {
+        "stepNumber": 5,
+        "title": "Bake",
+        "description": "Wrap in foil and bake at 180°C for 10 minutes. Remove foil and bake for 3 more minutes for crispy top.",
+        "duration": 780
+      },
+      {
+        "stepNumber": 6,
+        "title": "Serve",
+        "description": "Remove from oven, cut through completely, and serve hot with pasta or soup.",
+        "duration": 60
+      }
+    ]
+  },
+  "mutton_rogan_josh": {
+    "name": "Mutton Rogan Josh",
+    "cuisine": "Indian",
+    "servings": 4,
+    "difficulty": "Hard",
+    "total_time": 120,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Marinate Mutton",
+        "description": "Marinate 500g mutton pieces with yogurt, ginger-garlic paste, and salt for 30 minutes.",
+        "duration": 1800
+      },
+      {
+        "stepNumber": 2,
+        "title": "Fry Onions",
+        "description": "Heat ghee in a pressure cooker. Add sliced onions and fry until golden brown.",
+        "duration": 600
+      },
+      {
+        "stepNumber": 3,
+        "title": "Add Spices",
+        "description": "Add Kashmiri red chili powder, fennel powder, ginger powder, and marinated mutton. Mix well.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 4,
+        "title": "Pressure Cook",
+        "description": "Add water and pressure cook for 6-7 whistles or until mutton is tender and cooked through.",
+        "duration": 2100
+      },
+      {
+        "stepNumber": 5,
+        "title": "Make Gravy",
+        "description": "Open cooker, add garam masala and kasuri methi. Cook on low heat until gravy thickens to desired consistency.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 6,
+        "title": "Garnish",
+        "description": "Garnish with fresh coriander leaves. Serve hot with naan or steamed rice.",
+        "duration": 180
+      }
+    ]
+  },
+  "hakka_noodles": {
+    "name": "Hakka Noodles",
+    "cuisine": "Chinese",
+    "servings": 3,
+    "difficulty": "Easy",
+    "total_time": 30,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Boil Noodles",
+        "description": "Boil 200g noodles in salted water until just cooked. Drain and rinse with cold water. Toss with 1 tsp oil.",
+        "duration": 480
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prepare Vegetables",
+        "description": "Chop carrots, cabbage, bell peppers, and spring onions into thin strips. Keep them ready.",
+        "duration": 360
+      },
+      {
+        "stepNumber": 3,
+        "title": "Stir-Fry Vegetables",
+        "description": "Heat oil in a wok. Add garlic, vegetables, and stir-fry on high heat for 2-3 minutes until slightly tender.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Sauces",
+        "description": "Add soy sauce, vinegar, chili sauce, and a pinch of pepper. Toss everything together quickly.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 5,
+        "title": "Mix Noodles",
+        "description": "Add boiled noodles to the wok. Toss everything on high heat for 2 minutes until well combined.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 6,
+        "title": "Serve",
+        "description": "Garnish with chopped spring onions. Serve hot with chili sauce or manchurian on the side.",
+        "duration": 120
+      }
+    ]
+  },
+  "egg_fried_rice": {
+    "name": "Egg Fried Rice",
+    "cuisine": "Chinese",
+    "servings": 2,
+    "difficulty": "Easy",
+    "total_time": 25,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Rice",
+        "description": "Use 2 cups of cooked and cooled rice (day-old rice works best). Break up any clumps with your fingers.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 2,
+        "title": "Scramble Eggs",
+        "description": "Beat 2 eggs with salt. Heat oil in a wok, scramble eggs until just cooked. Remove and set aside.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 3,
+        "title": "Stir-Fry Vegetables",
+        "description": "In the same wok, add more oil, garlic, peas, carrots, beans. Stir-fry on high heat for 2 minutes.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Rice",
+        "description": "Add the cooked rice. Toss and stir-fry for 3-4 minutes breaking up any clumps. Keep the heat high.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 5,
+        "title": "Season",
+        "description": "Add soy sauce, vinegar, pepper, and scrambled eggs. Toss everything together for 1-2 minutes.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 6,
+        "title": "Garnish",
+        "description": "Garnish with chopped spring onions. Serve hot with chili sauce or manchurian gravy.",
+        "duration": 120
+      }
+    ]
+  },
+  "paneer_tikka": {
+    "name": "Paneer Tikka",
+    "cuisine": "Indian",
+    "servings": 4,
+    "difficulty": "Medium",
+    "total_time": 40,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Marinate Paneer",
+        "description": "Mix yogurt, ginger-garlic paste, red chili powder, garam masala, kasuri methi, and salt. Add 250g paneer cubes and bell peppers. Marinate for 15 minutes.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prepare Skewers",
+        "description": "Thread marinated paneer cubes, bell peppers, and onions alternately on skewers. Brush with oil.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 3,
+        "title": "Grill First Side",
+        "description": "Place skewers on a hot grill or tawa. Cook on medium-high heat for 3-4 minutes until lightly charred.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 4,
+        "title": "Flip and Cook",
+        "description": "Flip the skewers carefully. Brush with butter and cook for another 3-4 minutes until all sides are golden.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 5,
+        "title": "Apply Butter",
+        "description": "Remove from heat. Brush generously with melted butter and sprinkle chaat masala on top.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 6,
+        "title": "Serve",
+        "description": "Serve hot with mint chutney, onion rings, and lemon wedges. Perfect as an appetizer!",
+        "duration": 120
+      }
+    ]
+  },
+  "chicken_shawarma_roll": {
+    "name": "Chicken Shawarma Roll",
+    "cuisine": "Middle Eastern",
+    "servings": 4,
+    "difficulty": "Medium",
+    "total_time": 50,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Marinate Chicken",
+        "description": "Mix yogurt, lemon juice, garlic paste, paprika, cumin, coriander powder, and salt. Marinate 400g sliced chicken for 20 minutes.",
+        "duration": 1200
+      },
+      {
+        "stepNumber": 2,
+        "title": "Cook Chicken",
+        "description": "Heat oil in a pan. Add marinated chicken and cook on high heat until golden brown and fully cooked.",
+        "duration": 720
+      },
+      {
+        "stepNumber": 3,
+        "title": "Prepare Sauce",
+        "description": "Mix mayonnaise, yogurt, minced garlic, lemon juice, and salt to make shawarma sauce. Keep aside.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 4,
+        "title": "Warm Wraps",
+        "description": "Heat pita bread or flatbreads on a tawa for 30 seconds each side until soft and pliable.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 5,
+        "title": "Assemble Roll",
+        "description": "Spread sauce on wrap, add cooked chicken, lettuce, tomatoes, onions, pickles. Roll tightly and wrap in foil.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 6,
+        "title": "Grill & Serve",
+        "description": "Grill the wrapped roll on tawa for 2 minutes each side. Cut in half and serve hot with fries.",
+        "duration": 300
+      }
+    ]
+  },
+  "veg_manchurian": {
+    "name": "Veg Manchurian",
+    "cuisine": "Chinese",
+    "servings": 4,
+    "difficulty": "Medium",
+    "total_time": 45,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Prepare Vegetables",
+        "description": "Finely chop cabbage, carrots, beans, and capsicum. Squeeze out excess water from vegetables.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 2,
+        "title": "Make Batter",
+        "description": "Mix chopped vegetables with cornflour, all-purpose flour, ginger-garlic paste, soy sauce, salt, and pepper to form a thick mixture.",
+        "duration": 360
+      },
+      {
+        "stepNumber": 3,
+        "title": "Fry Balls",
+        "description": "Shape mixture into small balls. Deep fry in hot oil until golden brown and crispy. Drain on paper towels.",
+        "duration": 900
+      },
+      {
+        "stepNumber": 4,
+        "title": "Prepare Sauce",
+        "description": "Heat oil, add garlic, ginger, green chilies. Add soy sauce, chili sauce, vinegar, tomato ketchup, and water. Bring to boil.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 5,
+        "title": "Thicken Gravy",
+        "description": "Add cornflour mixed with water. Stir continuously until gravy thickens to desired consistency.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 6,
+        "title": "Toss & Serve",
+        "description": "Add fried manchurian balls to gravy. Toss gently. Garnish with spring onions and serve hot with fried rice.",
+        "duration": 240
+      }
+    ]
+  },
+  "pasta": {
+    "name": "Creamy Pasta",
+    "cuisine": "Italian",
+    "servings": 3,
+    "difficulty": "Easy",
+    "total_time": 30,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Boil Pasta",
+        "description": "Boil 250g penne pasta in salted water until al dente (8-10 minutes). Drain and save 1 cup pasta water.",
+        "duration": 600
+      },
+      {
+        "stepNumber": 2,
+        "title": "Sauté Vegetables",
+        "description": "Heat olive oil and butter. Sauté minced garlic, sliced mushrooms, bell peppers, and Italian herbs for 3-4 minutes.",
+        "duration": 300
+      },
+      {
+        "stepNumber": 3,
+        "title": "Make Sauce",
+        "description": "Add heavy cream, milk, and grated parmesan cheese. Stir until cheese melts and sauce is smooth.",
+        "duration": 360
+      },
+      {
+        "stepNumber": 4,
+        "title": "Add Pasta",
+        "description": "Add boiled pasta to the sauce. Toss well. Add pasta water if needed to adjust consistency.",
+        "duration": 240
+      },
+      {
+        "stepNumber": 5,
+        "title": "Season",
+        "description": "Season with salt, black pepper, oregano, and chili flakes. Toss everything together on low heat.",
+        "duration": 180
+      },
+      {
+        "stepNumber": 6,
+        "title": "Serve",
+        "description": "Garnish with fresh basil and grated parmesan. Serve hot with garlic bread on the side.",
+        "duration": 120
+      }
+    ]
+  },
+  "biryani": {
+    "name": "Vegetable Biryani",
+    "cuisine": "Indian",
+    "servings": 4,
+    "difficulty": "Medium",
+    "total_time": 60,
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Soak Rice",
+        "description": "Wash and soak 2 cups basmati rice in water for 30 minutes. This helps achieve long, fluffy grains.",
+        "duration": 1800
+      },
+      {
+        "stepNumber": 2,
+        "title": "Prepare Vegetables",
+        "description": "Chop potatoes, carrots, beans, cauliflower, and green peas. Soak in water to prevent browning.",
+        "duration": 420
+      },
+      {
+        "stepNumber": 3,
+        "title": "Cook Vegetables",
+        "description": "Heat oil, fry onions until golden. Add vegetables, ginger-garlic paste, yogurt, and spices. Cook for 8 minutes.",
+        "duration": 720
+      },
+      {
+        "stepNumber": 4,
+        "title": "Parboil Rice",
+        "description": "Boil water with whole spices (bay leaf, cinnamon, cardamom). Add soaked rice and cook until 70% done. Drain.",
+        "duration": 600
+      },
+      {
+        "stepNumber": 5,
+        "title": "Layer Biryani",
+        "description": "Layer vegetables and rice alternately. Top with fried onions, mint, coriander, and saffron milk.",
+        "duration": 360
+      },
+      {
+        "stepNumber": 6,
+        "title": "Dum Cooking",
+        "description": "Cover pot tightly with foil and lid. Cook on low heat for 20 minutes. Let it rest for 5 minutes before serving.",
+        "duration": 1500
+      }
+    ]
+  }
+}

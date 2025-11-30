@@ -294,23 +294,23 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                 ),
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
 
               // Timer Circle
               Expanded(
-                child: Center(
+                child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const SizedBox(height: 10),
                       Stack(
                         alignment: Alignment.center,
                         children: [
                           SizedBox(
-                            width: 250,
-                            height: 250,
+                            width: 220,
+                            height: 220,
                             child: CircularProgressIndicator(
                               value: 1 - (remainingSeconds / currentStep['duration']),
-                              strokeWidth: 12,
+                              strokeWidth: 10,
                               backgroundColor: const Color(0xFF2a2d3a),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 isStepCompleted
@@ -324,16 +324,16 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                               Text(
                                 _formatTime(remainingSeconds),
                                 style: const TextStyle(
-                                  fontSize: 56,
+                                  fontSize: 48,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 8),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 8,
+                                  horizontal: 14,
+                                  vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
@@ -351,7 +351,7 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                                           : 'Ready',
                                   style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -360,12 +360,12 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 25),
 
                       // Step Info
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
-                        padding: const EdgeInsets.all(25),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: const Color(0xFF2a2d3a),
                           borderRadius: BorderRadius.circular(20),
@@ -382,7 +382,7 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                             Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     gradient: const LinearGradient(
                                       colors: [Color(0xFF667eea), Color(0xFF764ba2)],
@@ -393,17 +393,17 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                                     '${currentStep['stepNumber']}',
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 15),
+                                const SizedBox(width: 12),
                                 Expanded(
                                   child: Text(
                                     currentStep['title'],
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -411,18 +411,19 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 12),
                             Text(
                               currentStep['description'],
                               style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 14,
                                 color: Colors.white70,
-                                height: 1.5,
+                                height: 1.4,
                               ),
                             ),
                           ],
                         ),
                       ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -430,15 +431,16 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
 
               // Controls
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                 decoration: BoxDecoration(
                   color: const Color(0xFF2a2d3a),
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     // Play/Pause/Reset Controls
                     Row(
@@ -447,28 +449,28 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                         GestureDetector(
                           onTap: _resetTimer,
                           child: Container(
-                            padding: const EdgeInsets.all(15),
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: const Color(0xFF1a1d24),
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
                               Icons.restart_alt,
                               color: Colors.white70,
-                              size: 28,
+                              size: 24,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 15),
                         GestureDetector(
                           onTap: isTimerRunning ? _pauseTimer : _startTimer,
                           child: Container(
-                            padding: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
                                 colors: [Color(0xFF667eea), Color(0xFF764ba2)],
                               ),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color(0xFF667eea).withOpacity(0.5),
@@ -480,29 +482,29 @@ class _CookingStepsScreenState extends State<CookingStepsScreen> {
                             child: Icon(
                               isTimerRunning ? Icons.pause : Icons.play_arrow,
                               color: Colors.white,
-                              size: 36,
+                              size: 32,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 15),
                         GestureDetector(
                           onTap: _nextStep,
                           child: Container(
-                            padding: const EdgeInsets.all(15),
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: const Color(0xFF1a1d24),
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(
                               Icons.skip_next,
                               color: Colors.white70,
-                              size: 28,
+                              size: 24,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 15),
 
                     // Navigation Buttons
                     Row(
