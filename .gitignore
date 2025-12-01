@@ -53,11 +53,14 @@ lib/generated_plugin_registrant.dart
 # 🔥 FIREBASE (CRITICAL - NEVER COMMIT!)
 # ==========================================
 
-# Firebase config files with API keys
+# Firebase config files with API keys (CRITICAL!)
 lib/firebase_options.dart
+firebase_options.dart
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
+macos/firebase_app_id_file.json
 
 # Firebase directories (optional - comment out if you want to commit)
 .firebase/
@@ -74,10 +77,18 @@ firebase.json
 .env.development
 *.env
 
-# API Keys & Secrets
+# API Keys & Secrets (NEVER COMMIT!)
 api_keys.dart
 secrets.dart
 config/secrets.dart
+lib/config/api_keys.dart
+lib/config/secrets.dart
+lib/secrets/
+**/secrets/
+*_secret.dart
+*_secrets.dart
+*.secret.dart
+*.secrets.dart
 
 # Certificates & Keys
 *.pem
@@ -85,9 +96,15 @@ config/secrets.dart
 *.key
 *.cert
 *.der
+*.crt
+*.cer
+*.p7b
+*.pfx
 *.mobileprovision
 *.jks
 *.keystore
+key.properties
+keystore.properties
 
 # ==========================================
 # 🤖 ANDROID
@@ -348,6 +365,18 @@ main.py
 # Documentation work files
 CHAT_HISTORY_EXPLAINED.md
 CHAT_QUICK_REF.md
+
+# GitHub workflows (keep but be careful with secrets)
+# .github/workflows/
+
+# Public folder (if contains build artifacts)
+# public/
+
+# Personal notes or config
+notes.txt
+todo.txt
+personal/
+scratch/
 
 # ==========================================
 # ✅ NEVER IGNORE (Important to commit)
