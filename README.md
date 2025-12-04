@@ -82,7 +82,28 @@
 
 ---
 
-## 🚀 Quick Start
+## � App Workflow
+
+```mermaid
+graph LR
+    A[🏠 Home Screen] --> B[🌤️ Weather Check]
+    B --> C[🍽️ Food Suggestions]
+    A --> D[🤖 AI Chat]
+    D --> E[💬 Ask Questions]
+    E --> F[🛒 Add to Cart]
+    A --> G[📸 Food Scanner]
+    G --> H[🔍 Scan Food]
+    H --> I[📦 Product Details]
+    I --> F
+    C --> J[👨‍🍳 Cooking Mode]
+    J --> K[⏱️ Timer & Steps]
+    F --> L[💳 Checkout]
+    L --> M[📍 Address & Payment]
+```
+
+---
+
+## �🚀 Quick Start
 
 <details>
 <summary><b>📱 Flutter Setup</b></summary>
