@@ -3,7 +3,7 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=🍽️%20CookVision&fontSize=70&animation=fadeIn" />
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=2000&pause=800&color=667EEA&center=true&vCenter=true&repeat=true&width=600&height=70&lines=🤖+AI+Food+Assistant;🌤️+Weather-Based+Suggestions;📸+Smart+Food+Scanner;👨‍🍳+Cooking+Guide;🛒+Real-Time+Cart;🔥+Firebase+Powered" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=667EEA&center=true&vCenter=true&width=500&height=60&lines=AI+Food+Assistant;Weather+Based+Suggestions;Smart+Food+Scanner;Cooking+Guide;Real-Time+Cart;Firebase+Powered" alt="Typing SVG" />
 </p>
 
 <p align="center"><em>Your AI-Powered Smart Food Companion</em></p>
@@ -56,7 +56,7 @@
 <h3>📸 Food Scanner</h3>
 <p>Camera & gallery support</p>
 <p>Image preview • AI recognition</p>
-<p><em>(Coming soon)</em></p>
+<p><em></em></p>
 </td>
 </tr>
 
