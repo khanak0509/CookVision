@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/upi.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -381,42 +382,49 @@ class _CartState extends State<Cart> {
                                       ),
                                     );
                                   },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 18),
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Color(0xFF667eea),
-                                          Color(0xFF764ba2)
+                                  child: GestureDetector(
+                                    
+                                    onTap: () => {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpiPaymentIntent()))
+                                    },
+                                    child: Container(
+                                      
+                                      width: double.infinity,
+                                      padding:
+                                          const EdgeInsets.symmetric(vertical: 18),
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0xFF667eea),
+                                            Color(0xFF764ba2)
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0xFF667eea)
+                                                .withOpacity(0.5),
+                                            blurRadius: 20,
+                                            offset: const Offset(0, 10),
+                                          ),
                                         ],
                                       ),
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: const Color(0xFF667eea)
-                                              .withOpacity(0.5),
-                                          blurRadius: 20,
-                                          offset: const Offset(0, 10),
-                                        ),
-                                      ],
-                                    ),
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.shopping_bag,
-                                            color: Colors.white, size: 22),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          'Proceed to Checkout',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
+                                      child: const Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.shopping_bag,
+                                              color: Colors.white, size: 22),
+                                          SizedBox(width: 10),
+                                          Text(
+                                            'Proceed to Checkout',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
