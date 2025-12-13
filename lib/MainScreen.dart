@@ -6,6 +6,7 @@ import 'package:food_app/chat.dart';
 import 'package:food_app/cooking_mode.dart';
 import 'package:food_app/food_screen.dart';
 import 'package:food_app/profile.dart';
+import 'package:food_app/suggestions_screen.dart';
 import 'package:food_app/test.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -200,7 +201,16 @@ void getWeather({required String city}) async {
                     children: [
                       GestureDetector(
                         onTap: () {
-                            testFirestore();
+                          // Navigate to suggestions screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SuggestionsScreen(
+                                weather: weather,
+                                city: _currentCity,
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                           
@@ -246,6 +256,12 @@ void getWeather({required String city}) async {
                                     ),
                                   ],
                                 ),
+                              ),
+                              // Add arrow icon to indicate it's tappable
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white70,
+                                size: 20,
                               ),
                             ],
                           ),
