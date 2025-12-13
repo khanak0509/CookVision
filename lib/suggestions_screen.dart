@@ -184,15 +184,13 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFFF6B9D), Color(0xFFC06C84)],
-                ),
-                borderRadius: BorderRadius.circular(15),
+                color: const Color(0xFF2a2d3a),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFFF6B9D).withOpacity(0.3),
+                    color: Colors.black.withOpacity(0.2),
                     blurRadius: 8,
-                    offset: const Offset(0, 4),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -220,14 +218,14 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF00D4FF), Color(0xFF0099FF)],
+                  colors: [Color(0xFF667eea), Color(0xFF764ba2)],
                 ),
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF00D4FF).withOpacity(0.3),
+                    color: const Color(0xFF667eea).withOpacity(0.3),
                     blurRadius: 8,
-                    offset: const Offset(0, 4),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -252,17 +250,16 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFFFD89B),
-            Color(0xFFFF6B9D),
-            Color(0xFFC06C84),
+            Color(0xFF667eea),
+            Color(0xFF764ba2),
           ],
         ),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFFF6B9D).withOpacity(0.4),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: const Color(0xFF667eea).withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -271,12 +268,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
           Container(
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.5),
-                width: 2,
-              ),
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: const Icon(
               Icons.wb_sunny_rounded,
@@ -295,13 +288,6 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        color: Colors.black26,
-                        offset: Offset(0, 2),
-                        blurRadius: 4,
-                      ),
-                    ],
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -310,7 +296,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                   widget.weather,
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.white.withOpacity(0.95),
+                    color: Colors.white.withOpacity(0.9),
                     fontWeight: FontWeight.w500,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -330,32 +316,30 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF00D4FF), Color(0xFF0099FF)],
-              ),
-              borderRadius: BorderRadius.circular(25),
+              color: const Color(0xFF2a2d3a),
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF00D4FF).withOpacity(0.4),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
             child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF667eea)),
               strokeWidth: 3,
             ),
           ),
           const SizedBox(height: 30),
           const Text(
-            '✨ Finding perfect meals for you...',
+            'Finding perfect meals for you...',
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+              color: Colors.white70,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -382,14 +366,12 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF00D4FF), Color(0xFF0099FF)],
-                    ),
+                    color: const Color(0xFF2a2d3a),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
                     Icons.restaurant_menu_rounded,
-                    color: Colors.white,
+                    color: Color(0xFF667eea),
                     size: 22,
                   ),
                 ),
@@ -424,24 +406,17 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFF00D4FF).withOpacity(0.2),
-            const Color(0xFF0099FF).withOpacity(0.15),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(25),
+        color: const Color(0xFF2a2d3a),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color(0xFF00D4FF).withOpacity(0.4),
-          width: 2,
+          color: const Color(0xFF667eea).withOpacity(0.3),
+          width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF00D4FF).withOpacity(0.2),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -451,24 +426,17 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF00D4FF), Color(0xFF0099FF)],
+                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
                   ),
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF00D4FF).withOpacity(0.4),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
                   Icons.auto_awesome_rounded,
                   color: Colors.white,
-                  size: 24,
+                  size: 22,
                 ),
               ),
               const SizedBox(width: 12),
@@ -502,44 +470,37 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
   }
 
   Widget _buildMealCard(Map<String, dynamic> meal) {
-    // Random gradient colors for variety
-    final gradients = [
-      [const Color(0xFFFF6B9D), const Color(0xFFC06C84)],
-      [const Color(0xFF00D4FF), const Color(0xFF0099FF)],
-      [const Color(0xFFFFD89B), const Color(0xFFFF9A76)],
-      [const Color(0xFF667eea), const Color(0xFF764ba2)],
-      [const Color(0xFF11998e), const Color(0xFF38ef7d)],
+    // Subtle accent colors for variety
+    final colors = [
+      const Color(0xFF667eea),
+      const Color(0xFF11998e),
+      const Color(0xFFf093fb),
+      const Color(0xFFfa709a),
+      const Color(0xFFfeca57),
     ];
-    final gradient = gradients[_recommendedMeals.indexOf(meal) % gradients.length];
+    final color = colors[_recommendedMeals.indexOf(meal) % colors.length];
     
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            gradient[0].withOpacity(0.15),
-            gradient[1].withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(25),
+        color: const Color(0xFF2a2d3a),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: gradient[0].withOpacity(0.3),
-          width: 1.5,
+          color: color.withOpacity(0.2),
+          width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: gradient[0].withOpacity(0.2),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           onTap: () {
             // TODO: Navigate to meal details or cooking mode
             _showMealDetails(meal);
@@ -550,27 +511,16 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
               children: [
                 // Meal Image/Icon
                 Container(
-                  width: 75,
-                  height: 75,
+                  width: 70,
+                  height: 70,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [gradient[0], gradient[1]],
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: gradient[0].withOpacity(0.4),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+                    color: color.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: Center(
                     child: Text(
                       meal['image'] ?? '🍽️',
-                      style: const TextStyle(fontSize: 38),
+                      style: const TextStyle(fontSize: 35),
                     ),
                   ),
                 ),
@@ -597,7 +547,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                         meal['description'],
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withOpacity(0.6),
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -610,19 +560,19 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                             _buildInfoChip(
                               Icons.access_time_rounded,
                               meal['prep_time'],
-                              gradient[0],
+                              color,
                             ),
                             const SizedBox(width: 8),
                             _buildInfoChip(
                               Icons.local_fire_department_rounded,
                               meal['calories'],
-                              const Color(0xFFFF9A76),
+                              Colors.orangeAccent,
                             ),
                             const SizedBox(width: 8),
                             _buildInfoChip(
                               Icons.star_rounded,
                               meal['rating'].toString(),
-                              const Color(0xFFFFD89B),
+                              Colors.amber,
                             ),
                           ],
                         ),
@@ -643,21 +593,16 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [gradient[0], gradient[1]],
+                      color: color.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: color.withOpacity(0.3),
+                        width: 1,
                       ),
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: gradient[0].withOpacity(0.4),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.add_shopping_cart_rounded,
-                      color: Colors.white,
+                      color: color,
                       size: 20,
                     ),
                   ),
@@ -674,17 +619,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            color.withOpacity(0.3),
-            color.withOpacity(0.2),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: color.withOpacity(0.5),
-          width: 1,
-        ),
+        color: color.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -696,7 +632,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
             style: TextStyle(
               color: color,
               fontSize: 12,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -705,15 +641,15 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
   }
 
   void _showMealDetails(Map<String, dynamic> meal) {
-    // Get gradient colors for this meal
-    final gradients = [
-      [const Color(0xFFFF6B9D), const Color(0xFFC06C84)],
-      [const Color(0xFF00D4FF), const Color(0xFF0099FF)],
-      [const Color(0xFFFFD89B), const Color(0xFFFF9A76)],
-      [const Color(0xFF667eea), const Color(0xFF764ba2)],
-      [const Color(0xFF11998e), const Color(0xFF38ef7d)],
+    // Get accent color for this meal
+    final colors = [
+      const Color(0xFF667eea),
+      const Color(0xFF11998e),
+      const Color(0xFFf093fb),
+      const Color(0xFFfa709a),
+      const Color(0xFFfeca57),
     ];
-    final gradient = gradients[_recommendedMeals.indexOf(meal) % gradients.length];
+    final color = colors[_recommendedMeals.indexOf(meal) % colors.length];
     
     showModalBottomSheet(
       context: context,
@@ -731,8 +667,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
             ],
           ),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(35),
-            topRight: Radius.circular(35),
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
         ),
         child: Column(
@@ -743,9 +679,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
               width: 50,
               height: 5,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [gradient[0], gradient[1]],
-                ),
+                color: Colors.white24,
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
@@ -760,28 +694,10 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                     // Meal icon
                     Center(
                       child: Container(
-                        padding: const EdgeInsets.all(35),
+                        padding: const EdgeInsets.all(30),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              gradient[0].withOpacity(0.3),
-                              gradient[1].withOpacity(0.2),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(
-                            color: gradient[0].withOpacity(0.5),
-                            width: 2,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: gradient[0].withOpacity(0.3),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
+                          color: color.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         child: Text(
                           meal['image'] ?? '🍽️',
@@ -812,23 +728,14 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              gradient[0].withOpacity(0.3),
-                              gradient[1].withOpacity(0.2),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: gradient[0].withOpacity(0.5),
-                            width: 1.5,
-                          ),
+                          color: color.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
                           meal['category'],
                           style: TextStyle(
-                            color: gradient[0],
-                            fontWeight: FontWeight.bold,
+                            color: color,
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),
                         ),
@@ -853,11 +760,11 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildStatColumn(Icons.access_time_rounded, 'Time', meal['prep_time'], gradient[0]),
-                        Container(width: 1.5, height: 50, color: Colors.white24),
-                        _buildStatColumn(Icons.local_fire_department_rounded, 'Calories', meal['calories'], const Color(0xFFFF9A76)),
-                        Container(width: 1.5, height: 50, color: Colors.white24),
-                        _buildStatColumn(Icons.star_rounded, 'Rating', meal['rating'].toString(), const Color(0xFFFFD89B)),
+                        _buildStatColumn(Icons.access_time_rounded, 'Time', meal['prep_time'], color),
+                        Container(width: 1.5, height: 50, color: Colors.white12),
+                        _buildStatColumn(Icons.local_fire_department_rounded, 'Calories', meal['calories'], Colors.orangeAccent),
+                        Container(width: 1.5, height: 50, color: Colors.white12),
+                        _buildStatColumn(Icons.star_rounded, 'Rating', meal['rating'].toString(), Colors.amber),
                       ],
                     ),
                     
@@ -871,14 +778,14 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                           child: Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [gradient[0], gradient[1]],
+                                colors: [color, color.withOpacity(0.8)],
                               ),
-                              borderRadius: BorderRadius.circular(18),
+                              borderRadius: BorderRadius.circular(15),
                               boxShadow: [
                                 BoxShadow(
-                                  color: gradient[0].withOpacity(0.4),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 6),
+                                  color: color.withOpacity(0.3),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
@@ -890,7 +797,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                                 //   builder: (context) => CookingMode(mealId: meal['id']),
                                 // ));
                               },
-                              icon: const Icon(Icons.play_arrow_rounded, size: 24),
+                              icon: const Icon(Icons.play_arrow_rounded, size: 22),
                               label: const Text(
                                 'Start Cooking',
                                 style: TextStyle(
@@ -901,9 +808,9 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                padding: const EdgeInsets.symmetric(vertical: 15),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
                                 shadowColor: Colors.transparent,
                               ),
@@ -911,39 +818,27 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                           ),
                         ),
                         const SizedBox(width: 12),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [gradient[0], gradient[1]],
-                              ),
-                              borderRadius: BorderRadius.circular(18),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: gradient[0].withOpacity(0.4),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 6),
-                                ),
-                              ],
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF2a2d3a),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: color.withOpacity(0.3),
+                              width: 1,
                             ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                // TODO: Add to cart
-                                _showAddedToCartSnackbar(meal['name']);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: const Icon(Icons.add_shopping_cart_rounded, size: 24),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              // TODO: Add to cart
+                              _showAddedToCartSnackbar(meal['name']);
+                            },
+                            icon: Icon(
+                              Icons.add_shopping_cart_rounded,
+                              color: color,
+                              size: 24,
                             ),
+                            padding: const EdgeInsets.all(12),
                           ),
                         ),
                       ],
@@ -966,19 +861,10 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                color.withOpacity(0.3),
-                color.withOpacity(0.2),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-              width: 1.5,
-            ),
+            color: color.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: color, size: 28),
+          child: Icon(icon, color: color, size: 26),
         ),
         const SizedBox(height: 10),
         Text(
