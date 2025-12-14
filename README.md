@@ -32,7 +32,7 @@
 <h3>🤖 AI Chat Assistant</h3>
 <p>Powered by <b>Google Gemini 2.0</b></p>
 <p>Natural language queries • Product recommendations</p>
-<p>WhatsApp-style UI • Persistent history • Add to cart from chat</p>
+<p> Persistent history • Add to cart from chat</p>
 </td>
 <td align="center" width="50%">
 <img src="https://img.icons8.com/fluency/96/partly-cloudy-day.png" width="50"/>
