@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/upi.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -12,6 +11,202 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   String? get userId => FirebaseAuth.instance.currentUser?.uid;
+
+  Future<void> fetchCartItems() async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('cart_items').doc('124')
+      .get();
+
+  print(snapshot.data());
+}
+
+  // Create order from cart items
+  Future<void> _proceedToCheckout() async {
+    if (userId == null) return;
+
+    try {
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+          child: Container(
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2a2d3a),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(color: Color(0xFF667eea)),
+                SizedBox(height: 20),
+                Text(
+                  'Creating your order...',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      // 1. Fetch all cart items
+      final cartSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart_items')
+          .get();
+
+      if (cartSnapshot.docs.isEmpty) {
+        if (mounted) Navigator.pop(context); // Close loading
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Cart is empty!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+
+      // 2. Calculate totals and prepare order items
+      double totalAmount = 0;
+      int totalItems = 0;
+      List<Map<String, dynamic>> orderItems = [];
+
+      for (var doc in cartSnapshot.docs) {
+        final item = doc.data();
+        final price = (item['price'] ?? 0).toDouble();
+        final quantity = item['quantity'] ?? 1;
+        
+        totalAmount += price * quantity;
+        totalItems += quantity as int;
+
+        // Prepare order item with all details
+        orderItems.add({
+          'id': item['id'] ?? doc.id,
+          'name': item['name'] ?? 'Unknown',
+          'price': price,
+          'quantity': quantity,
+          'image_url': item['image_url'] ?? '',
+          'rating': item['rating'] ?? 0,
+          'calories': item['calories'] ?? 0,
+          'category': item['category'] ?? '',
+          'cuisine': item['cuisine'] ?? '',
+          'dietary': item['dietary'] ?? '',
+        });
+      }
+
+      // 3. Create order document
+      final orderRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('orders')
+          .doc(); // Auto-generate order ID
+
+      final deliveryCharge = 40.0;
+      final taxRate = 0.05; // 5%
+      final tax = totalAmount * taxRate;
+      final grandTotal = totalAmount + deliveryCharge + tax;
+
+      await orderRef.set({
+        'orderId': orderRef.id,
+        'items': orderItems,
+        'totalAmount': totalAmount,
+        'totalItems': totalItems,
+        'deliveryCharge': deliveryCharge,
+        'tax': tax,
+        'grandTotal': grandTotal,
+        'orderDate': FieldValue.serverTimestamp(),
+        'status': 'pending', // pending, confirmed, preparing, out_for_delivery, delivered, cancelled
+        'paymentStatus': 'pending', // pending, paid, failed
+        'paymentMethod': 'UPI',
+        'deliveryAddress': 'Not provided', // TODO: Get from address screen
+        'userId': userId,
+      });
+
+      // 4. Clear cart after successful order creation
+      final batch = FirebaseFirestore.instance.batch();
+      for (var doc in cartSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+
+      // 5. Close loading dialog
+      if (mounted) Navigator.pop(context);
+
+      // 6. Show success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Order Placed Successfully!',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Order ID: ${orderRef.id.substring(0, 8).toUpperCase()}',
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+
+        // Navigate back to home or orders screen
+        Navigator.pop(context);
+      }
+
+    } catch (e) {
+      // Close loading dialog if open
+      if (mounted) Navigator.pop(context);
+      
+      print('❌ Error creating order: $e');
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.error, color: Colors.white),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text('Error placing order: ${e.toString()}'),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -373,21 +568,146 @@ class _CartState extends State<Cart> {
 
                                 // Checkout button
                                 GestureDetector(
-                                  onTap: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Checkout feature coming soon!'),
-                                        backgroundColor: Color(0xFF667eea),
+                                  onTap: () async {
+                                    // Show confirmation dialog before checkout
+                                    final confirm = await showDialog<bool>(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        backgroundColor: const Color(0xFF2a2d3a),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        title: const Text(
+                                          'Confirm Order',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  'Total Items:',
+                                                  style: TextStyle(color: Colors.white70),
+                                                ),
+                                                Text(
+                                                  '$totalQuantity',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  'Subtotal:',
+                                                  style: TextStyle(color: Colors.white70),
+                                                ),
+                                                Text(
+                                                  '₹${total.toStringAsFixed(2)}',
+                                                  style: const TextStyle(color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            const Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Delivery:',
+                                                  style: TextStyle(color: Colors.white70),
+                                                ),
+                                                Text(
+                                                  '₹40.00',
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  'Tax (5%):',
+                                                  style: TextStyle(color: Colors.white70),
+                                                ),
+                                                Text(
+                                                  '₹${(total * 0.05).toStringAsFixed(2)}',
+                                                  style: const TextStyle(color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            const Divider(color: Colors.white24, height: 20),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                const Text(
+                                                  'Grand Total:',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '₹${(total + 40 + (total * 0.05)).toStringAsFixed(2)}',
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF667eea),
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(context, false),
+                                            child: const Text(
+                                              'Cancel',
+                                              style: TextStyle(color: Colors.white70),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () => Navigator.pop(context, true),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(0xFF667eea),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 20,
+                                                vertical: 12,
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              'Place Order',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     );
+
+                                    // If confirmed, proceed to checkout
+                                    if (confirm == true) {
+                                      await _proceedToCheckout();
+                                    }
                                   },
-                                  child: GestureDetector(
-                                    
-                                    onTap: () => {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => UpiPaymentIntent()))
-                                    },
-                                    child: Container(
+                                  child: Container(
                                       
                                       width: double.infinity,
                                       padding:
@@ -427,10 +747,9 @@ class _CartState extends State<Cart> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
                         ],
                       );
                     },

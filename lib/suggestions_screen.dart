@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/cooking_mode.dart';
-// TODO: Import http package for API calls
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SuggestionsScreen extends StatefulWidget {
   final String weather;
@@ -48,93 +48,131 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
     super.dispose();
   }
 
-  // TODO: Connect to backend API
-  // Fetch AI-powered food suggestions based on weather
+  // Fetch AI-powered food suggestions based on user's order history
   Future<void> _loadSuggestions() async {
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // TODO: Replace with actual API call
-      // final url = Uri.parse('http://localhost:8000/suggestions/${widget.weather}');
-      // final response = await http.get(url);
+      // Get current user ID
+      final userId = FirebaseAuth.instance.currentUser?.uid;
       
-      // if (response.statusCode == 200) {
-      //   final data = jsonDecode(response.body);
-      //   setState(() {
-      //     _aiSuggestion = data['suggestions'] ?? '';
-      //     _recommendedMeals = List<Map<String, dynamic>>.from(data['meals'] ?? []);
-      //   });
-      // }
+      if (userId == null) {
+        setState(() {
+          _isLoading = false;
+          _aiSuggestion = "Please login to get personalized suggestions.";
+        });
+        return;
+      }
 
-      // MOCK DATA - Remove when connecting to backend
-      await Future.delayed(const Duration(seconds: 2));
-      setState(() {
-        _aiSuggestion = "Based on ${widget.weather} weather in ${widget.city}, I recommend warm comfort foods that will boost your energy and keep you cozy!";
-        _recommendedMeals = [
-          {
-            'name': 'Spicy Ramen Bowl',
-            'description': 'Hot noodle soup perfect for cold weather',
-            'prep_time': '25 min',
-            'calories': '450',
-            'rating': 4.8,
-            'category': 'Soup',
-            'image': '🍜',
-          },
-          {
-            'name': 'Grilled Chicken Wrap',
-            'description': 'Light and healthy protein-packed meal',
-            'prep_time': '15 min',
-            'calories': '380',
-            'rating': 4.6,
-            'category': 'Main Course',
-            'image': '🌯',
-          },
-          {
-            'name': 'Hot Chocolate',
-            'description': 'Creamy warm beverage to lift your mood',
-            'prep_time': '10 min',
-            'calories': '240',
-            'rating': 4.9,
-            'category': 'Beverage',
-            'image': '☕',
-          },
-          {
-            'name': 'Vegetable Stir Fry',
-            'description': 'Nutritious mix of seasonal vegetables',
-            'prep_time': '20 min',
-            'calories': '320',
-            'rating': 4.7,
-            'category': 'Vegan',
-            'image': '🥘',
-          },
-        ];
-        _isLoading = false;
-      });
+      // Call backend API with user_id
+      final url = Uri.parse('http://localhost:8000/api/user-suggestions');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'user_id': userId}),
+      );
       
-      _animationController.forward();
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        
+        setState(() {
+          _aiSuggestion = data['ai_message'] ?? 'Here are some suggestions for you!';
+          
+          // Parse suggested meals
+          final suggestedMeals = data['suggested_meals'] as List<dynamic>? ?? [];
+          _recommendedMeals = suggestedMeals.map((meal) {
+            return {
+              'id': meal['id'] ?? '',
+              'name': meal['name'] ?? '',
+              'description': meal['description'] ?? '',
+              'reason': meal['reason'] ?? 'Recommended for you',
+              'prep_time': '${meal['prep_time'] ?? 0} min',
+              'calories': meal['calories']?.toString() ?? '0',
+              'rating': (meal['rating'] ?? 0.0).toDouble(),
+              'category': meal['category'] ?? '',
+              'cuisine': meal['cuisine'] ?? '',
+              'dietary': meal['dietary'] ?? '',
+              'price': (meal['price'] ?? 0.0).toDouble(),
+              'image': meal['emoji'] ?? '🍽️',
+              'image_url': meal['image_url'] ?? '',
+              'spice_level': meal['spice_level'] ?? '',
+            };
+          }).toList();
+          
+          _isLoading = false;
+        });
+        
+        _animationController.forward();
+      } else {
+        throw Exception('Failed to load suggestions: ${response.statusCode}');
+      }
     } catch (e) {
       print('❌ Error loading suggestions: $e');
       setState(() {
         _isLoading = false;
-        _aiSuggestion = "Unable to load suggestions. Please try again.";
+        _aiSuggestion = "Unable to load personalized suggestions. Please check your connection and try again.";
+        _recommendedMeals = [];
       });
     }
   }
 
-  // TODO: Add function to save meal to cart
-  // Future<void> _addToCart(Map<String, dynamic> meal) async {
-  //   final userId = authservice.value.currentUser?.uid;
-  //   if (userId == null) return;
-  //   
-  //   await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .doc(userId)
-  //       .collection('cart_items')
-  //       .doc(meal['id'])
-  //       .set(meal);
-  // }
+  // Add meal to cart
+  Future<void> _addToCart(Map<String, dynamic> meal) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please login to add items to cart')),
+      );
+      return;
+    }
+    
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart_items')
+          .doc(meal['id'])
+          .set({
+        'id': meal['id'],
+        'name': meal['name'],
+        'description': meal['description'],
+        'price': meal['price'],
+        'rating': meal['rating'],
+        'image_url': meal['image_url'],
+        'emoji': meal['image'],
+        'calories': int.tryParse(meal['calories'].toString()) ?? 0,
+        'preparation_time': int.tryParse(meal['prep_time'].replaceAll(' min', '')) ?? 0,
+        'category': meal['category'],
+        'cuisine': meal['cuisine'],
+        'dietary': meal['dietary'],
+        'spice_level': meal['spice_level'],
+        'quantity': 1,
+        'addedAt': FieldValue.serverTimestamp(),
+      });
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${meal['name']} added to cart'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      print('❌ Error adding to cart: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to add item to cart'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -544,7 +582,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        meal['description'],
+                        meal['reason'] ?? meal['description'],
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.white.withOpacity(0.6),
@@ -586,9 +624,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                 // Add to Cart Button
                 GestureDetector(
                   onTap: () {
-                    // TODO: Implement add to cart
-                    // _addToCart(meal);
-                    _showAddedToCartSnackbar(meal['name']);
+                    _addToCart(meal);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(12),
@@ -830,8 +866,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
                           child: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              // TODO: Add to cart
-                              _showAddedToCartSnackbar(meal['name']);
+                              _addToCart(meal);
                             },
                             icon: Icon(
                               Icons.add_shopping_cart_rounded,
@@ -888,25 +923,4 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> with SingleTicker
     );
   }
 
-  void _showAddedToCartSnackbar(String mealName) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.check_circle, color: Colors.white),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text('$mealName added to cart!'),
-            ),
-          ],
-        ),
-        backgroundColor: const Color(0xFF667eea),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
 }
