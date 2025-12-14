@@ -5,6 +5,7 @@ import 'theme/app_colors.dart';
 import 'theme/app_spacing.dart';
 import 'theme/app_text_styles.dart';
 import 'widgets/custom_button.dart';
+import 'checkout_screen.dart';
 
 class Cart extends StatefulWidget {
   const Cart({super.key});
@@ -61,70 +62,14 @@ class _CartState extends State<Cart> {
         return;
       }
 
-      double totalAmount = 0;
-      int totalItems = 0;
-      List<Map<String, dynamic>> orderItems = [];
-
-      for (var doc in cartSnapshot.docs) {
-        final item = doc.data();
-        final price = (item['price'] ?? 0).toDouble();
-        final quantity = item['quantity'] ?? 1;
-        
-        totalAmount += price * quantity;
-        totalItems += quantity as int;
-
-        orderItems.add({
-          'id': item['id'] ?? doc.id,
-          'name': item['name'] ?? 'Unknown',
-          'price': price,
-          'quantity': quantity,
-          'image_url': item['image_url'] ?? '',
-        });
-      }
-
-      final orderRef = FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('orders')
-          .doc();
-
-      final deliveryCharge = 40.0;
-      final tax = totalAmount * 0.05;
-      final grandTotal = totalAmount + deliveryCharge + tax;
-
-      await orderRef.set({
-        'orderId': orderRef.id,
-        'items': orderItems,
-        'totalAmount': totalAmount,
-        'totalItems': totalItems,
-        'deliveryCharge': deliveryCharge,
-        'tax': tax,
-        'grandTotal': grandTotal,
-        'orderDate': FieldValue.serverTimestamp(),
-        'status': 'pending',
-        'paymentStatus': 'pending',
-        'paymentMethod': 'UPI',
-        'userId': userId,
-      });
-
-      final batch = FirebaseFirestore.instance.batch();
-      for (var doc in cartSnapshot.docs) {
-        batch.delete(doc.reference);
-      }
-      await batch.commit();
-
+      // Navigate to checkout screen with Razorpay payment
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Order placed! ID: ${orderRef.id.substring(0, 8).toUpperCase()}'),
-            backgroundColor: AppColors.success,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-            ),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CheckoutScreen(),
           ),
         );
-        Navigator.pop(context);
       }
     } catch (e) {
       if (mounted) {
