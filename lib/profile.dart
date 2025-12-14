@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:food_app/login.dart';
 import 'package:food_app/edit_profile.dart';
@@ -12,6 +11,7 @@ import 'theme/app_colors.dart';
 import 'theme/app_spacing.dart';
 import 'theme/app_text_styles.dart';
 import 'widgets/custom_button.dart';
+import 'widgets/theme_toggle_button.dart';
 import 'animations/page_transitions.dart';
 
 class Profile extends StatefulWidget {
@@ -66,9 +66,12 @@ class _ProfileState extends State<Profile> {
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: Container(
+        decoration: isDark 
+          ? const BoxDecoration(gradient: AppColors.darkBackgroundGradient)
+          : BoxDecoration(color: AppColors.lightBackground),
+        child: SafeArea(
+          child: SingleChildScrollView(
           child: Column(
             children: [
               // Header
@@ -98,21 +101,27 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         Text('Profile', style: AppTextStyles.headlineMedium.copyWith(color: Colors.white)),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CustomPageRoute(page: const EditProfile()),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(AppSpacing.sm),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                        Row(
+                          children: [
+                            const ThemeToggleButton(isCompact: true),
+                            const SizedBox(width: AppSpacing.sm),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CustomPageRoute(page: const EditProfile()),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(AppSpacing.sm),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                                ),
+                                child: const Icon(Icons.edit, color: Colors.white, size: 20),
+                              ),
                             ),
-                            child: const Icon(Icons.edit, color: Colors.white, size: 20),
-                          ),
+                          ],
                         ),
                       ],
                     ),
@@ -200,6 +209,7 @@ class _ProfileState extends State<Profile> {
               ),
             ],
           ),
+          ),
         ),
       ),
     );
@@ -211,13 +221,7 @@ class _ProfileState extends State<Profile> {
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-        boxShadow: [
-          BoxShadow(
-            color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
       ),
       child: Column(
         children: [
