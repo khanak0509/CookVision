@@ -7,11 +7,15 @@ import 'package:food_app/cooking_mode.dart';
 import 'package:food_app/food_screen.dart';
 import 'package:food_app/profile.dart';
 import 'package:food_app/suggestions_screen.dart';
-import 'package:food_app/test.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'theme/app_colors.dart';
+import 'theme/app_spacing.dart';
+import 'theme/app_text_styles.dart';
+import 'widgets/custom_card.dart';
+import 'animations/page_transitions.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,21 +24,30 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
   File? _image;
   String weather = "Loading weather...";
   String _currentCity = "Loading...";
   Stream<Position>? positionStream;
   String suggestion = "";
   int _currentIndex = 0;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
     _startLiveLocation();
-    
-    
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animationController.forward();
+  }
   
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   // Pick image from gallery
@@ -49,29 +62,28 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   // Fetch weather from API
-void getWeather({required String city}) async {
-  final url = Uri.parse('http://localhost:8000/weather/$city');
-  final response = await http.get(url);
+  void getWeather({required String city}) async {
+    final url = Uri.parse('http://localhost:8000/weather/$city');
+    final response = await http.get(url);
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
 
-    if (data != null && data['description'] != null && data['temperature'] != null) {
-      setState(() {
-        weather = "${data['description']}, ${data['temperature']}°C";
-
-      });
+      if (data != null && data['description'] != null && data['temperature'] != null) {
+        setState(() {
+          weather = "${data['description']}, ${data['temperature']}°C";
+        });
+      } else {
+        setState(() {
+          weather = "Weather data missing in API";
+        });
+      }
     } else {
       setState(() {
-        weather = "Weather data missing in API";
+        weather = "Failed to load weather (Code ${response.statusCode})";
       });
     }
-  } else {
-    setState(() {
-      weather = "Failed to load weather (Code ${response.statusCode})";
-    });
-  }
-  final url2 = Uri.parse('http://localhost:8000/suggestions/$weather');
+    final url2 = Uri.parse('http://localhost:8000/suggestions/$weather');
     final response2 = await http.get(url2);
 
     if (response2.statusCode == 200) {
@@ -83,7 +95,7 @@ void getWeather({required String city}) async {
     } else {
       print("Failed to load suggestions");
     }
-}
+  }
 
   // Start live location tracking
   Future<void> _startLiveLocation() async {
@@ -125,7 +137,8 @@ void getWeather({required String city}) async {
   // Get city from coordinates
   Future<String> _getCityFromCoordinates(double lat, double lng) async {
     try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng, localeIdentifier: "en_IN");
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(lat, lng, localeIdentifier: "en_IN");
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
         return place.locality ?? "Unknown City";
@@ -136,596 +149,542 @@ void getWeather({required String city}) async {
     }
   }
 
-  void getsuggestion() async {
-    final url = Uri.parse('http://localhost:8000/suggestions/$weather');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data['suggestions']);
-    } else {
-      print("Failed to load suggestions");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF16213e),
-              Color(0xFF0f3460),
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(width: 40) ,
-                    const Text(
-                      'CookVision',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.all(AppSpacing.screenPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(width: 40),
+                  Text(
+                    'CookVision',
+                    style: AppTextStyles.headlineLarge.copyWith(
+                      color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
+                      gradient: isDark ? AppColors.darkPrimaryGradient : AppColors.lightPrimaryGradient,
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                      boxShadow: [
+                        BoxShadow(
+                          color: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary)
+                              .withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
                         ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.notifications, color: Colors.white),
+                      ],
                     ),
-                  ],
-                ),
+                    child: const Icon(Icons.notifications_outlined, color: Colors.white, size: 24),
+                  ),
+                ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          // Navigate to suggestions screen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SuggestionsScreen(
-                                weather: weather,
-                                city: _currentCity,
+            ),
+
+            // Scrollable Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.screenPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Weather Card
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CustomPageRoute(
+                            page: SuggestionsScreen(
+                              weather: weather,
+                              city: _currentCity,
+                            ),
+                          ),
+                        );
+                      },
+                      child: CustomCard(
+                        gradient: isDark ? AppColors.darkPrimaryGradient : AppColors.lightPrimaryGradient,
+                        padding: const EdgeInsets.all(AppSpacing.lg),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(AppSpacing.md),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                              ),
+                              child: const Icon(Icons.wb_sunny, color: Colors.white, size: 32),
+                            ),
+                            const SizedBox(width: AppSpacing.lg),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _currentCity,
+                                    style: AppTextStyles.headlineSmall.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    weather,
+                                    style: AppTextStyles.bodyMedium.copyWith(
+                                      color: Colors.white.withOpacity(0.9),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                        child: Container(
-                          
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white70,
+                              size: 18,
                             ),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.purple.withOpacity(0.3),
-                                blurRadius: 15,
-                                offset: const Offset(0, 8),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.wb_sunny, color: Colors.white, size: 40),
-                              const SizedBox(width: 15),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    
-                                    Text(
-                                      _currentCity,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    
-                                    Text(
-                                      weather,
-                                      style: const TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // Add arrow icon to indicate it's tappable
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white70,
-                                size: 20,
-                              ),
-                            ],
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 30),
-                      Center(
-                        child: Text(
-                          suggestion,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        
+                    ),
+
+                    if (suggestion.isNotEmpty) ...[
+                      const SizedBox(height: AppSpacing.lg),
+                      CustomCard(
+                        backgroundColor: isDark ? AppColors.darkSurfaceVariant : AppColors.lightSurfaceVariant,
+                        padding: const EdgeInsets.all(AppSpacing.lg),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.lightbulb_outline,
+                              color: isDark ? AppColors.darkSecondary : AppColors.lightSecondary,
+                              size: 24,
+                            ),
+                            const SizedBox(width: AppSpacing.md),
+                            Expanded(
+                              child: Text(
+                                suggestion,
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 30),
-                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Food Scanner',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    ],
+
+                    const SizedBox(height: AppSpacing.sectionSpacing),
+
+                    // Food Scanner Section
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Food Scanner',
+                          style: AppTextStyles.headlineMedium.copyWith(
+                            color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
                           ),
-                          if (_image != null)
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _image = null;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.red,
-                                  size: 20,
-                                ),
+                        ),
+                        if (_image != null)
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _image = null;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(AppSpacing.sm),
+                              decoration: BoxDecoration(
+                                color: AppColors.error.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
+                              ),
+                              child: const Icon(
+                                Icons.close,
+                                color: AppColors.error,
+                                size: 18,
                               ),
                             ),
-                        ],
-                      ),
-                      const SizedBox(height: 15),
-                      GestureDetector(
-                        onTap: pickImage,
-                        child: Container(
-                          height: 200,
-                          decoration: BoxDecoration(
-                            gradient: _image == null
-                                ? LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      const Color(0xFF667eea).withOpacity(0.3),
-                                      const Color(0xFF764ba2).withOpacity(0.3),
-                                    ],
-                                  )
-                                : null,
-                            color: _image != null ? const Color(0xFF2a2d3a) : null,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: const Color(0xFF667eea).withOpacity(0.5),
-                              width: 2,
-                              strokeAlign: BorderSide.strokeAlignInside,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF667eea).withOpacity(0.2),
-                                blurRadius: 15,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
                           ),
-                          child: _image == null
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    
+                    // Scanner Card
+                    GestureDetector(
+                      onTap: pickImage,
+                      child: Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: _image != null
+                              ? (isDark ? AppColors.darkSurface : AppColors.lightSurface)
+                              : (isDark
+                                  ? AppColors.darkSurfaceVariant
+                                  : AppColors.lightSurfaceVariant),
+                          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                          border: Border.all(
+                            color: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary)
+                                .withOpacity(0.3),
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: _image == null
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(AppSpacing.lg),
+                                    decoration: BoxDecoration(
+                                      gradient: isDark
+                                          ? AppColors.darkPrimaryGradient
+                                          : AppColors.lightPrimaryGradient,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.camera_alt_rounded,
+                                      color: Colors.white,
+                                      size: 32,
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppSpacing.lg),
+                                  Text(
+                                    'Scan Your Food',
+                                    style: AppTextStyles.titleLarge.copyWith(
+                                      color: isDark
+                                          ? AppColors.darkTextPrimary
+                                          : AppColors.lightTextPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: AppSpacing.xs),
+                                  Text(
+                                    'Tap to capture or select from gallery',
+                                    style: AppTextStyles.bodySmall.copyWith(
+                                      color: isDark
+                                          ? AppColors.darkTextSecondary
+                                          : AppColors.lightTextSecondary,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                                child: Stack(
+                                  fit: StackFit.expand,
                                   children: [
+                                    Image.file(
+                                      _image!,
+                                      fit: BoxFit.cover,
+                                    ),
                                     Container(
-                                      padding: const EdgeInsets.all(20),
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                                        ),
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: const Color(0xFF667eea).withOpacity(0.4),
-                                            blurRadius: 15,
-                                            offset: const Offset(0, 5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: const Icon(
-                                        Icons.camera_alt_rounded,
-                                        color: Colors.white,
-                                        size: 40,
+                                        gradient: AppColors.imageOverlayGradient,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
-                                    const Text(
-                                      'Scan Your Food',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text(
-                                      'Tap to capture or select from gallery',
-                                      style: TextStyle(
-                                        color: Colors.white60,
-                                        fontSize: 14,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.circular(18),
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      Image.file(
-                                        _image!,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.transparent,
-                                              Colors.black.withOpacity(0.4),
+                                    Positioned(
+                                      bottom: AppSpacing.lg,
+                                      left: AppSpacing.lg,
+                                      right: AppSpacing.lg,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Image Captured',
+                                                style: AppTextStyles.titleMedium.copyWith(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                'Tap to change',
+                                                style: AppTextStyles.bodySmall.copyWith(
+                                                  color: Colors.white70,
+                                                ),
+                                              ),
                                             ],
                                           ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 15,
-                                        left: 15,
-                                        right: 15,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: AppSpacing.lg,
+                                              vertical: AppSpacing.sm,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              gradient: AppColors.accentGradient,
+                                              borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(
-                                                  'Image Captured',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                                const Icon(
+                                                  Icons.search,
+                                                  color: Colors.white,
+                                                  size: 16,
                                                 ),
-                                                SizedBox(height: 4),
+                                                const SizedBox(width: AppSpacing.xs),
                                                 Text(
-                                                  'Tap to change',
-                                                  style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: 12,
+                                                  'Analyze',
+                                                  style: AppTextStyles.labelSmall.copyWith(
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            GestureDetector(
-                                              onTap: () => {
-                                                print('cliked')                                        
-                                              },
-                                              child: Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                  horizontal: 16,
-                                                  vertical: 8,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  gradient: const LinearGradient(
-                                                    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                                                  ),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                child: const Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.search,
-                                                      color: Colors.white,
-                                                      size: 16,
-                                                    ),
-                                                    SizedBox(width: 6),
-                                                    Text(
-                                                      'Analyze',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      const Text(
-                        'Quick Actions',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      Row(
-                        children: [
-                          
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const Chat()),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2a2d3a),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: const Column(
-                                  children: [
-                                    Icon(Icons.chat_bubble, color: Color(0xFF667eea), size: 40),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'AI Chat',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
+                      ),
+                    ),
+
+                    const SizedBox(height: AppSpacing.sectionSpacing),
+
+                    // Quick Actions
+                    Text(
+                      'Quick Actions',
+                      style: AppTextStyles.headlineMedium.copyWith(
+                        color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildQuickActionCard(
+                            icon: Icons.chat_bubble_outline,
+                            title: 'AI Chat',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                CustomPageRoute(page: const Chat()),
+                              );
+                            },
+                            isDark: isDark,
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: _buildQuickActionCard(
+                            icon: Icons.restaurant_menu,
+                            title: 'Menu',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                CustomPageRoute(page: const FoodScreen()),
+                              );
+                            },
+                            isDark: isDark,
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                    const SizedBox(height: AppSpacing.lg),
+
+                    // Cooking Mode Card
+                    CustomCard(
+                      gradient: AppColors.foodGradient,
+                      padding: const EdgeInsets.all(AppSpacing.lg),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CustomPageRoute(page: const CookingModeScreen()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(AppSpacing.md),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                            ),
+                            child: const Icon(
+                              Icons.restaurant,
+                              color: Colors.white,
+                              size: 28,
                             ),
                           ),
-                          const SizedBox(width: 15),
+                          const SizedBox(width: AppSpacing.lg),
                           Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const FoodScreen()),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2a2d3a),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 5),
-                                    ),
-                                  ],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Want to Cook?',
+                                  style: AppTextStyles.titleLarge.copyWith(
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                child: const Column(
-                                  children: [
-                                    Icon(Icons.restaurant_menu, color: Color(0xFF667eea), size: 40),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Menu',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Get step-by-step cooking guidance',
+                                  style: AppTextStyles.bodySmall.copyWith(
+                                    color: Colors.white.withOpacity(0.9),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 16,
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15),
-                      // Want to Cook? Card
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const CookingModeScreen()),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(25),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xFF667eea),
-                                Color(0xFF764ba2),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(25),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF667eea).withOpacity(0.5),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: const Icon(
-                                  Icons.restaurant,
-                                  color: Colors.white,
-                                  size: 35,
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              const Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Want to Cook?',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      'Get step-by-step cooking guidance',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                     
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+
+                    const SizedBox(height: AppSpacing.sectionSpacing),
+                  ],
                 ),
               ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildBottomNav(isDark),
+    );
+  }
+
+  Widget _buildQuickActionCard({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return CustomCard(
+      onTap: onTap,
+      backgroundColor: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              gradient: isDark ? AppColors.darkPrimaryGradient : AppColors.lightPrimaryGradient,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: Colors.white, size: 28),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            title,
+            style: AppTextStyles.titleMedium.copyWith(
+              color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomNav(bool isDark) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+        boxShadow: [
+          BoxShadow(
+            color: isDark ? Colors.black.withOpacity(0.3) : Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavItem(Icons.home, 'Home', 0, isDark),
+              _buildNavItem(Icons.menu_book, 'Menu', 1, isDark),
+              _buildNavItem(Icons.shopping_cart_outlined, 'Cart', 2, isDark),
+              _buildNavItem(Icons.person_outline, 'Profile', 3, isDark),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Container(
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index, bool isDark) {
+    final isSelected = _currentIndex == index;
+    final color = isSelected
+        ? (isDark ? AppColors.darkPrimary : AppColors.lightPrimary)
+        : (isDark ? AppColors.darkTextTertiary : AppColors.lightTextTertiary);
+
+    return GestureDetector(
+      onTap: () {
+        setState(() => _currentIndex = index);
+        switch (index) {
+          case 0:
+            break;
+          case 1:
+            Navigator.push(
+              context,
+              CustomPageRoute(page: const FoodScreen()),
+            );
+            break;
+          case 2:
+            Navigator.push(
+              context,
+              CustomPageRoute(page: const Cart()),
+            );
+            break;
+          case 3:
+            Navigator.push(
+              context,
+              CustomPageRoute(page: const Profile()),
+            );
+            break;
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.sm,
+        ),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF2a2d3a), Color(0xFF1a1a2e)],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 15,
-              offset: const Offset(0, -5),
+          color: isSelected
+              ? color.withOpacity(0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: AppTextStyles.captionSmall.copyWith(
+                color: color,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ),
             ),
           ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25),
-            topRight: Radius.circular(25),
-          ),
-          child: BottomNavigationBar(
-            backgroundColor: Colors.transparent,
-            selectedItemColor: const Color(0xFF667eea),
-            unselectedItemColor: Colors.white54,
-            currentIndex: _currentIndex,
-            elevation: 0,
-            onTap: (value) {
-              setState(() {
-                _currentIndex = value;
-              });
-              switch (value) {
-                case 0:
-                  // Navigate to Home
-                  break;
-                case 1:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const FoodScreen()),
-                  );
-                  break;
-                case 2:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Cart()),
-                  );
-                  break;
-                case 3:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Profile()),
-                  );
-                  break;
-              }
-            },
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
-
-
-                
-                icon: Icon(Icons.home),
-                label: "Home"
-              ),
-              BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Cart"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-            ],
-          ),
         ),
       ),
     );
