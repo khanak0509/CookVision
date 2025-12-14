@@ -393,4 +393,5 @@ scratch/
 food_app/cookvision-9bb7f-firebase-adminsdk-fbsvc-23d96ad1fd.json
 # !food_app/lib/firebase_options.dart
 
-/Users/khanak/Desktop/food_app/food_app/cookvision-9bb7f-firebase-adminsdk-fbsvc-23d96ad1fd.json
+/Users/khanak/Desktop/food_app/food_app/cookvision-9bb7f-firebase-adminsdk-fbsvc-23d96ad1fd.json*.json
+cookvision-*-firebase-adminsdk-*.json
