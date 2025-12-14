@@ -229,24 +229,20 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
       body: Container(
         decoration: BoxDecoration(
           gradient: isDark 
-            ? const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF1a1a2e), Color(0xFF16213e), Color(0xFF0f3460)],
-              )
+            ? AppColors.darkBackgroundGradient
             : const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFFF8FAFC), Color(0xFFE0E7FF), Color(0xFFDBEAFE)],
+                colors: [Color(0xFFF8FAFC), Color(0xFFFFFFFF)],
               ),
         ),
         child: SafeArea(
           child: Column(
             children: [
-              // Modern Header
-              _buildHeader(isDark),
+              // Clean Modern Header
+              _buildCleanHeader(isDark),
               
-              // Messages
+              // Messages Area
               Expanded(
                 child: _isLoadingHistory
                     ? _buildLoadingState(isDark)
@@ -254,11 +250,15 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
                         ? _buildEmptyState(isDark)
                         : ListView.builder(
                             controller: _scrollController,
-                            padding: const EdgeInsets.all(AppSpacing.lg),
+                            reverse: false,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.lg,
+                              vertical: AppSpacing.md,
+                            ),
                             itemCount: _messages.length,
                             itemBuilder: (context, index) {
                               final msg = _messages[index];
-                              return _buildMessageBubble(msg, isDark);
+                              return _buildModernMessageBubble(msg, isDark);
                             },
                           ),
               ),
@@ -266,8 +266,8 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
               // Typing Indicator
               if (_isLoading) _buildTypingIndicator(isDark),
               
-              // Input Section
-              _buildInputSection(isDark),
+              // Clean Input Bar
+              _buildModernInputBar(isDark),
             ],
           ),
         ),
@@ -275,40 +275,45 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildHeader(bool isDark) {
+  // Clean, modern header
+  Widget _buildCleanHeader(bool isDark) {
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
       decoration: BoxDecoration(
-        gradient: AppColors.tropicalGradient,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+        color: isDark ? AppColors.darkSurface : Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: isDark 
+              ? AppColors.darkBorder.withOpacity(0.5)
+              : AppColors.lightBorder.withOpacity(0.5),
+            width: 1,
           ),
-        ],
+        ),
       ),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              padding: const EdgeInsets.all(AppSpacing.sm),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-              ),
-              child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+              size: 20,
             ),
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
           ),
           const SizedBox(width: AppSpacing.md),
           Container(
-            padding: const EdgeInsets.all(AppSpacing.sm),
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.3),
+              gradient: isDark ? AppColors.darkPrimaryGradient : AppColors.lightPrimaryGradient,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.restaurant_menu, color: Colors.white, size: 24),
+            child: const Icon(Icons.restaurant_menu, color: Colors.white, size: 20),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -316,32 +321,20 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Food Assistant',
-                  style: AppTextStyles.titleLarge.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                  'Food AI Assistant',
+                  style: TextStyle(
+                    color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  'Ask me anything about food!',
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: Colors.white.withOpacity(0.9),
+                  '',
+                  style: TextStyle(
+                    color: AppColors.success,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              color: Colors.greenAccent,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.greenAccent.withOpacity(0.5),
-                  blurRadius: 8,
-                  spreadRadius: 2,
                 ),
               ],
             ),
@@ -379,7 +372,7 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
           Container(
             padding: const EdgeInsets.all(AppSpacing.xxxl),
             decoration: BoxDecoration(
-              gradient: AppColors.tropicalGradient,
+              gradient: isDark ? AppColors.darkPrimaryGradient : AppColors.lightPrimaryGradient,
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.chat_bubble_outline, size: 64, color: Colors.white),
@@ -404,71 +397,101 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildMessageBubble(Map<String, dynamic> msg, bool isDark) {
+  // Modern clean message bubbles
+  Widget _buildModernMessageBubble(Map<String, dynamic> msg, bool isDark) {
     final isUser = msg['role'] == 'user';
+    final text = msg['text'] ?? '';
     final products = msg['products'] ?? [];
 
-    return Align(
-      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: AppSpacing.md),
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.75,
-        ),
-        child: Column(
-          crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.lg,
-                vertical: AppSpacing.md,
-              ),
-              decoration: BoxDecoration(
-                gradient: isUser 
-                  ? AppColors.tropicalGradient
-                  : (isDark ? null : null),
-                color: isUser 
-                  ? null 
-                  : (isDark ? const Color(0xFF2a2d3a) : Colors.white),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(AppSpacing.radiusLg),
-                  topRight: Radius.circular(AppSpacing.radiusLg),
-                  bottomLeft: Radius.circular(isUser ? AppSpacing.radiusLg : AppSpacing.radiusXs),
-                  bottomRight: Radius.circular(isUser ? AppSpacing.radiusXs : AppSpacing.radiusLg),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: isUser
-                        ? Colors.blue.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.md),
+      child: Column(
+        crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (!isUser) ...[
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    gradient: AppColors.lightPrimaryGradient,
+                    shape: BoxShape.circle,
                   ),
-                ],
-              ),
-              child: Text(
-                msg['text'],
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: isUser ? Colors.white : (isDark ? Colors.white : Colors.black87),
+                  child: const Icon(Icons.smart_toy, color: Colors.white, size: 18),
                 ),
+                const SizedBox(width: AppSpacing.sm),
+              ],
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.lg,
+                    vertical: AppSpacing.md,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: isUser 
+                      ? (isDark ? AppColors.darkPrimaryGradientVibrant : AppColors.lightPrimaryGradient)
+                      : null,
+                    color: isUser 
+                      ? null 
+                      : (isDark ? AppColors.darkSurface : Colors.white),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(isUser ? AppSpacing.radiusLg : AppSpacing.radiusSm),
+                      topRight: Radius.circular(isUser ? AppSpacing.radiusSm : AppSpacing.radiusLg),
+                      bottomLeft: const Radius.circular(AppSpacing.radiusLg),
+                      bottomRight: const Radius.circular(AppSpacing.radiusLg),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: (isDark ? Colors.black : Colors.grey).withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: isUser 
+                        ? Colors.white 
+                        : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
+                      fontSize: 15,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+              ),
+              if (isUser) ...[
+                const SizedBox(width: AppSpacing.sm),
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    gradient: isDark ? AppColors.darkSecondaryGradient : AppColors.lightSecondaryGradient,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.person, color: Colors.white, size: 18),
+                ),
+              ],
+            ],
+          ),
+          // Product cards if any
+          if (products.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Container(
+              height: 200,
+              margin: EdgeInsets.only(left: isUser ? 0 : 40),
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: products.length,
+                separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
+                itemBuilder: (context, i) => _buildProductCard(products[i], isDark),
               ),
             ),
-            
-            // Product Cards
-            if (products.isNotEmpty) ...[
-              const SizedBox(height: AppSpacing.sm),
-              SizedBox(
-                height: 200,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: products.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.md),
-                  itemBuilder: (context, i) => _buildProductCard(products[i], isDark),
-                ),
-              ),
-            ],
           ],
-        ),
+        ],
       ),
     );
   }
@@ -688,66 +711,95 @@ class _ChatState extends State<Chat> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildInputSection(bool isDark) {
+  // Modern clean input bar
+  Widget _buildModernInputBar(bool isDark) {
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1a1a2e) : Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, -4),
+        color: isDark ? AppColors.darkSurface : Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: isDark 
+              ? AppColors.darkBorder.withOpacity(0.5)
+              : AppColors.lightBorder.withOpacity(0.5),
+            width: 1,
           ),
-        ],
+        ),
       ),
       child: Row(
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               decoration: BoxDecoration(
-                color: isDark ? const Color(0xFF2a2d3a) : const Color(0xFFF1F5F9),
-               borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
-              ),
-              child: TextField(
-                controller: _controller,
-                style: TextStyle(
-                  color: isDark ? Colors.white : Colors.black87,
+                color: isDark ? AppColors.darkSurfaceVariant : AppColors.lightSurfaceVariant,
+                borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
+                border: Border.all(
+                  color: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary).withOpacity(0.2),
+                  width: 1.5,
                 ),
-                decoration: InputDecoration(
-                  hintText: 'Ask about food...',
-                  hintStyle: TextStyle(
-                    color: isDark ? Colors.white38 : Colors.black38,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                ),
-                onSubmitted: (_) => sendMessage(),
               ),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          GestureDetector(
-            onTap: sendMessage,
-            child: Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                gradient: AppColors.tropicalGradient,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blue.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      maxLines: null,
+                      textInputAction: TextInputAction.send,
+                      style: TextStyle(
+                        color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                        fontSize: 15,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'Ask me anything about food...',
+                        hintStyle: TextStyle(
+                          color: isDark ? AppColors.darkTextTertiary : AppColors.lightTextTertiary,
+                          fontSize: 15,
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.lg,
+                          vertical: AppSpacing.md,
+                        ),
+                      ),
+                      onSubmitted: (_) => sendMessage(),
+                      onChanged: (_) => setState(() {}),
+                    ),
                   ),
                 ],
               ),
-              child: const Icon(Icons.send, color: Colors.white, size: 24),
+            ),
+          ),
+          const SizedBox(width: AppSpacing.sm),
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              gradient: isDark ? AppColors.darkPrimaryGradientVibrant : AppColors.lightPrimaryGradient,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary).withOpacity(0.4),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: _controller.text.trim().isEmpty ? null : sendMessage,
+                borderRadius: BorderRadius.circular(24),
+                child: Icon(
+                  _controller.text.trim().isEmpty ? Icons.mic : Icons.send_rounded,
+                  color: Colors.white,
+                  size: 22,
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
 }
