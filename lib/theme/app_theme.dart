@@ -5,7 +5,9 @@ import 'app_text_styles.dart';
 import 'app_spacing.dart';
 
 class AppTheme {
-  // Light Theme
+  // ============================================================
+  // 🌞 LIGHT THEME - Warm & Appetizing
+  // ============================================================
   static ThemeData light() {
     return ThemeData(
       useMaterial3: true,
@@ -14,7 +16,10 @@ class AppTheme {
       // Color Scheme
       colorScheme: const ColorScheme.light(
         primary: AppColors.lightPrimary,
+        primaryContainer: AppColors.lightPrimaryVariant,
         secondary: AppColors.lightSecondary,
+        secondaryContainer: AppColors.lightSecondaryVariant,
+        tertiary: AppColors.lightAccent,
         surface: AppColors.lightSurface,
         background: AppColors.lightBackground,
         error: AppColors.error,
@@ -31,14 +36,19 @@ class AppTheme {
       // AppBar Theme
       appBarTheme: const AppBarTheme(
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: AppColors.lightBackground,
         foregroundColor: AppColors.lightTextPrimary,
+        surfaceTintColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: TextStyle(
           color: AppColors.lightTextPrimary,
           fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+        ),
+        iconTheme: IconThemeData(
+          color: AppColors.lightTextPrimary,
         ),
       ),
       
@@ -46,10 +56,11 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.lightSurface,
+        surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
         ),
-        shadowColor: AppColors.lightShadow,
+        shadowColor: Colors.black.withOpacity(0.06),
       ),
       
       // Input Decoration Theme
@@ -76,12 +87,20 @@ class AppTheme {
           horizontal: AppSpacing.lg,
           vertical: AppSpacing.lg,
         ),
+        hintStyle: TextStyle(
+          color: AppColors.lightTextTertiary,
+          fontSize: 15,
+        ),
       ),
       
       // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
+          backgroundColor: AppColors.lightPrimary,
+          foregroundColor: AppColors.lightOnPrimary,
+          disabledBackgroundColor: AppColors.lightBorder,
+          disabledForegroundColor: AppColors.lightTextDisabled,
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.xxl,
             vertical: AppSpacing.lg,
@@ -89,7 +108,11 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
           ),
-          textStyle: AppTextStyles.labelLarge,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
         ),
       ),
       
@@ -150,7 +173,9 @@ class AppTheme {
     );
   }
   
-  // Dark Theme
+  // ============================================================
+  // 🌙 DARK THEME - Soft & Eye-Comfortable
+  // ============================================================
   static ThemeData dark() {
     return ThemeData(
       useMaterial3: true,
@@ -159,7 +184,10 @@ class AppTheme {
       // Color Scheme
       colorScheme: const ColorScheme.dark(
         primary: AppColors.darkPrimary,
+        primaryContainer: AppColors.darkPrimaryVariant,
         secondary: AppColors.darkSecondary,
+        secondaryContainer: AppColors.darkSecondaryVariant,
+        tertiary: AppColors.darkAccent,
         surface: AppColors.darkSurface,
         background: AppColors.darkBackground,
         error: AppColors.error,
@@ -176,14 +204,19 @@ class AppTheme {
       // AppBar Theme
       appBarTheme: const AppBarTheme(
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: AppColors.darkBackground,
         foregroundColor: AppColors.darkTextPrimary,
+        surfaceTintColor: Colors.transparent,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: TextStyle(
           color: AppColors.darkTextPrimary,
           fontSize: 20,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+        ),
+        iconTheme: IconThemeData(
+          color: AppColors.darkTextPrimary,
         ),
       ),
       
@@ -191,10 +224,11 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.darkSurface,
+        surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
         ),
-        shadowColor: AppColors.darkShadow,
+        shadowColor: Colors.black.withOpacity(0.3),
       ),
       
       // Input Decoration Theme
@@ -221,12 +255,20 @@ class AppTheme {
           horizontal: AppSpacing.lg,
           vertical: AppSpacing.lg,
         ),
+        hintStyle: TextStyle(
+          color: AppColors.darkTextTertiary,
+          fontSize: 15,
+        ),
       ),
       
       // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
+          backgroundColor: AppColors.darkPrimary,
+          foregroundColor: AppColors.darkOnPrimary,
+          disabledBackgroundColor: AppColors.darkBorder,
+          disabledForegroundColor: AppColors.darkTextDisabled,
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.xxl,
             vertical: AppSpacing.lg,
@@ -234,7 +276,11 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
           ),
-          textStyle: AppTextStyles.labelLarge,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
         ),
       ),
       
@@ -245,7 +291,11 @@ class AppTheme {
             horizontal: AppSpacing.lg,
             vertical: AppSpacing.md,
           ),
-          textStyle: AppTextStyles.labelLarge,
+          foregroundColor: AppColors.darkPrimary,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       

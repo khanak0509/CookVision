@@ -24,29 +24,25 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
+class _MainScreenState extends State<MainScreen> {
   File? _image;
-  String weather = "Loading weather...";
+  String weather = "Loading...";
   String _currentCity = "Loading...";
   Stream<Position>? positionStream;
   String suggestion = "";
   int _currentIndex = 0;
-  late AnimationController _animationController;
+  
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _startLiveLocation();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animationController.forward();
   }
   
   @override
   void dispose() {
-    _animationController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -75,14 +71,15 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         });
       } else {
         setState(() {
-          weather = "Weather data missing in API";
+          weather = "Weather data unavailable";
         });
       }
     } else {
       setState(() {
-        weather = "Failed to load weather (Code ${response.statusCode})";
+        weather = "Failed to load weather";
       });
     }
+    
     final url2 = Uri.parse('http://localhost:8000/suggestions/$weather');
     final response2 = await http.get(url2);
 
@@ -91,9 +88,6 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
       setState(() {
         suggestion = data2['suggestions'];
       });
-      print(data2['suggestions']);
-    } else {
-      print("Failed to load suggestions");
     }
   }
 
@@ -155,9 +149,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
-      body: SafeArea(
-        child: Column(
+      body: Container(
+        decoration: isDark 
+          ? const BoxDecoration(gradient: AppColors.darkBackgroundGradient)
+          : BoxDecoration(color: AppColors.lightBackground),
+        child: SafeArea(
+          child: Column(
           children: [
             // Header
             Padding(
@@ -334,13 +331,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                                 .withOpacity(0.3),
                             width: 2,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                          boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
                         ),
                         child: _image == null
                             ? Column(
@@ -561,6 +552,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
               ),
             ),
           ],
+        ),
         ),
       ),
       bottomNavigationBar: _buildBottomNav(isDark),

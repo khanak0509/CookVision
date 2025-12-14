@@ -80,25 +80,29 @@ class _FoodCardState extends State<FoodCard>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     
-    return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
-      onTap: widget.onTap,
-      child: ScaleTransition(
-        scale: _scaleAnimation,
-        child: Container(
-          decoration: BoxDecoration(
-            color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-            borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-            boxShadow: [
-              BoxShadow(
-                color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-                blurRadius: 8,
-                offset: const Offset(0, 4),
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+        child: InkWell(
+          onTapDown: _onTapDown,
+          onTapUp: _onTapUp,
+          onTapCancel: _onTapCancel,
+          onTap: widget.onTap,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+          splashColor: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary).withOpacity(0.2),
+          highlightColor: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary).withOpacity(0.1),
+          child: Ink(
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
+              borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+              boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
+              border: Border.all(
+                color: (isDark ? AppColors.darkPrimary : AppColors.lightPrimary).withOpacity(0.1),
+                width: 1,
               ),
-            ],
-          ),
+            ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -306,6 +310,7 @@ class _FoodCardState extends State<FoodCard>
             ],
           ),
         ),
+      ),
       ),
     );
   }

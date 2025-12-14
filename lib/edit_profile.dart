@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'theme/app_colors.dart';
+import 'theme/app_spacing.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -72,9 +74,13 @@ class _EditProfileState extends State<EditProfile> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('✅ Profile photo updated!'),
-            backgroundColor: Color(0xFF667eea),
+          SnackBar(
+            content: const Text('✅ Profile photo updated!'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+            ),
           ),
         );
       }
@@ -87,7 +93,11 @@ class _EditProfileState extends State<EditProfile> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('❌ Error: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+            ),
             duration: const Duration(seconds: 3),
           ),
         );
@@ -135,9 +145,13 @@ class _EditProfileState extends State<EditProfile> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Profile updated successfully!'),
-            backgroundColor: Color(0xFF667eea),
+          SnackBar(
+            content: const Text('Profile updated successfully!'),
+            backgroundColor: AppColors.success,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+            ),
           ),
         );
         Navigator.pop(context);
@@ -147,7 +161,11 @@ class _EditProfileState extends State<EditProfile> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+            ),
           ),
         );
       }
@@ -158,18 +176,19 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF16213e),
-              Color(0xFF0f3460),
-            ],
-          ),
+        decoration: BoxDecoration(
+          gradient: isDark 
+            ? AppColors.darkBackgroundGradient
+            : const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFFF8FAFC), Color(0xFFFFFFFF)],
+              ),
         ),
         child: SafeArea(
           child: Column(
@@ -184,23 +203,34 @@ class _EditProfileState extends State<EditProfile> {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2a2d3a),
+                          color: isDark 
+                            ? AppColors.darkSurfaceVariant 
+                            : Colors.white,
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isDark 
+                              ? AppColors.darkBorder.withOpacity(0.3)
+                              : AppColors.lightBorder.withOpacity(0.3),
+                          ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios_new,
-                          color: Colors.white,
+                          color: isDark 
+                            ? AppColors.darkTextPrimary 
+                            : AppColors.lightTextPrimary,
                           size: 20,
                         ),
                       ),
                     ),
                     const SizedBox(width: 20),
-                    const Text(
+                    Text(
                       'Edit Profile',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: isDark 
+                          ? AppColors.darkTextPrimary 
+                          : AppColors.lightTextPrimary,
                       ),
                     ),
                   ],
@@ -219,12 +249,14 @@ class _EditProfileState extends State<EditProfile> {
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                            ),
+                            gradient: isDark 
+                              ? AppColors.darkPrimaryGradient 
+                              : AppColors.lightPrimaryGradient,
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF667eea).withOpacity(0.5),
+                                color: (isDark 
+                                  ? AppColors.darkPrimary 
+                                  : AppColors.lightPrimary).withOpacity(0.5),
                                 blurRadius: 30,
                                 offset: const Offset(0, 10),
                               ),
@@ -237,9 +269,11 @@ class _EditProfileState extends State<EditProfile> {
                                 onTap: pickImage,
                                 child: CircleAvatar(
                                   radius: 60,
-                                  backgroundColor: const Color(0xFF2a2d3a),
+                                  backgroundColor: isDark 
+                                    ? AppColors.darkSurface 
+                                    : AppColors.lightSurface,
                                   child: ClipOval(
-                                    child: _buildProfileImage(),
+                                    child: _buildProfileImage(isDark),
                                   ),
                                 ),
                               ),
@@ -266,9 +300,9 @@ class _EditProfileState extends State<EditProfile> {
                                 child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                                    ),
+                                    gradient: isDark 
+                                      ? AppColors.darkSecondaryGradient 
+                                      : AppColors.lightSecondaryGradient,
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
@@ -288,6 +322,7 @@ class _EditProfileState extends State<EditProfile> {
                           controller: _nameController,
                           label: 'Full Name',
                           icon: Icons.person_outline,
+                          isDark: isDark,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your name';
@@ -302,6 +337,7 @@ class _EditProfileState extends State<EditProfile> {
                           controller: _emailController,
                           label: 'Email',
                           icon: Icons.email_outlined,
+                          isDark: isDark,
                           enabled: false,
                         ),
 
@@ -311,6 +347,7 @@ class _EditProfileState extends State<EditProfile> {
                           controller: _phoneController,
                           label: 'Phone Number',
                           icon: Icons.phone_outlined,
+                          isDark: isDark,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value != null && value.isNotEmpty && value.length < 10) {
@@ -328,13 +365,15 @@ class _EditProfileState extends State<EditProfile> {
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 18),
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                              ),
+                              gradient: isDark 
+                                ? AppColors.darkPrimaryGradientVibrant 
+                                : AppColors.lightPrimaryGradient,
                               borderRadius: BorderRadius.circular(15),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFF667eea).withOpacity(0.5),
+                                  color: (isDark 
+                                    ? AppColors.darkPrimary 
+                                    : AppColors.lightPrimary).withOpacity(0.5),
                                   blurRadius: 20,
                                   offset: const Offset(0, 10),
                                 ),
@@ -375,7 +414,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   // ✅ Show image from Base64 or File
-  Widget _buildProfileImage() {
+  Widget _buildProfileImage(bool isDark) {
     // Priority 1: Show picked image
     if (_image != null) {
       return Image.file(
@@ -402,10 +441,10 @@ class _EditProfileState extends State<EditProfile> {
     }
     
     // Priority 3: Default icon
-    return const Icon(
+    return Icon(
       Icons.person,
       size: 60,
-      color: Colors.white,
+      color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
     );
   }
 
@@ -413,17 +452,25 @@ class _EditProfileState extends State<EditProfile> {
     required TextEditingController controller,
     required String label,
     required IconData icon,
+    required bool isDark,
     bool enabled = true,
     TextInputType? keyboardType,
     String? Function(String?)? validator,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF2a2d3a),
+        color: isDark 
+          ? AppColors.darkSurface 
+          : Colors.white,
         borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: isDark 
+            ? AppColors.darkBorder.withOpacity(0.3)
+            : AppColors.lightBorder.withOpacity(0.3),
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: (isDark ? Colors.black : Colors.grey).withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -435,17 +482,23 @@ class _EditProfileState extends State<EditProfile> {
         keyboardType: keyboardType,
         validator: validator,
         style: TextStyle(
-          color: enabled ? Colors.white : Colors.white54,
+          color: enabled 
+            ? (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary)
+            : (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary),
           fontSize: 16,
         ),
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: enabled ? Colors.white60 : Colors.white38,
+            color: enabled 
+              ? (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary)
+              : (isDark ? AppColors.darkTextTertiary : AppColors.lightTextTertiary),
           ),
           prefixIcon: Icon(
             icon,
-            color: enabled ? const Color(0xFF667eea) : Colors.white38,
+            color: enabled 
+              ? (isDark ? AppColors.darkPrimary : AppColors.lightPrimary)
+              : (isDark ? AppColors.darkTextTertiary : AppColors.lightTextTertiary),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),

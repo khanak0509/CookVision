@@ -87,9 +87,12 @@ class _FoodScreenState extends State<FoodScreen> with SingleTickerProviderStateM
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
-      body: SafeArea(
-        child: Column(
+      body: Container(
+        decoration: isDark 
+          ? const BoxDecoration(gradient: AppColors.darkBackgroundGradient)
+          : BoxDecoration(color: AppColors.lightBackground),
+        child: SafeArea(
+          child: Column(
           children: [
             // Header
             Padding(
@@ -104,13 +107,7 @@ class _FoodScreenState extends State<FoodScreen> with SingleTickerProviderStateM
                       decoration: BoxDecoration(
                         color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
                         borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-                        boxShadow: [
-                          BoxShadow(
-                            color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                        boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
                       ),
                       child: Icon(
                         Icons.arrow_back_ios_new,
@@ -314,6 +311,7 @@ class _FoodScreenState extends State<FoodScreen> with SingleTickerProviderStateM
             ),
           ],
         ),
+        ),
       ),
     );
   }
@@ -346,13 +344,7 @@ class _FoodScreenState extends State<FoodScreen> with SingleTickerProviderStateM
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-        boxShadow: [
-          BoxShadow(
-            color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
       ),
       child: Row(
         children: [
@@ -468,13 +460,7 @@ class _FoodScreenState extends State<FoodScreen> with SingleTickerProviderStateM
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-        boxShadow: [
-          BoxShadow(
-            color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: isDark ? AppColors.darkShadow : AppColors.lightShadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

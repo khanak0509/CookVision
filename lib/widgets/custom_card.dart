@@ -32,7 +32,6 @@ class _CustomCardState extends State<CustomCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _elevationAnimation;
   
   @override
   void initState() {
@@ -42,9 +41,6 @@ class _CustomCardState extends State<CustomCard>
       vsync: this,
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.98).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-    _elevationAnimation = Tween<double>(begin: 0.0, end: 4.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
@@ -97,13 +93,7 @@ class _CustomCardState extends State<CustomCard>
               )
             : null,
         boxShadow: widget.showShadow && !widget.glassmorphism
-            ? [
-                BoxShadow(
-                  color: isDark ? AppColors.darkShadow : AppColors.lightShadow,
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ]
+            ? (isDark ? AppColors.darkShadow : AppColors.lightShadow)
             : null,
       ),
       child: widget.child,

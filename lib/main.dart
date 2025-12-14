@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:food_app/MainScreen.dart';
 import 'package:food_app/auth_service.dart';
 import 'package:food_app/firebase_options.dart';
-import 'package:food_app/insert_dataset/add_food_items.dart';
 import 'package:food_app/login.dart';
 import 'package:food_app/theme/app_theme.dart';
+import 'package:food_app/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +16,15 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
     ),
   );
+  
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -38,13 +46,20 @@ class _MainState extends State<Main> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'CookVision',
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      themeMode: ThemeMode.system, // Follows system theme
-      home: user == null ? const LoginScreen() : const MainScreen(),
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, _) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'CookVision',
+            theme: AppTheme.light(),
+            darkTheme: AppTheme.dark(),
+            themeMode: themeProvider.themeMode,
+            home: user == null ? const LoginScreen() : const MainScreen(),
+          );
+        },
+      ),
     );
   }
 }

@@ -24,7 +24,8 @@ class AppSpacing {
   static const double radiusLg = base * 4; // 16px
   static const double radiusXl = base * 5; // 20px
   static const double radiusXxl = base * 6; // 24px
-  static const double radiusRound = 9999; // Fully rounded
+  static const double radiusFull = 9999; // Fully rounded
+  static const double radiusRound = 9999; // Fully rounded (alias)
   
   // Elevation (for shadows)
   static const double elevation1 = 2.0;
