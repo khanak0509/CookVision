@@ -206,8 +206,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                           context,
                           CustomPageRoute(
                             page: SuggestionsScreen(
-                              weather: weather,
-                              city: _currentCity,
+                             
                             ),
                           ),
                         );

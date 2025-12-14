@@ -62,7 +62,12 @@ macos/Runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
 macos/firebase_app_id_file.json
 
-# Firebase directories (optional - comment out if you want to commit)
+# Firebase Admin SDK credentials (CRITICAL!)
+*firebase-adminsdk*.json
+cookvision-*-firebase-adminsdk-*.json
+cookvision-9bb7f-firebase-adminsdk-fbsvc-23d96ad1fd.json
+
+# Firebase directories
 .firebase/
 .firebaserc
 firebase.json
@@ -71,11 +76,13 @@ firebase.json
 # 🔑 SECRETS & ENVIRONMENT
 # ==========================================
 
+# Environment files (NEVER COMMIT!)
 .env
 .env.local
 .env.production
 .env.development
 *.env
+.env.*
 
 # API Keys & Secrets (NEVER COMMIT!)
 api_keys.dart
@@ -89,6 +96,12 @@ lib/secrets/
 *_secrets.dart
 *.secret.dart
 *.secrets.dart
+
+# Python backend secrets
+main.py
+*.py
+!migrate_products.py
+!test_suggestions.py
 
 # Certificates & Keys
 *.pem
