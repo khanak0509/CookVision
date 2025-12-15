@@ -7,6 +7,7 @@ import 'package:food_app/cooking_mode.dart';
 import 'package:food_app/food_screen.dart';
 import 'package:food_app/profile.dart';
 import 'package:food_app/suggestions_screen.dart';
+import 'package:food_app/food_recognition_service.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   Stream<Position>? positionStream;
   String suggestion = "";
   int _currentIndex = 0;
+  bool _isAnalyzing = false;
   
   final TextEditingController _searchController = TextEditingController();
 
@@ -46,15 +48,72 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
-  // Pick image from gallery
+  // Pick image from gallery or camera
   Future pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final source = await showDialog<ImageSource>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Image Source'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Camera'),
+              onTap: () => Navigator.pop(context, ImageSource.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Gallery'),
+              onTap: () => Navigator.pop(context, ImageSource.gallery),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (source == null) return;
+
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile == null) return;
 
     setState(() {
       _image = File(pickedFile.path);
     });
+  }
+
+  // Analyze food image
+  Future<void> _analyzeFood() async {
+    if (_image == null) return;
+
+    setState(() {
+      _isAnalyzing = true;
+    });
+
+    try {
+      // Call backend to recognize food
+      final result = await FoodRecognitionService.recognizeFood(_image!);
+      
+      // Show result dialog
+      if (mounted) {
+        FoodRecognitionService.showRecognitionResult(context, result);
+      }
+    } catch (e) {
+      // Show error
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      setState(() {
+        _isAnalyzing = false;
+      });
+    }
   }
 
   // Fetch weather from API
@@ -411,31 +470,47 @@ class _MainScreenState extends State<MainScreen> {
                                               ),
                                             ],
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: AppSpacing.lg,
-                                              vertical: AppSpacing.sm,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              gradient: AppColors.accentGradient,
-                                              borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Icon(
-                                                  Icons.search,
-                                                  color: Colors.white,
-                                                  size: 16,
-                                                ),
-                                                const SizedBox(width: AppSpacing.xs),
-                                                Text(
-                                                  'Analyze',
-                                                  style: AppTextStyles.labelSmall.copyWith(
-                                                    color: Colors.white,
+                                          GestureDetector(
+                                            onTap: _isAnalyzing ? null : _analyzeFood,
+                                            child: Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: AppSpacing.lg,
+                                                vertical: AppSpacing.sm,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                gradient: _isAnalyzing 
+                                                  ? LinearGradient(
+                                                      colors: [Colors.grey, Colors.grey.shade600],
+                                                    )
+                                                  : AppColors.accentGradient,
+                                                borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  _isAnalyzing
+                                                    ? const SizedBox(
+                                                        width: 16,
+                                                        height: 16,
+                                                        child: CircularProgressIndicator(
+                                                          strokeWidth: 2,
+                                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                        ),
+                                                      )
+                                                    : const Icon(
+                                                        Icons.search,
+                                                        color: Colors.white,
+                                                        size: 16,
+                                                      ),
+                                                  const SizedBox(width: AppSpacing.xs),
+                                                  Text(
+                                                    _isAnalyzing ? 'Analyzing...' : 'Analyze',
+                                                    style: AppTextStyles.labelSmall.copyWith(
+                                                      color: Colors.white,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],
