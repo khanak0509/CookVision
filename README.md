@@ -54,9 +54,9 @@
 <td align="center" width="50%">
 <img src="https://img.icons8.com/fluency/96/camera.png" width="50"/>
 <h3>📸 Food Scanner</h3>
-<p>Camera & gallery support</p>
-<p>Image preview • AI recognition</p>
-<p>Instant product details</p>
+<p>Deep Learning Model (EfficientNetB0)</p>
+<p>Camera & gallery • AI recognition • Confidence scores</p>
+<p>Top-5 predictions • Custom training</p>
 </td>
 </tr>
 
@@ -156,6 +156,29 @@ python3 -m uvicorn main:app --reload
    - **iOS**: `GoogleService-Info.plist` → `ios/Runner/`
 4. Run Firebase CLI: `flutterfire configure`
 5. Update Firestore rules for security
+
+</details>
+
+<details>
+<summary><b>🤖 Food Recognition Model Setup</b></summary>
+
+```bash
+# 1. Check if model is ready
+python3 check_model.py
+
+# 2. If model not found, train it
+# Open train.ipynb in Jupyter or VS Code and run all cells
+# Training takes 30-60 minutes
+
+# 3. Verify model files exist
+ls -lh food_recognition_model.h5 food_labels.json
+
+# 4. Model is automatically loaded when backend starts
+python3 -m uvicorn main:app --reload
+# Look for: "✅ Food recognition model loaded"
+```
+
+**📚 Detailed Guide:** See [FOOD_RECOGNITION_SETUP.md](FOOD_RECOGNITION_SETUP.md)
 
 </details>
 
